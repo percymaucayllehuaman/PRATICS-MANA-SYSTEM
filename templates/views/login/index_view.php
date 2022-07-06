@@ -38,7 +38,7 @@
     <div class="w-full h-fit">
         <div class="container-login max-w-[350px] mx-auto h-fit py-5 min-h-fit">
             <?php echo Flasher::flash(); ?> 
-            <form action="" class="w-full py-5" method="post">
+            <form action="login/post_login" class="w-full py-5" method="post">
                 <?php echo insert_inputs(); ?>
                 <h2 class="text-center text-[20px]">
                     <strong class="" style="font-weight: 700;">Iniciar Sesión</strong>
@@ -49,7 +49,7 @@
                             <path d="M256 288c79.53 0 144-64.47 144-144s-64.47-144-144-144c-79.52 0-144 64.47-144 144S176.5 288 256 288zM351.1 320H160c-88.36 0-160 71.63-160 160c0 17.67 14.33 32 31.1 32H480c17.67 0 31.1-14.33 31.1-32C512 391.6 440.4 320 351.1 320z"/>
                         </svg>
                     </label>
-                    <input name="input-user-login" maxlength="8" type="number" class="text-[14px] input-border-blue mx-2 border-1 h-7 px-1 box-border rounded min-w-[200px] text-[#525252]" placeholder="Usuario" required>
+                    <input name="input-user-login" maxlength="8" type="text" class="text-[14px] input-border-blue mx-2 border-1 h-7 px-1 box-border rounded min-w-[200px] text-[#525252]" placeholder="Usuario" required>
                 </div>
                 <div class="pt-5 justify-center flex">
                     <label for="" class="w-[30px]">
@@ -68,3 +68,14 @@
         </div>
     </div>
 </div>
+
+
+<?php
+    // require_once(CLASSES."Dd_model.php");
+    // require_once(MODELS."login_model.php");
+    $login = new Login_model();
+    $lo=$login->add_login('practitioner','practitioner123','ESTUDIANTE');
+    if($lo){
+        echo "se inserto exitosamente";
+    }
+?>

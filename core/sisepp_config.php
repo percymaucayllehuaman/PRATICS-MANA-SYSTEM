@@ -12,12 +12,24 @@ define('BASEPATH'     , IS_LOCAL ? '/sisepp/' : '/sisepp/');
 define('IS_DEMO'      , false);
 
 // Set para conexión en producción o servidor real
-define('DB_ENGINE'    , 'mysql');
-define('DB_HOST'      , 'localhost');
-define('DB_NAME'      , 'sisepp');  //___REMOTE DB___
-define('DB_USER'      , 'root');  //___REMOTE DB___
-define('DB_PASS'      , '');  //___REMOTE DB___
-define('DB_CHARSET'   , 'utf8');  //___REMOTE CHARTSET___
+define('DB_ENGINE'      , 'mysql');
+define('DB_HOST'        , 'localhost');
+define('DB_NAME'        , 'db_cetprosj');  //___REMOTE DB___
+define('DB_USER'        , 'root');  //___REMOTE DB___
+define('DB_PASSWORD'    , '');  //___REMOTE DB___
+define('DB_CHARSET'     , 'utf8');  //___REMOTE CHARTSET___
+
+
+const SGBD="mysql:host=".DB_HOST.";dbname=".DB_NAME;
+
+//Datos para encryptacion
+// const METHOD="AES-256-CBC";
+const SECRET_KEY='$#*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890#*';
+const SECRET_IV='20001109108103975194753';
+
+
+
+
 
 /** Extra constants to be used */
 

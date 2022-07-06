@@ -49,11 +49,6 @@ define('LOGS'       , ROOT.'logs'.DS);
 define('IMAGES_PATH', ROOT.'assets'.DS.'images'.DS);
 define('PROFILE_IMAGES', ROOT.'assets'.DS.'profiles'.DS);
 
-// resources data
-define('BIRTH_CERTIFICATES', ROOT.'resources'.DS.'data'.DS.'birth_certificates'.DS);
-define('MARRIAGE_CERTIFICATES', ROOT.'resources'.DS.'data'.DS.'marriage_certificates'.DS);
-define('DEATH_CERTIFICATES', ROOT.'resources'.DS.'data'.DS.'death_certificates'.DS);
-
 //Rutas de archivos o assets con base URL
 define('ASSETS'     , URL.'assets/');
 define('CSS'        , ASSETS.'css/');
@@ -69,8 +64,8 @@ define('UPLOADED'   , ASSETS.'uploads/');
 // Set para conexión local o de desarrollo
 define('LDB_ENGINE' , 'mysql');
 define('LDB_HOST'   , 'localhost');
-define('LDB_NAME'   , '');
-define('LDB_USER'   , '');
+define('LDB_NAME'   , 'db_cetprosj');
+define('LDB_USER'   , 'root');
 define('LDB_PASS'   , '');
 define('LDB_CHARSET', 'utf8');
 

@@ -1,6 +1,72 @@
 <?php 
 
-class Model extends DB {
+require_once(CLASSES.'Db_config.php');
+
+class Model extends DB_PDO {
+	
+	protected static $table='';
+
+	public function first_data($table){
+		try {
+			$answer=$this->connect()->prepare("select * from ".$table." limit 1");
+			$answer->execute();
+			return $answer;
+
+		}catch(Exception $e){
+			throw $e;
+		}
+		
+	}
+	public function last_data($table, $order_by){
+		try {
+			$answer=$this->connect()->prepare("select * from ".$table." order by ".$order_by." desc limit 1");
+			$answer->execute();
+			return $answer;
+
+		}catch(Exception $e){
+			throw $e;
+		}
+		
+	}
+
+	protected function save_binnacle($data){
+
+		$sql=self::connect()->prepare("INSERT INTO bitacora(bitacora_codigo,bitacora_fecha,bitacora_horaInicio,bitacora_horaFin,bitacora_tipoUsuario,bitacora_ano,bitacora_id_usuario) VALUES(:Code,:Date,:StartTime,:EndTime,:Type,:Year,:AccountCode)");
+		$sql->bindParam(":Code",$data['Code']);
+		$sql->bindParam(":Date",$data['Date']);
+		$sql->bindParam(":StartTime",$data['StartTime']);
+		$sql->bindParam(":EndTime",$data['EndTime']); 
+		$sql->bindParam(":Type",$data['Type']);
+		$sql->bindParam(":Year",$data['Year']);
+		$sql->bindParam(":AccountCode",$data['AccountCode']);
+		$sql->execute();
+		return $sql;
+
+	}
+	protected function update_binnacle($code,$time){
+
+		$sql=self::connect()->prepare("UPDATE bitacora SET bitacora_horaFin=:EndTime WHERE  bitacora_codigo=:Code");
+		$sql->bindParam(":EndTime",$time);
+		$sql->bindParam(":Code",$code);
+		$sql->execute();
+		return $sql;
+
+	}
+	protected function delete_binnacle($code){
+		$sql=self::connect()->prepare("DELETE FROM bitacora WHERE bitacora_id_usuario=:Code");
+		$sql->bindParam(":Code",$code);
+		$sql->execute();
+		return $sql;
+
+	}
+
+
+
+
+
+
+
+
 
 
   /**
@@ -29,11 +95,11 @@ class Model extends DB {
 			$limits = " LIMIT {$limit}";
 		}
 
-		// Query creation
+		// run_simple_query creation
 		$stmt = "SELECT * FROM $table {$cols_values}{$limits}";
 
-		// Calling DB and querying
-		if (!$rows = parent::query($stmt , $params)) {
+		// Calling DB and run_simple_querying
+		if (!$rows = parent::run_simple_query($stmt , $params)) {
       return false;
 		}
 
@@ -64,7 +130,7 @@ class Model extends DB {
 		";
 		
 		// Manda el statement a query()
-		if ($id = parent::query($stmt , $params)) {
+		if ($id = parent::run_simple_query($stmt , $params)) {
 			return $id;
 		}
 		else {
@@ -108,7 +174,7 @@ class Model extends DB {
 		";
 
 		// Manda el statement a query()
-		if (!parent::query($stmt , array_merge($params,$haystack))) {
+		if (!parent::run_simple_query($stmt , array_merge($params,$haystack))) {
       return false;
 		}
     
@@ -145,7 +211,7 @@ class Model extends DB {
 		$stmt = "DELETE FROM $table {$cols_values}{$limits}";
 
 		// Calling DB and querying
-		if (!$row = parent::query($stmt , $params)) {
+		if (!$row = parent::run_simple_query($stmt , $params)) {
       return false;
 		}
     

@@ -1,110 +1,153 @@
-<?php 
+<?php
+    // if($ajaxRequest){
+    //     require_once "../Core/config.php";
+    // }else{
+    //     require_once "./Core/config.php";
+    // }
+    // require_once ("core/settings.php");
+    
+    // require_once "core/general_config.php";
 
-class DB
-{
-  private $link;
-  private $engine;
-  private $host;
-  private $name;
-  private $user;
-  private $pass;
-  private $charset;
-  private $options;
-  
-  /**
-   * Constructor para nuestra clase
-   */
-  public function __construct()
-  {
-    $this->engine  = IS_LOCAL ? LDB_ENGINE : DB_ENGINE;
-    $this->name    = IS_LOCAL ? LDB_NAME : DB_NAME;
-    $this->user    = IS_LOCAL ? LDB_USER : DB_USER;
-    $this->pass    = IS_LOCAL ? LDB_PASS : DB_PASS;
-    $this->charset = IS_LOCAL ? LDB_CHARSET : DB_CHARSET;
-    $this->host    = IS_LOCAL ? LDB_HOST : DB_HOST;
-    $this->options = [
-			PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-			PDO::ATTR_EMULATE_PREPARES   => false,
-		];
-    return $this;    
-  }
+    class DB_PDO{
 
-  /**
-   * Método para abrir una conexión a la base de datos
-   *
-   * @return mixed
-   */
-  private function connect() 
-  {
-    try {
-      $this->link = new PDO($this->engine.':host='.$this->host.';dbname='.$this->name.';charset='.$this->charset, $this->user, $this->pass, $this->options);
-      return $this->link;
-    } catch (PDOException $e) {
-      die(sprintf('No  hay conexión a la base de datos, hubo un error: %s', $e->getMessage()));
+        public static function connect(){
+            try {
+                //$link = new PDO(SGBD,DB_USER,DB_PASSWORD);
+                $link = new PDO(SGBD,DB_USER,DB_PASSWORD);
+                $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $link->exec("SET NAMES 'utf8'");
+                return $link;
+            }catch(PDOException $e){
+                die(sprintf('No  hay conexión a la base de datos, hubo un error: %s', $e->getMessage()));
+            }
+        }
+
+        public static function run_simple_query($query){
+            try{
+                $answer = self::connect()->prepare($query);
+                $answer->execute();
+                return $answer;
+            }catch(Exception $e){
+                throw $e;
+            }
+        }
+
+        public  function encryption($string){
+
+			$output=FALSE;
+			$key=hash('sha256', SECRET_KEY);
+			$iv=substr(hash('sha256', SECRET_IV), 0, 16);
+			$output=openssl_encrypt($string, METHOD, $key, 0, $iv);
+			$output=base64_encode($output);
+            return $output;
+            
+		}
+		public  function decryption($string){
+
+			$key=hash('sha256', SECRET_KEY);
+			$iv=substr(hash('sha256', SECRET_IV), 0, 16);
+			$output=openssl_decrypt(base64_decode($string), METHOD, $key, 0, $iv);
+            return $output;
+            
+        }
+        protected function random_code($letter,$length,$number){
+
+            for($i=1; $i<=$length ; $i++){
+                $num = rand(0,9);
+                $letter.=$num;
+            }
+            return $letter.$number;
+
+        } 
+        protected function clean_chain($chain){
+
+            $chain=preg_replace(['/\s+/','/^\s|\s$/'],[' ',''], $chain);//limpiar espacios entre palabras
+            $chain=trim($chain); //quitar los espaicos en blanco
+            $chain=stripslashes($chain); //quitar barras invertidas
+            $chain=str_ireplace("<script>","", $chain); //remplezar los valores
+            $chain=str_ireplace("</script>","", $chain); //remplezar los valores
+            $chain=str_ireplace("<script src","", $chain); //remplezar los valores
+            $chain=str_ireplace("<script type=","", $chain); //remplezar los valores
+            $chain=str_ireplace("SELECT * FROM","", $chain); //remplezar los valores
+            $chain=str_ireplace("DELETE  FROM","", $chain); //remplezar los valores
+            $chain=str_ireplace("INSERT INTO","", $chain); //remplezar los valores
+            $chain=str_ireplace("--","", $chain); //remplezar los valores
+            $chain=str_ireplace("(+51)","", $chain); //remplezar los valores
+            $chain=str_ireplace("^","", $chain); //remplezar los valores
+            $chain=str_ireplace("[","", $chain); //remplezar los valores
+            $chain=str_ireplace("]","", $chain); //remplezar los valores
+            $chain=str_ireplace("==","", $chain); //remplezar los valores
+            $chain=str_ireplace(";","", $chain); //remplezar los valores
+            return $chain;
+
+        }
+
+        // protected function sweet_alert($data){
+        //     if($data['Alert']=="simple"){
+        //         $alert="
+        //             <script>
+        //             Swal.fire({
+        //                     title: '".$data['title']."',
+        //                     text: '".$data['text']."',
+        //                     icon: '".$data['icon']."',
+        //                     showConfirmButton: false,
+        //                     timer: 1500
+        //                 });
+        //             </script>
+                 
+        //         ";
+        //     }elseif($data['Alert']=="sales"){ 
+        //         $alert="
+        //             <script>
+        //             Swal.fire({
+        //                     title: '".$data['title']."',
+        //                     text: '".$data['text']."',
+        //                     icon: '".$data['icon']."',
+        //                     confirmButtonText: 'Aceptar'
+        //                 }).then((result) => {
+        //                     if (result.value) {
+        //                         window.location.href='".base_url()."/sales_list/';
+        //                     } 
+        //                 });
+        //             </script>
+        //     ";
+        //     }elseif($data['Alert']=="recharge"){ 
+        //         $alert="
+        //             <script>
+        //             Swal.fire({
+        //                     title: '".$data['title']."',
+        //                     text: '".$data['text']."',
+        //                     icon: '".$data['icon']."',
+        //                     confirmButtonText: 'Aceptar'
+        //                 }).then((result) => {
+        //                     if (result.value) {
+        //                         location.reload();
+        //                     }
+        //                 });
+        //             </script>
+        //     ";
+        //     }elseif($data['Alert']=="clean"){
+        //         $alert="
+             
+        //             <script>
+        //             Swal.fire({ 
+        //                 title: '".$data['title']."',
+        //                 text: '".$data['text']."',
+        //                 icon: '".$data['icon']."',
+        //                 showConfirmButton: false,
+		// 	            timer: 1500,
+        //                 confirmButtonText: 'Aceptar'
+        //             }).then(function () {
+        //                 $('#form')[0].reset();
+        //             });
+        //         </script>
+        //     ";
+        //     }
+        //     return $alert;
+        // }
     }
-  }
 
-  /**
-   * Método para hacer un query a la base de datos
-   *
-   * @param string $sql
-   * @param array $params
-   * @return void
-   */
-  public static function query($sql, $params = [])
-  {
-    $db = new self();
-    $link = $db->connect(); // nuestra conexión a la db
-    $link->beginTransaction(); // por cualquier error, checkpoint
-    $query = $link->prepare($sql);
+   
+    
 
-    // Manejando errores en el query o la petición
-    // SELECT * FROM usuarios WHERE id=:cualquier AND name = :name;
-    if(!$query->execute($params)) {
-
-      $link->rollBack();
-      $error = $query->errorInfo();
-      // index 0 es el tipo de error
-      // index 1 es el código de error
-      // index 2 es el mensaje de error al usuario
-      throw new Exception($error[2]);
-    }
-
-    // SELECT | INSERT | UPDATE | DELETE | ALTER TABLE
-    // Manejando el tipo de query
-    // SELECT * FROM usuarios;
-    if(strpos($sql, 'SELECT') !== false) {
-      
-      return $query->rowCount() > 0 ? $query->fetchAll() : false; // no hay resultados
-
-    } elseif(strpos($sql, 'INSERT') !== false) {
-
-      $id = $link->lastInsertId();
-      $link->commit();
-      return $id;
-
-    } elseif(strpos($sql, 'UPDATE') !== false) {
-
-      $link->commit();
-      return true;
-
-    } elseif(strpos($sql, 'DELETE') !== false) {
-
-      if($query->rowCount() > 0) {
-        $link->commit();
-        return true;
-      }
-      
-      $link->rollBack();
-      return false; // Nada ha sido borrado
-
-    } else {
-
-      // ALTER TABLE | DROP TABLE 
-      $link->commit();
-      return true;
-      
-    }
-  }
-}
+    

@@ -6,7 +6,7 @@ class Login_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         View::render('index',['title' => 'Login']);
     }
 
@@ -16,14 +16,35 @@ class Login_controller extends Controller{
 
     function post_login(){
 
-        if (!Csrf::validate($_POST['csrf']) || !check_posted_data(['input_username','csrf','input_password'], $_POST)) {
-            // Flasher::new('Acceso no autorizado.', 'danger');
-            // Redirect::back();
+        if (!Csrf::validate($_POST['csrf']) || !check_posted_data(['input-user-login','csrf','input-password-login'], $_POST)) {
+            Flasher::new('Acceso no autorizado.', 'danger');
+            Redirect::back();
         }
+       
+        $usuario  = clean($_POST['input-user-login']);
+        $password = clean($_POST['input-password-login']);
+        $password = sha1($password);
+        
+        $login = new Login_model();
+        // echo $login->exists("user_type", "admin");
 
-        // Data pasada del formulario
-        $usuario  = clean($_POST['input_username']);
-        $password = clean($_POST['input_password']);
+        
+        $data = ['usuario' => $usuario, 'contrasenia'=> $password, 'user_type' => 'ADMIN'] ;
+        
+        // $res = $login->add_login($data);
+        // if($res){
+        //     echo 'Registro exitoso';
+        // }
+        
+
+        // if($login->go_login($usuario,$password)){
+            // echo "existe usuario";
+        // }
+
+        // session_start();
+
+        //echo $usuario."<br>".$password;
+        // Redirect::to('adminconvenios');
 
         // Información del usuario loggeado, simplemente se puede reemplazar aquí con un query a la base de datos
         // para cargar la información del usuario si es existente
