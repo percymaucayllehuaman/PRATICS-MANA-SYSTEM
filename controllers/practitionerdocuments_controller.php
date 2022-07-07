@@ -7,6 +7,10 @@ class Practitionerdocuments_controller extends Controller{
     }
 
     function index(){
+        if (!Auth::validate()) {
+            Flasher::new('Debes iniciar sesión primero.', 'danger');
+            Redirect::to('login');
+        }
         View::render('index',['module' => 'Perfil']);
     }
 }

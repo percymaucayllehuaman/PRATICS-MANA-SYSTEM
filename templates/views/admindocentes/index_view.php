@@ -12,7 +12,14 @@
         <?php require_once MODULES . "mod_sidebar_admin.php"; ?>
         
         <div class="block bg-[#f3f3f3]" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
-            <div class="main_panel_birth">
+            <div class="main_panel_birth w-full">
+                <div class="container_register_teacher px-2 py-1">
+                    <h2 class="text-center font-bold text-[1.2rem] py-2">Registro Docente</h2>
+                    <form action="">
+                        
+                    </form>
+                </div>
+
                 <div class="container_search_birth_for w-full px-5 py-2 pb-1 block h-auto m-0 overflow-hidden box-border my-auto">
                     <form class="relative w-fit inline-block h-fit py-1" action="?" method="post">
                         <label class="block px-0.5 mx-0 w-fit float-left">

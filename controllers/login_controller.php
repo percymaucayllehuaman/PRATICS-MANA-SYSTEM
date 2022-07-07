@@ -1,20 +1,50 @@
 <?php
 
 class Login_controller extends Controller{
-    function __construct()
-    {
+    function __construct()    {
+        if (Auth::validate()) {
+            Flasher::new('Ya hay una sesión abierta.');
+            if($_SESSION['USER-LOGIN']->user_type === 'ADMIN'){
+                Redirect::to('admindata/');
+            }else if($_SESSION['USER-LOGIN']->user_type === 'DOCENTE'){
+                Redirect::to('teacherdata/');
+            }else if($_SESSION['USER-LOGIN']->user_type === 'ESTUDIANTE'){
+                Redirect::to('practitionerdata/');
+            }
+            
+        }else{
+            // Redirect::to('login');
+        }
+    }
+
+    function index(){
+        if (Auth::validate()) {
+            if(isset($_SESSION['USER-LOGIN'])){
+                Flasher::new('Ya hay una sesión abierta.');
+                Auth::login_init($_SESSION['USER-LOGIN']->id_usuario,[]);
+
+                if($_SESSION['USER-LOGIN']->user_type === 'ADMIN'){
+                    Redirect::to('admindata/');
+                }else if($_SESSION['USER-LOGIN']->user_type === 'DOCENTE'){
+                    Redirect::to('teacherdata/');
+                }else if($_SESSION['USER-LOGIN']->user_type === 'ESTUDIANTE'){
+                    Redirect::to('practitionerdata/');
+                }
+            }
+        }
+
+        View::render('index',['title' => 'Login']);
+        
+        
+        
+        
         
     }
 
-    static function index(){
-        View::render('index',['title' => 'Login']);
-    }
-
-    function logout(){
-        return;
-    }
-
     function post_login(){
+        
+        // Auth::login($user['id'], $user);
+        // Redirect::to('home/flash');
 
         if (!Csrf::validate($_POST['csrf']) || !check_posted_data(['input-user-login','csrf','input-password-login'], $_POST)) {
             Flasher::new('Acceso no autorizado.', 'danger');
@@ -26,10 +56,32 @@ class Login_controller extends Controller{
         $password = sha1($password);
         
         $login = new Login_model();
+        $res = $login->log_in($usuario,$password);
+        
+        if($res){       //!= false
+            session_destroy();
+            session_start(); 
+            $_SESSION['USER-LOGIN'] = $res;
+            
+            Auth::login_init($_SESSION['USER-LOGIN']->id_usuario,[]);  ///init token and others vars
+            
+            if($_SESSION['USER-LOGIN']->user_type === 'ADMIN'){
+                Redirect::to('admindata/');
+            }else if($_SESSION['USER-LOGIN']->user_type === 'DOCENTE'){
+                Redirect::to('teacherdata/');
+            }else if($_SESSION['USER-LOGIN']->user_type === 'ESTUDIANTE'){
+                Redirect::to('practitionerdata/');
+            }
+            
+        }else{
+            Flasher::new('Las credenciales no son correctas.', 'danger');
+            Redirect::back();
+        }
+        
         // echo $login->exists("user_type", "admin");
 
         
-        $data = ['usuario' => $usuario, 'contrasenia'=> $password, 'user_type' => 'ADMIN'] ;
+        // $data = ['usuario' => $usuario, 'contrasenia'=> $password, 'user_type' => 'ADMIN'] ;
         
         // $res = $login->add_login($data);
         // if($res){
@@ -66,9 +118,6 @@ class Login_controller extends Controller{
         // Redirect::back();
 
         }
-
-        // Loggear al usuario
-        // Auth::login($user['id'], $user);
-        // Redirect::to('home/flash');
     }
+
 }

@@ -43,11 +43,15 @@ class Login_model extends Model{
 
     public static function log_in($usuario , $contrasenia){     ////id_usuario is auto_increment   
         try {
-            $sql = parent::connect()->prepare('select * from Login where usuario = :usuario and contrasenia = :contrasenia');
+            $sql = parent::connect()->prepare('select * from Login where usuario = :usuario and contrasenia = :contrasenia limit 1');
             $sql->bindParam(':usuario',$usuario);
             $sql->bindParam(':contrasenia',$contrasenia);
             $sql->execute();
-            return $sql;
+            if($sql->rowCount()>0){
+                return $sql->fetchObject();
+            }else{
+                return false;
+            }
         } catch (Exception $e) {
             throw $e;
         }

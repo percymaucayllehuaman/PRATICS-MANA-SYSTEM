@@ -7,7 +7,10 @@ class Adminlogout_controller extends Controller{
     }
 
     function index(){
-        // view::render('index',['module' => 'adminlogout']);
+        Auth::logout();
+        Auth::logout();
+        unset($_SESSION['USER-LOGIN']);
+        unset($_SESSION['user_session']);
         session_destroy();
         Redirect::to('login');
     }
