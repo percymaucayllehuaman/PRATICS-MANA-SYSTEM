@@ -54,7 +54,7 @@ class Flasher
     foreach ($self->valid_types as $type) {
       if(isset($_SESSION[$type]) && !empty($_SESSION[$type])) {
         foreach ($_SESSION[$type] as $m) {
-          $output .= '<div class="alert text-[.8rem] justify-center flex alert-'.$type.' alert-dismissible show fade" role="alert">';
+          $output .= '<div class="alert text-[.8rem] justify-center text-center w-full alert-'.$type.' alert-dismissible show fade" role="alert">';
           $output .= $m;
           $output .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>';
           $output .= '</div>';

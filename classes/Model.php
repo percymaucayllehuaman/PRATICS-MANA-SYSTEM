@@ -28,6 +28,24 @@ class Model extends DB_PDO {
 		}
 		
 	}
+	 
+    public function exists($table,$column, $search_text){
+        $query = "SELECT * FROM ".$table." WHERE ".$column." = :search_text";
+        try{
+            $statement = $this->connect()->prepare($query);
+            $statement->bindParam(":search_text",$search_text);
+            $statement->execute();
+
+            return ($statement->rowCount()>0) ? true : false ;
+            // if($statement->rowCount()>0){
+            //     return true;
+            // }else{
+            //     return false;
+            // }
+        }catch(Exception $e){
+            throw $e;
+        }  
+    }
 
 	protected function save_binnacle($data){
 

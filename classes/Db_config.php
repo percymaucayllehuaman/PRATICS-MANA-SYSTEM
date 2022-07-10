@@ -59,28 +59,6 @@
             return $letter.$number;
 
         } 
-        protected function clean_chain($chain){
-
-            $chain=preg_replace(['/\s+/','/^\s|\s$/'],[' ',''], $chain);//limpiar espacios entre palabras
-            $chain=trim($chain); //quitar los espaicos en blanco
-            $chain=stripslashes($chain); //quitar barras invertidas
-            $chain=str_ireplace("<script>","", $chain); //remplezar los valores
-            $chain=str_ireplace("</script>","", $chain); //remplezar los valores
-            $chain=str_ireplace("<script src","", $chain); //remplezar los valores
-            $chain=str_ireplace("<script type=","", $chain); //remplezar los valores
-            $chain=str_ireplace("SELECT * FROM","", $chain); //remplezar los valores
-            $chain=str_ireplace("DELETE  FROM","", $chain); //remplezar los valores
-            $chain=str_ireplace("INSERT INTO","", $chain); //remplezar los valores
-            $chain=str_ireplace("--","", $chain); //remplezar los valores
-            $chain=str_ireplace("(+51)","", $chain); //remplezar los valores
-            $chain=str_ireplace("^","", $chain); //remplezar los valores
-            $chain=str_ireplace("[","", $chain); //remplezar los valores
-            $chain=str_ireplace("]","", $chain); //remplezar los valores
-            $chain=str_ireplace("==","", $chain); //remplezar los valores
-            $chain=str_ireplace(";","", $chain); //remplezar los valores
-            return $chain;
-
-        }
 
         // protected function sweet_alert($data){
         //     if($data['Alert']=="simple"){

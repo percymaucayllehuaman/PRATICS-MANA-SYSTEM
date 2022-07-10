@@ -13,7 +13,7 @@
           </li>
           <li>
               <a href="<?php echo BASEPATH.'adminespecialidad'; ?>" class="module_link_student w-full px-2 box-border block py-3 hover:text-[#f3f3f3] hover:bg-[rgba(2,77,131,1)] background-color-primary text-[#f2f2f2] <?php if(CONTROLLER=='adminespecialidad'){echo 'bg-[rgba(2,77,131,1)]';} ?>" style="font-weight: 500; letter-spacing:.04rem; border-bottom: 2px solid #f5f5f5;">
-                  Especialidad/Modalidad
+                  Especialidad/Módulo
               </a>
           </li>
           <li>

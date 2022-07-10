@@ -119,5 +119,4 @@ class Login_controller extends Controller{
 
         }
     }
-
 }

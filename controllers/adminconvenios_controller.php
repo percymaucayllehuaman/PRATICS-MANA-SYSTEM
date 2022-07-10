@@ -23,6 +23,11 @@ class Adminconvenios_controller extends Controller{
 
     }
 
+    function register(){
+        echo "registrar convenio";
+        return;
+    }
+
    
 
 }

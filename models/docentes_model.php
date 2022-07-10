@@ -8,9 +8,7 @@ class Docentes_model extends Model{
    * @return integer
    */
     public function add_doc($data){
-        $sql = 'INSERT INTO docentes (DNI, apellido_paterno, apellido_materno, nombres, fecha_nac, sexo, especialidad, celular, correo, direccion)'.
-        ' VALUES (:DNI, :apellido_paterno, :apellido_materno, :nombres, :fecha_nac, :sexo, :especialidad, :celular, :correo, :direccion)';
-       
+      
         // | DNI              | int(11)     | NO   | PRI | NULL    |       |
         // | apellido_paterno | varchar(25) | YES  |     | NULL    |       |
         // | apellido_materno | varchar(25) | YES  |     | NULL    |       |
@@ -23,7 +21,21 @@ class Docentes_model extends Model{
         // | direccion        | varchar(80) | YES  |     | NULL    |
 
         try {
-            return ($this->id = parent::query($sql, $data)) ? $data['DNI'] : false;
+            $query = 'INSERT INTO docentes (DNI, apellido_paterno, apellido_materno, nombres, fecha_nac, sexo, especialidad, celular, correo, direccion)'.
+            ' VALUES (:DNI, :apellido_paterno, :apellido_materno, :nombres, :fecha_nac, :sexo, :especialidad, :celular, :correo, :direccion)';
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':DNI',$data['DNI']);
+            $statement->bindParam(':apellido_paterno',$data['apellido_paterno']);
+            $statement->bindParam(':apellido_materno',$data['apellido_materno']);
+            $statement->bindParam(':nombres',$data['nombres']);
+            $statement->bindParam(':fecha_nac',$data['fecha_nac']);
+            $statement->bindParam(':sexo',$data['sexo']);
+            $statement->bindParam(':especialidad',$data['especialidad']);
+            $statement->bindParam(':celular',$data['celular']);
+            $statement->bindParam(':correo',$data['correo']);
+            $statement->bindParam(':direccion',$data['direccion']);
+            $statement->execute();
+            return $statement;
         } catch (Exception $e) {
             throw $e;
         }

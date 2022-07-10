@@ -67,22 +67,5 @@ class Login_model extends Model{
             throw $e;
         }
     }
-    
-    public function exists($column, $search_text){
-        $query = "SELECT * FROM Login WHERE ".$column." = :search_text";
-        try{
-            $statement = $this->connect()->prepare($query);
-            $statement->bindParam(":search_text",$search_text);
-            $statement->execute();
-
-            return ($statement->rowCount()>0) ? true : false ;
-            // if($statement->rowCount()>0){
-            //     return true;
-            // }else{
-            //     return false;
-            // }
-        }catch(Exception $e){
-            throw $e;
-        }  
-    }
+   
 }
