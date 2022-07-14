@@ -23,7 +23,7 @@
             <div class="w-2/12 min-w-fit h-full">
                 <div class="w-fit l-0 flex min-h-fit items-center h-full right-0 float-right">
                     <!-- <img src="assets/images/logo_cetpro.png" alt="" class="w-[40px] h-[45px]"> -->
-                    <a href="#" class="text-xm bolder bg-green-900 text-[#efefef] px-2 py-1 mr-2 raidus-2 hover:bg-green-700 rounded">
+                    <a href="registerpractitioner" class="text-xm bolder bg-green-900 text-[#efefef] px-2 py-1 mr-2 raidus-2 hover:bg-green-700 rounded">
                         Registrarme
                     </a>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="30">
@@ -68,14 +68,3 @@
         </div>
     </div>
 </div>
-
-
-<?php
-    // require_once(CLASSES."Dd_model.php");
-    // require_once(MODELS."login_model.php");
-    $login = new Login_model();
-    $lo=$login->add_login('practitioner','practitioner123','ESTUDIANTE');
-    if($lo){
-        echo "se inserto exitosamente";
-    }
-?>

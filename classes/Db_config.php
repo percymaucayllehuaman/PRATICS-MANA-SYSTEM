@@ -1,12 +1,4 @@
 <?php
-    // if($ajaxRequest){
-    //     require_once "../Core/config.php";
-    // }else{
-    //     require_once "./Core/config.php";
-    // }
-    // require_once ("core/settings.php");
-    
-    // require_once "core/general_config.php";
 
     class DB_PDO{
 

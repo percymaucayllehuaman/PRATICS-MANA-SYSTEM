@@ -2,24 +2,7 @@
 
 class Docentes_model extends Model{
     
-      /**
-   * Método para agregar un nuevo usuario
-   *
-   * @return integer
-   */
     public function add_doc($data){
-      
-        // | DNI              | int(11)     | NO   | PRI | NULL    |       |
-        // | apellido_paterno | varchar(25) | YES  |     | NULL    |       |
-        // | apellido_materno | varchar(25) | YES  |     | NULL    |       |
-        // | nombres          | varchar(25) | YES  |     | NULL    |       |
-        // | fecha_nac        | date        | YES  |     | NULL    |       |
-        // | sexo             | varchar(12) | YES  |     | NULL    |       |
-        // | especialidad     | varchar(45) | YES  |     | NULL    |       |
-        // | celular          | varchar(9)  | YES  |     | NULL    |       |
-        // | correo           | varchar(60) | YES  |     | NULL    |       |
-        // | direccion        | varchar(80) | YES  |     | NULL    |
-
         try {
             $query = 'INSERT INTO docentes (DNI, apellido_paterno, apellido_materno, nombres, fecha_nac, sexo, especialidad, celular, correo, direccion)'.
             ' VALUES (:DNI, :apellido_paterno, :apellido_materno, :nombres, :fecha_nac, :sexo, :especialidad, :celular, :correo, :direccion)';
