@@ -9,7 +9,7 @@ class Autoloader
    */
   public static function init()
   {
-    spl_autoload_register([__CLASS__, 'autoload']);
+    spl_autoload_register([__CLASS__, 'autoload']);   //carga automaticamente dependencias de las clases utilizadas
   }
 
   private static function autoload($class_name)

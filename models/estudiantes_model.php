@@ -1,108 +1,66 @@
-<?php
+<?php 
 
-class Estudiantes_model extends Model{
-    
-      /**
-   * Método para agregar un nuevo usuario
-   *
-   * @return integer
-   */
-    public function add_est($data){
-        $sql = 'INSERT INTO estudiantes (DNI, apellido_paterno, apellido_materno, nombres, fecha_nac, sexo, departamento, provincia, distrito, correo, celular, direccion, grado_instruccion, estado_civil)'.
-        ' VALUES (:DNI, :apellido_paterno, :apellido_materno, :nombres, :fecha_nac, :sexo, :departamento, :provincia, :distrito, :correo, :celular, :direccion, :grado_instruccion, :estado_civil)';
-        // $data = 
-        // [
-        //   'DNI'       => $this->$_POST['user-dni'],
-        //   'apellido_paterno'   => $_POST['user-apellido-p'],
-        //   'apellido_materno'      => $_POST['user-apellido-mat'],
-        //   'nombres' => $_POST['user-nombres'],
-        // ];
 
+class Estudiantes_model extends Model {
+
+    public function add_prac($data){
         try {
-            return ($this->id = parent::query($sql, $data)) ? $data['DNI'] : false;
+            $query = 'INSERT INTO estudiantes (DNI, apellido_paterno, apellido_materno, nombres, fecha_nac, sexo, departamento, provincia, distrito, correo, celular, direccion, grado_instruccion, estado_civil)'.
+            ' VALUES (:DNI, :apellido_paterno, :apellido_materno, :nombres, :fecha_nac, :sexo, :departamento, :provincia, :distrito, :correo, :celular, :direccion, :grado_instruccion, :estado_civil)';
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':DNI',$data['DNI']);
+            $statement->bindParam(':apellido_paterno',$data['apellido_paterno']);
+            $statement->bindParam(':apellido_materno',$data['apellido_materno']);
+            $statement->bindParam(':nombres',$data['nombres']);
+            $statement->bindParam(':fecha_nac',$data['fecha_nac']);
+            $statement->bindParam(':sexo',$data['sexo']);
+            $statement->bindParam(':departamento',$data['departamento']);
+            $statement->bindParam(':provincia',$data['provincia']);
+            $statement->bindParam(':distrito',$data['distrito']);
+            $statement->bindParam(':correo',$data['correo']);
+            $statement->bindParam(':celular',$data['celular']);
+            $statement->bindParam(':direccion',$data['direccion']);
+            $statement->bindParam(':grado_instruccion',$data['grado_instruccion']);
+            $statement->bindParam(':estado_civil',$data['estado_civil']);
+            $statement->execute();
+            return $statement;
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function delete_est_by_dni($dni){
-        $sql = 'delete from estudiantes where DNI = :DNI';
-        $data = ['DNI' => $dni];
-
+    public static  function get_by_ID($id){
+        $query = 'SELECT * FROM estudiantes where DNI = :id_estudiante';
         try {
-            return (parent::query($sql, $data)) ? true : false; ;
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':id_estudiante',$id);
+            $statement->execute();
+
+            if($statement->rowCount()==1){
+                return $statement->fetchObject();
+            }else{
+                return false;
+            }
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function update_est($data){
-        $sql = 'UPDATE estudiantes SET DNI = :DNI, apellido_paterno = :apellido_paterno, apellido_materno = :apellido_materno, nombres = :nombres, fecha_nac = :fecha_nac, sexo = :sexo, departamento = :departamento, provincia = :provincia, distrito = :distrito, correo = :correo, celular = :celular, direccion = :direccion, grado_instruccion = :grado_instruccion, estado_civil = :estado_civil WHERE DNI=:DNI';
-        // $data = 
-        // [
-        //     'DNI' => $_POST['DNI'],
-        //     'apellido_paterno' => $_POST['apellido_paterno'],
-        //     'apellido_materno' => $_POST['apellido_materno'],
-        //     'nombres' => $_POST['nombres'],
-        //     'fecha_nac' => $_POST['fecha_nac'],
-        //     'sexo' => $_POST['sexo'],
-        //     'departamento' => $_POST['departamento'],
-        //     'provincia' => $_POST['provincia'],
-        //     'distrito' => $_POST['distrito'],
-        //     'correo' => $_POST['correo'],
-        //     'celular' => $_POST['celular'],
-        //     'direccion' => $_POST['direccion'],
-        //     'grado_instruccion' => $_POST['grado_instruccion'],
-        //     'estado_civil' => $_POST['estado_civil']
-        // ]
-
+    public static  function get_by_DNI($dni){
+        $query = 'SELECT * FROM estudiantes where DNI = :DNI limit 1';
         try {
-            return (parent::query($sql, $data)) ? true : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    
-    }
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':DNI',$dni);
+            $statement->execute();
 
-    public function exist_est_DNI($dni){
-        $sql = 'select * from estudiantes where DNI = :DNI';
-        $dni = ['DNI' =>$dni];
-        try {
-            return (parent::query($sql,$dni)) ? true : false;
+            if($statement->rowCount()==1){
+                return $statement->fetchObject();
+            }else{
+                return false;
+            }
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function search_est_nombres($nombres){
-        $sql = "SELECT * from estudiantes where nombres like '%:nombres%'";
-        $nombres = ['nombres' => $nombres];
-        try {
-            return ($rows = parent::query($sql,$nombres)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-    public function search_est_DNI($dni){
-        $sql = "SELECT * from estudiantes where DNI like '%:DNI%'";
-        $dni = ['DNI' => $dni];
-        try {
-            return ($rows = parent::query($sql,$dni)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function get_est_by_DNI($dni){
-        $sql = "SELECT * from estudiantes where DNI = :DNI";
-        $dni = ['DNI' => $dni];
-        try {
-            return ($rows = parent::query($sql,$dni)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-    
 }
-
-?>

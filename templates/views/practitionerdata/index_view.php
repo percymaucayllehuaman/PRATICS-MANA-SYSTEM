@@ -32,7 +32,7 @@
                             </div>
                             <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                 <div for="" class="text-[.8rem] min-w-[8rem]">Nombres</div>
-                                <input type="text" name="data_name_prac" placeholder="Nombres" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly>
+                                <input type="text" name="data_name_prac" placeholder="Nombres" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']!='ADMIN'){echo $_SESSION['DATA-USER']->nombres; }?>">
                             </div>
                             <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                 <div for="" class="text-[.8rem] min-w-[8rem]">Fecha de Nacimiento</div>

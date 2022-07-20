@@ -36,7 +36,7 @@
     </div>
     <div class="w-full px-5">
         <div class="container-login w-full flex justify-center h-auto py-1 min-h-fit">
-            <form action="registerpractitioner  /register" class="w-full py-3 flex flex-wrap justify-center" method="post">
+            <form action="registerpractitioner/register" class="w-full py-3 flex flex-wrap justify-center" method="post">
                 <div class="w-full flex justify-center py-3">
                     <h2 class="font-bold text-[1.2rem] text-[#585858]">Registro de Estudiante</h2>
                 </div>

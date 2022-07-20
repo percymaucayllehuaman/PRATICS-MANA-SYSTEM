@@ -35,19 +35,35 @@ class Model extends DB_PDO {
             $statement = $this->connect()->prepare($query);
             $statement->bindParam(":search_text",$search_text);
             $statement->execute();
-
             return ($statement->rowCount()>0) ? true : false ;
-            // if($statement->rowCount()>0){
-            //     return true;
-            // }else{
-            //     return false;
-            // }
         }catch(Exception $e){
             throw $e;
         }  
     }
+	public function get_all($table){
+		$query = "select * from  ".$table;
+		try {
+			$statement = parent::connect()->prepare($query);
+			$statement->execute();
+			return $statement;
+		} catch (Exception $e) {
+			throw $e;
+		}
+	}
+
+	public function get_all_order_by($table,$column){
+		$query = "select * from  ".$table." order by ".$column;
+		try {
+			$statement = parent::connect()->prepare($query);
+			$statement->execute();
+			return $statement;
+		} catch (Exception $e) {
+			throw $e;
+		}
+	}
 
 	protected function save_binnacle($data){
+		$query = "select * from em";
 
 		$sql=self::connect()->prepare("INSERT INTO bitacora(bitacora_codigo,bitacora_fecha,bitacora_horaInicio,bitacora_horaFin,bitacora_tipoUsuario,bitacora_ano,bitacora_id_usuario) VALUES(:Code,:Date,:StartTime,:EndTime,:Type,:Year,:AccountCode)");
 		$sql->bindParam(":Code",$data['Code']);

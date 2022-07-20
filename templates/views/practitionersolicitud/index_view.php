@@ -20,9 +20,15 @@
                                             ESPECIALIDAD
                                         </div>
                                         <select name="select_especilidad_sol" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
-                                            <option value="">ESPECIALIDAD</option>
-                                            <option value="1">COMPUTACION INFORMATICA</option>
-                                            <option value="2">GASTRONOMIA</option>
+                                            <?php
+                                                echo "<option value=''>Seleccione Especialidad</option>";
+                                                $es = new Especialidad_model();
+                                                $data = $es->get_all("especialidad")->fetchAll();
+
+                                                foreach ($data as $item) {
+                                                    echo "<option value='" . $item['id_especialidad'] . "'>" . $item['nombre'] . "</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="line my-1 mr-4 flex border items-center">
@@ -30,10 +36,14 @@
                                             MÓDULO
                                         </div>
                                         <select name="select_module_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
-                                            <option value="">SELECCIONE MÓDULO</option>
-                                            <option value="1">REPARACIÓN DE COMPUTADORAS</option>
-                                            <option value="2">REDES</option>
-                                            <option value="2">OFIMÁTICA</option>
+                                            <?php
+                                                echo "<option value=''>Seleccione Módulo</option>";
+                                                $m = new Modulo_model();
+                                                $data = $m->get_all_order_by("modulo","Especialidad_id_especialidad")->fetchAll();
+                                                foreach ($data as $item) {
+                                                    echo "<option value='".$item['id_modulo']."'>".$item['nombre']."</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="line my-1 mr-4 flex border items-center">
@@ -51,11 +61,12 @@
                                             AÑO
                                         </div>
                                         <select name="select_year_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
-                                            <option value="2022">2022</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2020">2019</option>
-                                            <option value="2020">2018</option>
+                                            <option value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+                                            <option value="<?php echo date('Y') - 1; ?>"><?php echo date('Y') - 1; ?></option>
+                                            <option value="<?php echo date('Y') - 2; ?>"><?php echo date('Y') - 2; ?></option>
+                                            <option value="<?php echo date('Y') - 3; ?>"><?php echo date('Y') - 3; ?></option>
+                                            <option value="<?php echo date('Y') - 4; ?>"><?php echo date('Y') - 4; ?></option>
+                                            <option value="<?php echo date('Y') - 5; ?>"><?php echo date('Y') - 5; ?></option>
                                         </select>
                                     </div>
                                     <div class="line my-1 mr-4 flex border items-center">
@@ -75,11 +86,14 @@
                                             EMPRESA
                                         </div>
                                         <select name="select_empresa_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
-                                            <option value="I">CONSULTORA ARROBA EIRL</option>
-                                            <option value="II">TERABYTE GRUPO SAC</option>
-                                            <option value="II">IBM</option>
-                                            <option value="II">MEGA SOFTWARE</option>
-                                            <option value="II">DEFOFT SAC</option>
+                                            <?php
+                                                $m = new Empresa_model();
+                                                $data = $m->get_empresas_by_estudent($_SESSION['USER-LOGIN']->usuario)->fetchAll();
+                                                echo "<option value=''>Seleccione Empresa</option>";
+                                                foreach ($data as $item) {
+                                                    echo "<option value='".$item['id_modulo']."'>".$item['nombre']."</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="line my-1 mr-4 flex border items-center">
@@ -95,7 +109,14 @@
                                             DOCENTE
                                         </div>
                                         <select name="select_teacher_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
-                                            <option value="1">JOSE DE LA CUBA</option>
+                                            <?php
+                                                $m = new Docentes_model();
+                                                $data = $m->get_all('docentes')->fetchAll();
+                                                echo "<option value=''>Seleccione Docente</option>";
+                                                foreach ($data as $item) {
+                                                    echo "<option value='".$item['DNI']."'>".$item['nombres']."</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="line my-1 mr-4 flex border items-center">
@@ -131,7 +152,7 @@
                                         </div>
                                         <input type="time" name="tea_email_regis" class="px-2 input-border-blue border-slate-500 h-7 text-[.9rem] w-auto" required>
                                     </div>
-                            </div>
+                                </div>
                             </div>
                             <div class="py-2 flex items-center w-full justify-start px-2">
                                 <button name="button_sendform_registerpp" type="submit" class="bg-blue-700 text-[#efefef] hover:text-white hover:bg-blue-800 px-5 py-1 rounded-md min-w-[10rem]">

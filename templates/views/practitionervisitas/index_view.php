@@ -24,33 +24,46 @@
                                             <div class="w-auto flex items-center border flex-wrap ">
                                                 <label for="" class="w-auto mr-2 px-1">Seleccione Especialidad </label>
                                                 <select name="select_especialidad_visi" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                    <option value="">COMPUTACION INFORMATICA</option>
-                                                    <option value="">GASTRONOMÍA</option>
+                                                    <?php
+                                                        $es = new Especialidad_model();
+                                                        $data = $es->get_all("especialidad")->fetchAll();
+                                                        
+                                                        foreach ($data as $item) {
+                                                            echo "<option value='".$item['id_especialidad']."'>".$item['nombre']."</option>";
+                                                        }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="w-auto flex items-center border">
                                                 <label for="" class="w-auto mr-2 px-1">Módulo </label>
                                                 <select name="select_module_visi" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                    <option value="">DISEÑO WEB</option>
-                                                    <option value="">OFIMATICA</option>
-                                                    <option value="">REDES</option>
+                                                    <?php
+                                                        $m = new Empresa_model();
+                                                        $data = $m->get_all_order_by("modulo","Especialidad_id_especialidad")->fetchAll();
+                                                        foreach ($data as $item) {
+                                                            echo "<option value='".$item['id_modulo']."'>".$item['nombre']."</option>";
+                                                        }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="w-auto flex items-center border">
                                             <label for="" class="w-auto mr-2 px-1">Año </label>
                                             <select name="select_year_visi" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                <option value="">2022</option>
-                                                <option value="">2021</option>
-                                                <option value="">2020</option>
+                                                <option value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+                                                <option value="<?php echo date('Y') - 1; ?>"><?php echo date('Y') - 1; ?></option>
+                                                <option value="<?php echo date('Y') - 2; ?>"><?php echo date('Y') - 2; ?></option>
+                                                <option value="<?php echo date('Y') - 3; ?>"><?php echo date('Y') - 3; ?></option>
+                                                <option value="<?php echo date('Y') - 4; ?>"><?php echo date('Y') - 4; ?></option>
+                                                <option value="<?php echo date('Y') - 5; ?>"><?php echo date('Y') - 5; ?></option>
                                             </select>
                                         </div>
                                         <div class="w-auto flex items-center border">
                                             <label for="" class="w-auto mr-2 px-1">Periodo </label>
                                             <select name="select_period_visi" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                <option value="">I</option>
-                                                <option value="">II</option>
-                                                <option value="">III</option>
+                                                <option value="I">I</option>
+                                                <option value="II">II</option>
+                                                <option value="III">III</option>
                                             </select>
                                         </div>
                                     </div>

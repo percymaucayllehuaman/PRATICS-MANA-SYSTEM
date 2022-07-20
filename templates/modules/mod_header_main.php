@@ -21,12 +21,24 @@
         <div class="w-2/12 min-w-fit h-full">
             <div class="w-fit l-0 flex min-h-fit items-center h-full right-0 float-right">
                 <!-- <img src="assets/images/logo_cetpro.png" alt="" class="w-[40px] h-[45px]"> -->
-                <a href="index.html" class="w-fit rounded-md border-inherit border flex px-2 py-1 items-center pd-3 boder-1 border-[#f2f2f2] hover:bg-[rgba(0,0,0,.1)] ">
-                    <label for="" class="pr-2 text-white" style="font-weight: 500;">
-                        Manuel
+                <a href="#" class="w-fit rounded-md border-inherit border flex px-2 py-1 items-center pd-3 boder-1 border-[#f2f2f2] hover:bg-[rgba(0,0,0,.1)] ">
+                    <label for="" class="pr-2 text-white text-[.9rem]" style="font-weight: 500;">
+                        <?php   
+                            if(isset($_SESSION['USER-LOGIN'])){
+                                if($_SESSION['USER-LOGIN']->user_type =="ADMIN"){
+                                    echo ucfirst($_SESSION['USER-LOGIN']->user_type);
+                                }else if($_SESSION['USER-LOGIN']->user_type =="DOCENTE" || $_SESSION['USER-LOGIN']->user_type =="ESTUDIANTE"){
+                                   if($_SESSION['DATA-USER']){
+                                        echo ucfirst(explode(" ",$_SESSION['DATA-USER']->nombres)[0]);
+                                   }
+                                }
+                            }else{
+                                echo "Manuel";   
+                            }
+                        ?>
                     </label>
                     <figure>
-                        <img src="resources/ui-profile-icon.png" width="40" height="40" alt="" class="bg-white rounded-full">
+                        <img src="resources/user.png" width="40" height="40" alt="" class="bg-white rounded-full p-1">
                     </figure>
                 </a>
                 <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="30">

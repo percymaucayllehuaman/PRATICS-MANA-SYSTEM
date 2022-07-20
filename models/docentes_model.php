@@ -24,12 +24,47 @@ class Docentes_model extends Model{
         }
     }
 
-    public function delete_doc_by_dni($dni){
-        $sql = 'delete from docentes where DNI = :DNI';
-        $data = ['DNI' => $dni];
-
+    public static  function get_by_ID($id){
+        $query = 'SELECT * FROM docentes where DNI = :id_docente';
         try {
-            return (parent::query($sql, $data)) ? true : false; ;
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':id_docente',$id);
+            $statement->execute();
+
+            if($statement->rowCount()==1){
+                return $statement->fetchObject();
+            }else{
+                return false;
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public static  function get_by_DNI($dni){
+        $query = 'SELECT * FROM docentes where DNI = :DNI limit 1';
+        try {
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':DNI',$dni);
+            $statement->execute();
+
+            if($statement->rowCount()==1){
+                return $statement->fetchObject();
+            }else{
+                return false;
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function delete_doc_by_dni($dni){
+        $query = 'delete from docentes where DNI = :DNI';
+        try {
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':DNI', $dni);
+            $statement->execute();
+            return $statement;
         } catch (Exception $e) {
             throw $e;
         }

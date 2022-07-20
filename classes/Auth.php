@@ -3,8 +3,7 @@
 /**
  * Clase para crear sesiones seguras de usuarios
  */
-class Auth
-{
+class Auth {
     private $var    = 'user_session';
     private $logged = false;
     private $token  = null;
@@ -14,9 +13,13 @@ class Auth
 
     public function __construct()
     {
+        if(isset($_SESSION['USER-LOGIN'])){
+            self::load_user_complement_data();
+        }
         if (isset($_SESSION[$this->var])) {
             return;
         }
+
 
         $session =
             [
@@ -82,4 +85,25 @@ class Auth
         if (!isset($this->{$var})) return false;
         return $this->{$var};
     }
+
+    public static function load_user_complement_data(){   ///designa datos complementarios del usuario estudiante o docente
+            if($_SESSION['USER-LOGIN']){
+                if($_SESSION['USER-LOGIN']->user_type =="DOCENTE"){
+                    if(Docentes_model::get_by_DNI(intval($_SESSION['USER-LOGIN']->usuario))){
+                        $_SESSION['DATA-USER'] = Docentes_model::get_by_DNI(intval($_SESSION['USER-LOGIN']->usuario));
+                    }else{
+                        $_SESSION['DATA-USER'] = false;
+                    }
+                }else if($_SESSION['USER-LOGIN']->user_type =="ESTUDIANTE"){
+                    if(Estudiantes_model::get_by_DNI(intval($_SESSION['USER-LOGIN']->usuario))){
+                        $_SESSION['DATA-USER'] = Estudiantes_model::get_by_DNI(intval($_SESSION['USER-LOGIN']->usuario));
+                    }else{
+                        $_SESSION['DATA-USER'] = false;
+                    }
+                }  
+            }else{
+                $_SESSION['DATA-USER'] = false;
+            }
+        }
+    
 }

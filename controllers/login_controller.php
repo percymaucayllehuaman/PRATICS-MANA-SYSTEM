@@ -2,19 +2,7 @@
 
 class Login_controller extends Controller{
     function __construct()    {
-        if (Auth::validate()) {
-            Flasher::new('Ya hay una sesión abierta.');
-            if($_SESSION['USER-LOGIN']->user_type === 'ADMIN'){
-                Redirect::to('admindata/');
-            }else if($_SESSION['USER-LOGIN']->user_type === 'DOCENTE'){
-                Redirect::to('teacherdata/');
-            }else if($_SESSION['USER-LOGIN']->user_type === 'ESTUDIANTE'){
-                Redirect::to('practitionerdata/');
-            }
-            
-        }else{
-            // Redirect::to('login');
-        }
+        
     }
 
     function index(){
