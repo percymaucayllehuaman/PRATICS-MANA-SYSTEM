@@ -18,7 +18,7 @@
                         <div class="overflow-x-auto container_register_teacher pb-2px-1">
                             <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full text-[#4b4b4b]">Visitas y Supervisión</h2> <!-- title -->
                             <div class="w-full flex">
-                                <form action="teacherdocuments/show_documents" method="post" class="w-autp items-center py-2">
+                                <form action="teacherdocuments" method="post" class="w-autp items-center py-2">
                                     <div class="flex gap-3 flex-wrap">
                                         <div class="flex w-full gap-3 flex-wrap">
                                             <div class="w-auto flex items-center flex-wrap ">

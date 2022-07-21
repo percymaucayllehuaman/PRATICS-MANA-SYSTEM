@@ -17,7 +17,7 @@
                     <div class="overflow-x-auto container_register_teacher pb-2">
                         <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full">Asistencia</h2>
                         <div class="flex w-full">
-                            <form action="practitionerasistencia/registerentrada" method="post">
+                            <form action="practitionerasistencia" method="post">
                                 <div class="line my-1 mr-4 flex items-center">
                                     <input type="hidden" name="<?php echo "input"; ?>" value="hola">
                                     <div class="w-auto mx-1 text-[.9rem] min-w-[90px]">
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <form action="practitionerasistencia/registersalida">
+                            <form action="practitionerasistencia/">
                                 <div class="line my-1 mr-4 flex items-center">
                                     <input type="hidden" name="id_user" value="<?php echo "input"; ?>">
                                     <input type="hidden" name="id_prac" value="<?php echo "input"; ?>">
@@ -40,7 +40,7 @@
                             </form>
                         </div>
                         <div class="w-full flex">
-                            <form action="practitionerasistencia/registeractividad" method="post" class="w-autp items-center py-2">
+                            <form action="practitionerasistencia" method="post" class="w-autp items-center py-2">
                                 <div class="w-auto flex items-center border">
                                     <label for="" class="w-auto mr-2 px-1">Activiadad </label>
                                     <input type="text" placeholder="Cableado de la Red" class="min-w-[15rem] text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">

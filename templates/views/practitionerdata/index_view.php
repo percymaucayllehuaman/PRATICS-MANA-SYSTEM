@@ -15,7 +15,7 @@
             <div class=" px-2 py-1 w-full relative">
                 <div class="overflow-x-auto container_register_especialidad pb-2 px-5">
                     <h2 class="font-bold text-[1.2rem] py-2 w-full">Datos Personales </h2>
-                    <form action="adminespecialidad/registerespecialidad" class="w-auto h-auto min-w-[250px] pt-3 pb-3 overflow-x-auto" method="post">
+                    <form action="practitionerdata" class="w-auto h-auto min-w-[250px] pt-3 pb-3 overflow-x-auto" method="post">
                         <?php echo Flasher::flash(); ?>
                         <div class="px-1 w-auto flex flex-wrap items-center gap-1">
                             <div class="line my-2 ml-1 flex flex-wrap mr-3">
