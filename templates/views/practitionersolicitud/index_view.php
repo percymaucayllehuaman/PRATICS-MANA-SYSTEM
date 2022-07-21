@@ -10,7 +10,7 @@
             <div class="main_panel_registerpp_practitioner w-full overflow-y-auto">
                 <div class="py-1 w-full relative px-4" style="max-height: calc(100vh - 90px);">
                     <div class="overflow-x-auto container_register_teacher pb-2">
-                        <h2 class="font-bold text-[1.2rem] py-2 px-1">Seleccione la PPP a realizar:</h2>
+                        <h2 class="font-bold text-[1.2rem] py-2 px-1">Solicite PPP a realizar:</h2>
                         <form action="practitionersolicitud/register" class="w-full h-auto flex flex-wrap min-w-[450px]" method="post">
                             <div class="flex flex-wrap">
                                 <?php echo Flasher::flash(); ?>
@@ -91,7 +91,7 @@
                                                 $data = $m->get_empresas_by_estudent($_SESSION['USER-LOGIN']->usuario)->fetchAll();
                                                 echo "<option value=''>Seleccione Empresa</option>";
                                                 foreach ($data as $item) {
-                                                    echo "<option value='".$item['id_modulo']."'>".$item['nombre']."</option>";
+                                                    echo "<option value='".$item['RUC_codigo_ident']."'>".$item['nombre']."</option>";
                                                 }
                                             ?>
                                         </select>
@@ -144,13 +144,13 @@
                                         <div class="w-auto mx-2 text-[.9rem] min-w-[90px]">
                                             HORA INICIO
                                         </div>
-                                        <input type="time" name="tea_email_regis" class="px-2 input-border-blue border-slate-500 h-7 text-[.9rem] w-auto" required>
+                                        <input type="time" name="prac_timestart_regis" class="px-2 input-border-blue border-slate-500 h-7 text-[.9rem] w-auto" required>
                                     </div>
                                     <div class="line my-1 mr-4 flex border items-center">
                                         <div class="w-auto mx-2 text-[.9rem] min-w-[90px]">
                                             HORA FIN
                                         </div>
-                                        <input type="time" name="tea_email_regis" class="px-2 input-border-blue border-slate-500 h-7 text-[.9rem] w-auto" required>
+                                        <input type="time" name="prac_timeend_regis" class="px-2 input-border-blue border-slate-500 h-7 text-[.9rem] w-auto" required>
                                     </div>
                                 </div>
                             </div>
@@ -166,10 +166,10 @@
             <div class="overflow-x-auto">
                 <div class="container_results_list block w-full px-5 bottom max-h-screen overflow-auto min-w-[800px] ">
                     <div class="list_title_results w-12/12">
-                        <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center center text-sm py-0.5 rounded-sm">
+                        <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center center text-sm py-0.5 rounded-sm px-1">
                             <label class="w-2/12 text-center px-0.5 py-0.5">MÓDULO</label>
-                            <label class="w-2/12 text-center px-0.5 py-0.5">AÑO</label>
-                            <label class="w-2/12 text-center px-0.5 py-0.5">PERIODO</label>
+                            <label class="w-1/12 text-center px-0.5 py-0.5">AÑO</label>
+                            <label class="w-1/12 text-center px-0.5 py-0.5">PERIODO</label>
                             <label class="w-2/12 text-center px-0.5 py-0.5">EMPRESA</label>
                             <label class="w-2/12 text-center px-0.5 py-0.5">FECHA INICIO</label>
                             <label class="w-2/12 text-center px-0.5 py-0.5">FECHA FIN</label>
@@ -178,6 +178,39 @@
                             <label class="w-2/12 text-center px-0.5 py-0.5">HORA FIN</label>
                             <label class="w-1/12 text-center px-0.5 py-0.5">VALIDACIÓN</label>
                         </div>
+
+                        <?php
+                            $p = new Practicas_model();
+                            $data = $p->get_practicas_by_estudiante($_SESSION['USER-LOGIN']->usuario);
+                            $data = $data->fetchAll();
+                            if($data){
+                                
+                               foreach($data as $row){
+                                    $m = new Modulo_model();
+                                    $m = $m->get_modulo_by_id($row['Modulo_id_modulo']);
+
+                                    $e = new Empresa_model();
+                                    $e = $e->get_empresa_by_id($row['Empresa_RUC']);
+                                    if($row['validacion']=="0000-00-00 00:00:00"){$row['validacion']='No';}
+                                    echo "<div class='flex w-12/12 text-slate-700 justify-center center text-sm py-0.5 rounded-sm px-1' style ='border-bottom: 1px solid rgba(2,77,131,.95)'>";
+                                        $r = "<label class='w-2/12 text-left px-0.5 py-0.5'>".$m->nombre."</label>".
+                                        "<label class='w-1/12 text-left px-0.5 py-0.5'>".$row['anio']."</label>".
+                                        "<label class='w-1/12 text-left px-0.5 py-0.5'>".$row['periodo']."</label>".
+                                        "<label class='w-2/12 text-left px-0.5 py-0.5'>".$e->nombre."</label>".
+                                        "<label class='w-2/12 text-left px-0.5 py-0.5'>".$row['fecha_inicio']."</label>".
+                                        "<label class='w-2/12 text-left px-0.5 py-0.5'>".$row['fecha_fin']."</label>".
+                                        "<label class='w-1/12 text-left px-0.5 py-0.5'>".$row['turno']."</label>".
+                                        "<label class='w-2/12 text-left px-0.5 py-0.5'>".$row['hora_inicio']."</label>".
+                                        "<label class='w-2/12 text-left px-0.5 py-0.5'>".$row['hora_fin']."</label>".
+                                        "<label class='w-1/12 text-center px-0.5 py-0.5'>".$row['validacion']."</label>";
+                                        echo $r;
+                                    echo "</div>";
+                               }
+
+                            }else{
+                                echo "<div class='text-[.9rem] text-slate-700'>No hay Practicas Solicitadas</div>";
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

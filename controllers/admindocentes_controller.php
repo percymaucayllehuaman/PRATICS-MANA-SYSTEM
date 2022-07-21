@@ -63,14 +63,13 @@ class Admindocentes_controller extends Controller{
                                     Flasher::new("Registro exitoso, :)",'primary');
                                     Redirect::to('admindocentes');
                                 }else{
-                                    echo "error al registrar";
+                                    Flasher::new("Error al Registrar!",'warning');
+                                    echo "<script>window.history.go(-1)</script>";
                                 }
                         }else{
-                            echo "<script>window.history.go(-1)</script>";
                             Flasher::new("El campo Usuario es el DNI, no coinciden!",'warning');
-                        }
-                        
-    
+                            echo "<script>window.history.go(-1)</script>";  
+                        } 
                     }else{
                         // Redirect::back();
                         // header("Location:".$_SERVER[HTTP_REFERER]);

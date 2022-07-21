@@ -87,40 +87,12 @@ class Empresa_model extends Model{
     
     }
 
-    public function exist_emp_DNI($dni){
-        $sql = 'select * from estudiantes where DNI = :DNI';
-        $dni = ['DNI' =>$dni];
+    function get_empresa_by_id($id){
         try {
-            return (parent::query($sql,$dni)) ? true : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function search_emp_nombres($nombres){
-        $sql = "SELECT * from estudiantes where nombres like '%:nombres%'";
-        $nombres = ['nombres' => $nombres];
-        try {
-            return ($rows = parent::query($sql,$nombres)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-    public function search_emp_DNI($dni){
-        $sql = "SELECT * from estudiantes where DNI like '%:DNI%'";
-        $dni = ['DNI' => $dni];
-        try {
-            return ($rows = parent::query($sql,$dni)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function get_emp_by_DNI($dni){
-        $sql = "SELECT * from estudiantes where DNI = :DNI";
-        $dni = ['DNI' => $dni];
-        try {
-            return ($rows = parent::query($sql,$dni)) ? $rows : false;
+            $statement = $this->connect()->prepare("select * from empresa where RUC_codigo_ident = :id");
+            $statement->bindParam(':id',$id);
+            $statement->execute();
+            return ($statement->rowCount()==1)? $statement->fetchObject() : false;
         } catch (Exception $e) {
             throw $e;
         }
