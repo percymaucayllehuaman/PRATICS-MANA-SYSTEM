@@ -21,43 +21,43 @@
                             <div class="px-1 w-auto flex flex-wrap items-center gap-1 pb-2">
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">DNI</div>
-                                    <input type="text" name="data_dni_tea" placeholder="DNI" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly>
+                                    <input type="text" name="data_dni_tea" placeholder="DNI" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->DNI; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Apellido Paterno</div>
-                                    <input type="text" name="data_lastnamefir_tea" placeholder="Apellido" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly>
+                                    <input type="text" name="data_lastnamefir_tea" placeholder="Apellido" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->apellido_paterno; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Apellido Materno</div>
-                                    <input type="text" name="data_lastnamese_tea" placeholder="Apellido" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly>
+                                    <input type="text" name="data_lastnamese_tea" placeholder="Apellido" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->apellido_materno; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Nombres</div>
-                                    <input type="text" name="data_name_tea" placeholder="Nombres" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']!='ADMIN'){echo $_SESSION['DATA-USER']->nombres;} ?>">
+                                    <input type="text" name="data_name_tea" placeholder="Nombres" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->nombres; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Fecha de Nacimiento</div>
-                                    <input type="text" name="data_datebirth_tea" placeholder="Fecha de Nacimiento" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly>
+                                    <input type="text" name="data_datebirth_tea" placeholder="Fecha de Nacimiento" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->fecha_nac; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Genero</div>
-                                    <input type="text" name="data_gender_tea" placeholder="Genero" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly>
+                                    <input type="text" name="data_gender_tea" placeholder="Genero" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->sexo; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Especialidad</div>
-                                    <input type="text" name="data_especialidad_tea" placeholder="Región" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly>
+                                    <input type="text" name="data_especialidad_tea" placeholder="Región" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->especialidad; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Celular</div>
-                                    <input type="text" name="data_telephone_tea" placeholder="Celular" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly>
+                                    <input type="text" name="data_telephone_tea" placeholder="Celular" class="px-2 border-slate-500 h-6 text-[.8rem]  min-w-[15rem]  text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->celular; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Correo Electrónico</div>
-                                    <input type="email" name="data_email_tea" placeholder="Email" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly>
+                                    <input type="email" name="data_email_tea" placeholder="Email" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->correo; }?>">
                                 </div>
                                 <div class="line my-2 ml-1 flex flex-wrap mr-3">
                                     <div for="" class="text-[.8rem] min-w-[8rem]">Dirección</div>
-                                    <input type="text" name="data_address_tea" placeholder="Dirección" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly>
+                                    <input type="text" name="data_address_tea" placeholder="Dirección" class="px-2 border-slate-500 h-6 text-[.8rem] min-w-[15rem] text-[#000]" required readonly value="<?php if($_SESSION['USER-LOGIN']->user_type == 'DOCENTE'){echo $_SESSION['DATA-USER']->direccion; }?>">
                                 </div>
                             </div>
                             <div class="px-2 w-full">
