@@ -34,7 +34,7 @@
             
         }
         public function get_practicas_by_estudiante($dni){
-            $query = "SELECT * FROM practicas where Estudiantes_DNI = :dni";
+            $query = "SELECT * FROM practicas where Estudiantes_DNI = :dni  order by id_practicas desc limit 1";
             try{
                 $statement = $this->connect()->prepare($query);
                 $statement->bindParam(":dni",$dni);

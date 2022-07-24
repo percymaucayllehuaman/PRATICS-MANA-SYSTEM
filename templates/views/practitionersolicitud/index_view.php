@@ -88,7 +88,7 @@
                                         <select name="select_empresa_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
                                                 $m = new Empresa_model();
-                                                $data = $m->get_empresas_by_estudent($_SESSION['USER-LOGIN']->usuario)->fetchAll();
+                                                $data = $m->get_all('empresa')->fetchAll();
                                                 echo "<option value=''>Seleccione Empresa</option>";
                                                 foreach ($data as $item) {
                                                     echo "<option value='".$item['RUC_codigo_ident']."'>".$item['nombre']."</option>";

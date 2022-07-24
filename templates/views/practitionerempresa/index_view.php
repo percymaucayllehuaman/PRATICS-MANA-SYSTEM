@@ -21,7 +21,7 @@
                                 <?php echo Flasher::flash(); ?>
                                 <div class="min-w-[200px] px-2 flex flex-wrap gap-1">
                                     <div class="line my-1 w-4/12 mr-4">
-                                        <input type="text" name="prac_empresa_ruc_regis" maxlength="10" placeholder="RUC/CÓDIGO/ID" class="px-2 rounded input-border-blue border-slate-500 h-7 text-[.9rem] w-full" required>
+                                        <input type="text" name="prac_empresa_ruc_regis" maxlength="11" placeholder="RUC/CÓDIGO/ID" class="px-2 rounded input-border-blue border-slate-500 h-7 text-[.9rem] w-full" required>
                                     </div>
                                     <div class="line my-1 w-4/12 mr-4">
                                         <input type="text" name="prac_raz_empresa_regis" placeholder="Razon Social Empresa" class="px-2 rounded input-border-blue border-slate-500 h-7 text-[.9rem] w-full" required>
