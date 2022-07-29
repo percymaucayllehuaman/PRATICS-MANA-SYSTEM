@@ -11,8 +11,8 @@
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_practitioner.php"; ?>
 
-        <div class="main_panel block bg-[#f3f3f3]" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
-            <div class="main_panel_registerpp_practitioner w-full overflow-y-auto">
+        <div class="main_panel block bg-[#f3f3f3] overflow-auto" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
+            <div class="main_panel_registerpp_practitioner w-full overflow-y-auto min-h-fit">
                 <div class="py-1 w-full relative px-4" style="max-height: calc(100vh - 90px);">
                     <div class="overflow-x-auto container_register_teacher pb-2">
                         <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full">Asistencia</h2>
@@ -63,7 +63,8 @@
                             <label class="w-[5%] text-center px-0.5 py-0.5">#</label>
                             <label class="w-[30%] text-center px-0.5 py-0.5">Actividad</label>
                             <label class="w-[15%] text-center px-0.5 py-0.5">Fecha</label>
-                            <label class="w-[15%] text-center px-0.5 py-0.5">Hora Entrada</label>
+                            <label class="w-[10%] text-center px-0.5 py-0.5">Hora Entrada</label>
+                            <label class="w-[10%] text-center px-0.5 py-0.5">Hora Salida</label>
                             <label class="w-[15%] text-center px-0.5 py-0.5">Validado</label>
                             <label class="w-[20%] text-center px-0.5 py-0.5">Obserbación</label>
                         </div>
@@ -74,13 +75,15 @@
                             foreach($data as $item){
                                 $i++;
                                 if($item['validacion_actividad']=='0000-00-00 00:00:00'){$item['validacion_actividad']="No";}
+                                if($item['fecha_hora_salida']=='0000-00-00 00:00:00'){$item['fecha_hora_salida']="Falta Registrar";}
                                 echo '<div class="flex bg-[rgba(2,77,131,.1)] w-12/12 text-slate-900 justify-center center text-sm py-0.5 rounded-sm" style="border-bottom: 1px solid rgba(2,77,131,.6)">';
                             
                                 $v = '<label class="w-[5%] text-center px-0.5 py-0.5">'.$i.'</label>
-                                <label class="w-[30%] text-left px-0.5 py-0.5">'.$item['actividad'].'</label>
-                                <label class="w-[15%] text-center px-0.5 py-0.5">'.$item['fecha_hora_salida'].'</label>
-                                <label class="w-[15%] text-center px-0.5 py-0.5">'.$item['fecha_hora_entrada'].'</label>
-                                <label class="w-[15%] text-center px-0.5 py-0.5">'.$item['validacion_actividad'].'</label>
+                                <label class="w-[35%] text-left px-0.5 py-0.5">'.$item['actividad'].'</label>
+                                <label class="w-[15%] text-center px-0.5 py-0.5">'.$item['fecha'].'</label>
+                                <label class="w-[10%] text-center px-0.5 py-0.5">'.substr($item['fecha_hora_entrada'],-8).'</label>
+                                <label class="w-[10%] text-center px-0.5 py-0.5">'.substr($item['fecha_hora_entrada'],-8).'</label>
+                                <label class="w-[20%] text-center px-0.5 py-0.5">'.$item['validacion_actividad'].'</label>
                                 <label class="w-[20%] text-center px-0.5 py-0.5">'.$item['observacion'].'</label>';
                                 echo $v;
                                 echo '</div>';

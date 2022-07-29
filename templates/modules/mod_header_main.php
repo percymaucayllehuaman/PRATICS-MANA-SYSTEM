@@ -3,7 +3,7 @@
     <div class="flex box-border py-0 items-center h-full flex-row overflow-hidden">
         <div class="w-full h-full w-2/12 flex items-center min-w-fit">
             <?php
-                echo "<img src='".ASSETS."images/logo_cetpro.png'"." alt='logo CETPRO' class='h-[60px] min-w-fit'>";
+                echo "<img src='".ASSETS."images/logo_cetpro.png'"." alt='logo CETPRO' class='h-[70px] w-auto'>";
             ?>
         </div>
         <div class="w-8/12">

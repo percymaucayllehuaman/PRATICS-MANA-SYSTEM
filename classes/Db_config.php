@@ -3,6 +3,7 @@
     class DB_PDO{
 
         public static function connect(){
+            
             try {
                 //$link = new PDO(SGBD,DB_USER,DB_PASSWORD);
                 $link = new PDO(SGBD,DB_USER,DB_PASSWORD);
@@ -116,8 +117,5 @@
         //     return $alert;
         // }
     }
-
-   
-    
 
     

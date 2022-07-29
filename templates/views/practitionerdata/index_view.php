@@ -11,7 +11,7 @@
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_practitioner.php"; ?>
 
-        <div class="main_panel block bg-[#f3f3f3]" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
+        <div class="main_panel block bg-[#f3f3f3] overflow-auto" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
             <div class=" px-2 py-1 w-full relative">
                 <div class="overflow-x-auto container_register_especialidad pb-2 px-5">
                     <h2 class="font-bold text-[1.2rem] py-2 w-full">Datos Personales </h2>

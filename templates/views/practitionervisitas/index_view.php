@@ -12,8 +12,8 @@
         <?php require_once MODULES . "mod_sidebar_practitioner.php"; ?>
 
         <div class="block bg-[#f3f3f3]" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
-            <div class="main_panel ">
-                <div class="main_panel_registervisitas_practitioner w-full overflow-y-auto">
+            <div class="main_panel overflow-auto" style="height: calc(100vh - 90px);">
+                <div class="main_panel_registervisitas_practitioner w-full ">
                     <div class="py-1 w-full relative px-4" style="max-height: calc(100vh - 90px);">
                         <div class="overflow-x-auto container_register_teacher pb-2">
                             <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full">Visitas y Supervisión</h2>

@@ -45,6 +45,36 @@
                 throw $e;
             }  
         }
+        public function get_practicas_by_Es_Mod_Anio_Periodo($es, $modulo, $anio, $periodo, $dni_docente){
+            $query = "SELECT * FROM practicas p inner join estudiantes e on p.Estudiantes_DNI = e.DNI inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo and anio = :anio and periodo = :periodo and Docentes_DNI = :dnidoc order by Especialidad_id_especialidad desc";            
+            try{
+                $statement = $this->connect()->prepare($query);
+                $statement->bindParam(':especialidad',$es);
+                $statement->bindParam(':modulo',$modulo);
+                $statement->bindParam(':anio',$anio);
+                $statement->bindParam(":periodo",$periodo);
+                $statement->bindParam(':dnidoc',$dni_docente);
+                $statement->execute();
+                return $statement;
+                // return ($statement->rowCount()>0) ? true : false ;
+            }catch(Exception $e){
+                throw $e;
+            }  
+        }
+        public function get_practicas_by_Esp_Mod_Empresa($esp, $modulo){
+            $query = "SELECT * FROM practicas p inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo order by id_practicas desc";            
+            try{
+                $statement = $this->connect()->prepare($query);
+                $statement->bindParam(':especialidad',$esp);
+                $statement->bindParam(':modulo',$modulo);
+                // $statement->bindParam(':dnidoc',$dni_docente);
+                $statement->execute();
+                return $statement;
+                // return ($statement->rowCount()>0) ? true : false ;
+            }catch(Exception $e){
+                throw $e;
+            }  
+        }
     }
 
 

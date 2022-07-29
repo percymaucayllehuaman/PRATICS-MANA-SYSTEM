@@ -66,6 +66,22 @@ class Asistenciaactividad_model extends Model{
         }
         return;
     }
+    function list_students_asistencia_Teacher($especialidad, $modulo, $date){
+        $query = "SELECT * FROM asistencia_actividad aa inner join Practicas p  on aa.Practicas_id_practicas = p.id_practicas inner join estudiantes e on p.Estudiantes_DNI = e.DNI 
+        inner join especialidad es on es.id_especialidad = p.especialidad_id_especialidad inner join modulo m on m.especialidad_id_especialidad = es.id_especialidad 
+        where es.id_especialidad = :especialidad and m.id_modulo = :modulo and aa.fecha = :fecha order by aa.id_asistencia_actividad desc";            
+        try{
+            $statement = $this->connect()->prepare($query);
+            $statement->bindParam(':especialidad',$especialidad);
+            $statement->bindParam(':modulo',$modulo);
+            $statement->bindParam(':fecha',$date);
+            $statement->execute();
+            return $statement;
+            // return ($statement->rowCount()>0) ? true : false ;
+        }catch(Exception $e){
+            throw $e;
+        } 
+    }
     function get_by_DNIandDate($dni, $date){
         $query = "select * from asistencia_actividad where  
         Practicas_Estudiantes_DNI = :dni and fecha = :date ";
