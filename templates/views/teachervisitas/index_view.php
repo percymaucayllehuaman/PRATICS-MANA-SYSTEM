@@ -18,7 +18,7 @@
                         <div class="overflow-x-auto container_register_teacher pb-2px-1">
                             <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full text-[#4b4b4b]">Visitas y Supervisión</h2> <!-- title -->
                             <div class="w-full flex">
-                                <form action="teachervisitas/" method="post" class="w-autp items-center py-2">
+                                <form action="teachervisitas/show_teacher_visitas" method="post" class="w-autp items-center py-2">
                                     <div class="flex gap-3 flex-wrap">
                                         <div class="flex w-full gap-3 flex-wrap">
                                             <div class="w-auto flex items-center flex-wrap ">
@@ -26,16 +26,43 @@
                                                     <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Seleccione Especialidad</label>
                                                 </div>
                                                 <select name="select_especialidad_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                    <option value="">COMPUTACION INFORMATICA</option>
-                                                    <option value="">GASTRONOMÍA</option>
+                                                    <?php
+                                                    $es = new Especialidad_model();
+                                                    foreach ($es->get_all('especialidad')->fetchAll() as $item) {
+                                                        $checked = "";
+                                                        if (isset($_SESSION['data_visitas'])) {
+                                                            $prac = new Practicas_model();
+                                                            $p = $prac->get_practica_by_id($_SESSION['data_visitas']->id_visitas_supervicion);
+                                                            if ($d) {
+                                                                if ($item['id_especialidad'] == $p->Especialidad_id_especialidad) {
+                                                                    $checked = 'checked';
+                                                                }
+                                                            }
+                                                        }
+                                                        echo '<option value=' . $item['id_especialidad'] . ' ' . $checked . '>' . $item['nombre'] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="w-auto flex items-center border">
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
                                                 <select name="select_module_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                    <option value="">DISEÑO WEB</option>
-                                                    <option value="">OFIMATICA</option>
-                                                    <option value="">REDES</option>
+                                                    <?php
+                                                    $es = new Modulo_model();
+                                                    foreach ($es->get_all_order_by('modulo', 'especialidad_id_especialidad')->fetchAll() as $item) {
+                                                        $checked = "";
+                                                        if (isset($_SESSION['data_visitas'])) {
+                                                            $prac = new Practicas_model();
+                                                            $p = $prac->get_practica_by_id($_SESSION['data_visitas']->id_visitas_supervicion);
+                                                            if ($d) {
+                                                                if ($item['id_modulo'] == $p->Modulo_id_modulo) {
+                                                                    $checked = 'checked';
+                                                                }
+                                                            }
+                                                        }
+                                                        echo '<option value=' . $item['id_modulo'] . ' ' . $checked . ' >' . $item['nombre'] . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -43,7 +70,9 @@
                                             <div class="flex border h-8 items-center">
                                                 <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">DNI </label>
                                             </div>
-                                            <input name="select_dni_visitas" type="text" placeholder="Ingrese DNI" maxlength="8" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1" />
+                                            <input name="select_dni_visitas" type="text" placeholder="Ingrese DNI" maxlength="8" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1" required value="<?php if (isset($_SESSION['data_visitas'])) {
+                                                                                                                                                                                                                                echo $_SESSION['data_visitas']->Estudiantes_DNI;
+                                                                                                                                                                                                                            } ?>">
                                         </div>
                                     </div>
                                     <div class="w-auto px- py-2 my-2">
@@ -59,61 +88,162 @@
                 <div class="overflow-x-auto w-12/12">
                     <div class="container_results_list block w-full px-5 bottom max-h-screen overflow-auto min-w-[600px] ">
                         <div class="list_title_results w-12/12">
-                            <h2 class="font-bold text-[1rem] py-2 px-1 w-full text-[#5b5b5b]">Estudiante : MANUEL ALVARES HUAMAN</h2>
+                            <h2 class="font-bold text-[1rem] py-2 px-1 w-full text-[#5b5b5b]">
+                                <?php
+
+                                if (isset($_SESSION['data_visitas'])) {
+                                    $est = new Estudiantes_model();
+                                    $e = $est->get_by_DNI($_SESSION['data_visitas']->Estudiantes_DNI);
+                                    echo "Estudiante: " . ucfirst($e->nombres) . " " . ucfirst($e->apellido_paterno) . " " . ucfirst($e->apellido_materno);
+                                }
+
+                                ?>
+                            </h2>
                             <div class="flex bg-[rgba(2,77,131,.95)] w-10/12 text-slate-100 center text-sm py-0.5 rounded-sm">
                                 <label class="w-1/12 text-center px-0.5 py-0.5">#</label>
                                 <label class="w-5/12 text-center px-0.5 py-0.5">Criterio</label>
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Validación</label>
                             </div>
-                            <form class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 center text-sm py-0.5 rounded-sm">
-                                <div class="w-1/12 text-center px-0.5 py-0.5">
-                                    1
-                                </div>
-                                <div class="w-5/12 px-0.5 py-0.5">
-                                    Cumple con sus Asistencias Entradas y Salidas
-                                </div>
-                                <div class="w-3/12 text-center px-0.5 py-0.5">
-                                    <?php echo "";?>
-                                </div>
-                            </form>
-                            <form class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 center text-sm py-0.5 rounded-sm">
-                                <div class="w-1/12 text-center px-0.5 py-0.5">
-                                    2
-                                </div>
-                                <div class="w-5/12 px-0.5 py-0.5">
-                                    Cumple con sus Trabajos o Actividades
-                                </div>
-                                <div class="w-3/12 text-center px-0.5 py-0.5">
-                                    <?php echo "";?>
-                                </div>
-                            </form>
-                            <form class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 text-sm py-0.5 rounded-sm">
-                                <div class="w-1/12 text-center px-0.5 py-0.5">
-                                    3
-                                </div>
-                                <div class="w-5/12 px-0.5 py-0.5">
-                                    No se encontro en su Centro de Prácticas
-                                </div>
-                                <div class="w-3/12 text-center px-0.5 py-0.5">
-                                    <?php echo "";?>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="overflow-x-auto w-12/12">
-                    <div class="container_results_list block w-full px-5 bottom max-h-screen">
-                        <div>
-                            <form action="teachervisitas" method="post">
-                                <div class="flex flex-wrap py-2 my-2 w-full">
-                                    <div class="flex border h-8 items-center">
-                                        <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Sugerencias </label>
+                            <?php
+                            if (isset($_SESSION['data_visitas'])) {
+                            ?>
+                                <form action="teachervisitas/">
+                                    <div class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 center text-sm py-0.5 rounded-sm">
+                                        <div class="w-1/12 text-center px-0.5 py-0.5">
+                                            1
+                                        </div>
+                                        <div class="w-5/12 px-0.5 py-0.5">
+                                            Cumple con sus Asistencias Entradas y Salidas
+                                        </div>
+                                        <div class="w-3/12 text-center px-0.5 py-0.5">
+                                            <?php if (isset($_SESSION['data_visitas'])) {
+                                                if($_SESSION['data_visitas']->asistencia_ent_sal ==''){
+                                                    echo "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";
+                                                }else{
+                                                    echo "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";
+                                                }
+                                            } ?>
+                                        </div>
                                     </div>
-                                    <div class="w-1/2">
-                                        <input type="text" placeholder="Mejorar la comunicación con el Personal" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1 w-full">
+                                    <div class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 center text-sm py-0.5 rounded-sm">
+                                        <div class="w-1/12 text-center px-0.5 py-0.5">
+                                            2
+                                        </div>
+                                        <div class="w-5/12 px-0.5 py-0.5">
+                                            Cumple con sus Trabajos o Actividades
+                                        </div>
+                                        <div class="w-3/12 text-center px-0.5 py-0.5">
+                                            <?php if (isset($_SESSION['data_visitas'])) {
+                                                if($_SESSION['data_visitas']->actividad_trabajo ==''){
+                                                    echo "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";
+                                                }else{
+                                                    echo "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";
+                                                }
+                                            } ?>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 text-sm py-0.5 rounded-sm">
+                                        <div class="w-1/12 text-center px-0.5 py-0.5">
+                                            3
+                                        </div>
+                                        <div class="w-5/12 px-0.5 py-0.5">
+                                            No se encontro en su Centro de Prácticas
+                                        </div>
+                                        <div class="w-3/12 text-center px-0.5 py-0.5">
+                                            <?php 
+                                            if (isset($_SESSION['data_visitas'])) {
+                                                if($_SESSION['data_visitas']->no_se_encontro =='No'){
+                                                    echo "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";
+                                                }else{
+                                                    echo "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";
+                                                }
+                                                // echo $_SESSION['data_visitas']->no_se_encontro;
+                                                
+                                            } ?>
+
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap py-2 my-2 w-full">
+                                        <div class="flex border h-8 items-center">
+                                            <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Sugerencias </label>
+                                        </div>
+                                        <div class="w-1/2">
+                                            <input type="text" placeholder="Mejorar la comunicación con el Personal" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1 w-full" value="<?php echo $_SESSION['data_visitas']->sugerencias; ?>">
+                                        </div>
+                                    </div>
+                                            <?php 
+                                            unset($_SESSION['data_visitas']);
+                                            ?>
+                                </form>
+                                <style>
+                                    /* The switch - the box around the slider */
+                                    .switch {
+                                        position: relative;
+                                        display: inline-block;
+                                        width: 2.7rem;
+                                        /* width: 60px; */
+                                        height: 1.2rem;
+                                        /* height: 34px; */
+                                    }
+
+                                    /* Hide default HTML checkbox */
+                                    .switch input {
+                                        opacity: 0;
+                                        width: 0;
+                                        height: 0;
+                                    }
+
+                                    /* The slider */
+                                    .slider {
+                                        position: absolute;
+                                        cursor: pointer;
+                                        top: 0;
+                                        left: 0;
+                                        right: 0;
+                                        bottom: 0;
+                                        background-color: #ccc;
+                                        -webkit-transition: .4s;
+                                        transition: .4s;
+                                    }
+
+                                    .slider:before {
+                                        position: absolute;
+                                        content: "";
+                                        height: 10px;
+                                        width: 10px;
+                                        left: 4px;
+                                        bottom: 4.5px;
+                                        background-color: white;
+                                        -webkit-transition: .4s;
+                                        transition: .4s;
+                                    }
+
+                                    input:checked+.slider {
+                                        background-color: #2196F3;
+                                    }
+
+                                    input:focus+.slider {
+                                        box-shadow: 0 0 1px #2196F3;
+                                    }
+
+                                    input:checked+.slider:before {
+                                        -webkit-transform: translateX(26px);
+                                        -ms-transform: translateX(26px);
+                                        transform: translateX(26px);
+                                    }
+
+                                    /* Rounded sliders */
+                                    .slider.round {
+                                        border-radius: 34px;
+                                    }
+
+                                    .slider.round:before {
+                                        border-radius: 50%;
+                                    }
+                                </style>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

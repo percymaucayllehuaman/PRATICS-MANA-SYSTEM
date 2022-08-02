@@ -18,7 +18,7 @@
                         <div class="overflow-x-auto container_register_teacher pb-2px-1">
                             <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full text-[#4b4b4b]">Visitas y Supervisión</h2> <!-- title -->
                             <div class="w-full flex">
-                                <form action="teacherdocuments" method="post" class="w-autp items-center py-2">
+                                <form action="teacherdocuments/show_documents" method="post" class="w-autp items-center py-2">
                                     <div class="flex gap-3 flex-wrap">
                                         <div class="flex w-full gap-3 flex-wrap">
                                             <div class="w-auto flex items-center flex-wrap ">
@@ -26,16 +26,23 @@
                                                     <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Seleccione Especialidad</label>
                                                 </div>
                                                 <select name="select_especialidad_documents" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                    <option value="">COMPUTACION INFORMATICA</option>
-                                                    <option value="">GASTRONOMÍA</option>
+                                                    <?php
+                                                    $es = new Especialidad_model();
+                                                    foreach($es->get_all('especialidad')->fetchAll() as $item){
+                                                        echo '<option value='.$item['id_especialidad'].'>'.$item['nombre'].'</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                             <div class="w-auto flex items-center border">
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
                                                 <select name="select_module_documents" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
-                                                    <option value="">DISEÑO WEB</option>
-                                                    <option value="">OFIMATICA</option>
-                                                    <option value="">REDES</option>
+                                                    <?php
+                                                    $es = new Modulo_model();
+                                                    foreach($es->get_all_order_by('modulo','especialidad_id_especialidad')->fetchAll() as $item){
+                                                        echo '<option value='.$item['id_modulo'].'>'.$item['nombre'].'</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -59,57 +66,123 @@
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Estudiante</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Fecha</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Documento</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Archivo Entregado</label>
+                                <label class="w-1/12 text-center px-0.5 py-0.5">Archivo Entregado</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Validación</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Observación</label>
                             </div>
-                            <form class="flex bg-[rgba(2,77,131,.1)] text-slate-800 center text-sm py-0.5 rounded-sm">
-                                <div class="w-1/12 text-center px-0.5 py-0.5">
-                                    1
-                                </div>
-                                <div class="w-3/12 px-0.5 py-0.5">
-                                    ANDRES ANCCO HUAMAN
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                            </form>
-                            <form class="flex bg-[rgba(2,77,131,.1)] w-full text-slate-800 center text-sm py-0.5 rounded-sm">
-                                <div class="w-1/12 text-center px-0.5 py-0.5">
-                                    2
-                                </div>
-                                <div class="w-3/12 px-0.5 py-0.5">
-                                    MARIA TICA GUZMAN
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                                <div class="w-2/12 text-center px-0.5 py-0.5">
-                                    <?php echo ""; ?>
-                                </div>
-                            </form>
+                            <?php  
+                               if(isset($_SESSION['data-doc'])){
+                                    if($_SESSION['data-doc'] != null){
+                                        $i = 0;
+                                        foreach($_SESSION['data-doc'] as $item){
+                                            $i++;
+                                            // var_dump($item);
+                                            $validacion = '';
+                                            if($item[6] == '0000-00-00 00:00:00'){$validacion = '';}
+                                            if($item[6] != '0000-00-00 00:00:00'){$validacion = 'checked';}
+                                            $r = '<form class="flex bg-[rgba(2,77,131,.1)] text-slate-800 text-sm py-0.5 rounded-sm">
+                                            <div class="w-1/12 text-center px-0.5 py-0.5">
+                                                '.$i.'
+                                            </div>
+                                            <div class="w-3/12 px-0.5 py-0.5">
+                                                '.ucwords($item['nombres'].' ' .$item['apellido_paterno'].' '. $item['apellido_materno']).'
+                                            </div>
+                                            <div class="w-2/12 text-center px-0.5 py-0.5">
+                                                '.$item['fecha'].'
+                                            </div>
+                                            <div class="w-2/12 text-center px-0.5 py-0.5">
+                                                '.$item[4].'
+                                            </div>
+                                            <div class="w-1/12 text-center px-0.5 py-0.5">
+                                                <a href="'.BASEPATH.'resources/data/'.$item['ruta_archivo'].'" target="_blank" rel="noopener noreferrer" class ="decoration-1">
+                                                    Ver
+                                                </a>
+                                            </div>
+                                            <div class="w-2/12 text-center px-0.5 py-0.5">
+                                                <label class="switch"><input type="checkbox"  '.$validacion.'>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <div class="w-2/12 text-center px-0.5 py-0.5">
+                                                <input class="outline-0 border rounded w-[95%] px-1" name="" value="'.$item['observacion'].'">
+                                            </div>
+                                        </form>';
+                                        echo $r;
+                                        }
+                                    }
+                                    else if($_SESSION['data-doc'] == false){
+                                        echo "<div class='px-1 flex bg-[rgba(2,77,131,.1)] text-slate-800 text-sm py-0.5 rounded-sm'>No hay Documentos</div>";
+                                   } 
+                                   unset($_SESSION['data-doc']);
+                               }
+                            ?>
                         </div>
+                        <style>
+                            /* The switch - the box around the slider */
+                            .switch {
+                                position: relative;
+                                display: inline-block;
+                                width: 2.7rem;
+                                /* width: 60px; */
+                                height: 1.2rem;
+                                /* height: 34px; */
+                            }
+
+                            /* Hide default HTML checkbox */
+                            .switch input {
+                                opacity: 0;
+                                width: 0;
+                                height: 0;
+                            }
+
+                            /* The slider */
+                            .slider {
+                                position: absolute;
+                                cursor: pointer;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: #ccc;
+                                -webkit-transition: .4s;
+                                transition: .4s;
+                            }
+
+                            .slider:before {
+                                position: absolute;
+                                content: "";
+                                height: 10px;
+                                width: 10px;
+                                left: 4px;
+                                bottom: 4.5px;
+                                background-color: white;
+                                -webkit-transition: .4s;
+                                transition: .4s;
+                            }
+
+                            input:checked+.slider {
+                                background-color: #2196F3;
+                            }
+
+                            input:focus+.slider {
+                                box-shadow: 0 0 1px #2196F3;
+                            }
+
+                            input:checked+.slider:before {
+                                -webkit-transform: translateX(26px);
+                                -ms-transform: translateX(26px);
+                                transform: translateX(26px);
+                            }
+
+                            /* Rounded sliders */
+                            .slider.round {
+                                border-radius: 34px;
+                            }
+
+                            .slider.round:before {
+                                border-radius: 50%;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>

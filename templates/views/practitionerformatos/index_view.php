@@ -15,10 +15,26 @@
                             <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full">Formatos de Documentos</h2>
                             <div class="overflow-x-auto w-auto max-w-[800px]">
                                 <div class="container_results_list block w-auto px-1 bottom max-h-screen overflow-auto min-w-[700px] ">
-                                    <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 center text-sm py-0.5 rounded-sm">
+                                    <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 text-sm py-0.5 rounded-sm px-1">
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Documento</label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Última Actualización</label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Opción</label>
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">Descripción</label>
+                                    </div>
+                                    <div class="flex bg-[rgba(2,77,131,.1)] w-12/12 text-slate-800 px-1 text-sm py-0.5 rounded-sm" style="border-bottom: 1px solid rgba(2,77,131,.95);">
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">Ficha PPP</label>
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">02/05/2022</label>
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">
+                                            <a href="resouces/formatos/ficha.pdf" class="decoration-1">Descargar</a>
+                                        </label>
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">Descripción</label>
+                                    </div>
+                                    <div class="flex bg-[rgba(2,77,131,.1)] w-12/12 text-slate-800 px-1 text-sm py-0.5 rounded-sm" style="border-bottom: 1px solid rgba(2,77,131,.95);">
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">Informe PP</label>
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">02/05/2022</label>
+                                        <label class="w-3/12 text-center px-0.5 py-0.5">
+                                            <a href="resouces/formatos/informe.pdf" class="decoration-1">Descargar</a>
+                                        </label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Descripción</label>
                                     </div>
                                 </div>

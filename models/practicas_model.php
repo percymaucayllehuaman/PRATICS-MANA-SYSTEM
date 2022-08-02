@@ -62,7 +62,8 @@
             }  
         }
         public function get_practicas_by_Esp_Mod_Empresa($esp, $modulo){
-            $query = "SELECT * FROM practicas p inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo order by id_practicas desc";            
+            $query = "SELECT * FROM practicas p inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC 
+            where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo order by id_practicas desc";            
             try{
                 $statement = $this->connect()->prepare($query);
                 $statement->bindParam(':especialidad',$esp);
@@ -75,6 +76,30 @@
                 throw $e;
             }  
         }
+        public function get_last_practica_by_estudentDNI($dni){
+            $query = "SELECT * FROM practicas where Estudiantes_DNI = :dni order by id_practicas desc limit 1";            
+            try{
+                $statement = $this->connect()->prepare($query);
+                $statement->bindParam(':dni',$dni);
+                $statement->execute();
+                return ($statement->rowCount()>0) ? $statement->fetchObject() : false;
+            }catch(Exception $e){
+                throw $e;
+            }  
+        }
+        public function get_practica_by_id($id){
+            $query = "SELECT * FROM practicas where id_practicas = :id";            
+            try{
+                $statement = $this->connect()->prepare($query);
+                $statement->bindParam(':id',$id);
+                $statement->execute();
+                return ($statement->rowCount()>0) ? $statement->fetchObject() : false;
+            }catch(Exception $e){
+                throw $e;
+            }  
+        }
+
+
     }
 
 
