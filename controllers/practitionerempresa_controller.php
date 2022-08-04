@@ -6,7 +6,7 @@ class Practitionerempresa_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -14,7 +14,7 @@ class Practitionerempresa_controller extends Controller{
         View::render('index',['module' => 'Perfil']);
     }
 
-    function register(){
+    static function register(){
 
         $empresa_ruc_regis = scape_string(clean($_POST['prac_empresa_ruc_regis'])) ;
         $raz_empresa_regis = scape_string(clean($_POST['prac_raz_empresa_regis'])) ;

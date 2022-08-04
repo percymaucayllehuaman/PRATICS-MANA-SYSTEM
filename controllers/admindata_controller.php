@@ -6,7 +6,7 @@ class Admindata_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero. ', 'danger');
             Redirect::to('login');

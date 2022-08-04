@@ -6,7 +6,7 @@ class Admindocentes_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -14,7 +14,7 @@ class Admindocentes_controller extends Controller{
         view::render('index',['module' => 'admindocentes']);
     }
 
-    function register(){
+    static function register(){
         $tea_dni_regis = scape_string(clean($_POST['tea_dni_regis']));
         $tea_appat_regis = scape_string(clean($_POST['tea_appat_regis']));
         $tea_apmat_regis = scape_string(clean($_POST['tea_apmat_regis']));

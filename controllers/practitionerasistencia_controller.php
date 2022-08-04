@@ -6,7 +6,7 @@ class Practitionerasistencia_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -14,7 +14,7 @@ class Practitionerasistencia_controller extends Controller{
         View::render('index',['module' => 'Perfil']);
     }
 
-    function register_entrada(){
+    static function register_entrada(){
         
         if($_POST){
             $date = date('Y-m-d');
@@ -61,7 +61,7 @@ class Practitionerasistencia_controller extends Controller{
         
     }
 
-    function register_salida(){
+    static function register_salida(){
         if($_POST){
             //verificar si registró la entrada , si no pedir que registre su entrada
             $asis = new Asistenciaactividad_model();
@@ -92,7 +92,7 @@ class Practitionerasistencia_controller extends Controller{
         }
     }
 
-    function register_actividad(){
+    static function register_actividad(){
         if($_POST){
             $textarea_actividad = scape_string(clean($_POST['textarea_actividad']));
             if($textarea_actividad){

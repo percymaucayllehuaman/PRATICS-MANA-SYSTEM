@@ -6,7 +6,7 @@ class Teacherempresa_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -14,7 +14,7 @@ class Teacherempresa_controller extends Controller{
         View::render('index', ['module' => 'module teacherempresa']);
     }
 
-    function show_empresas(){
+    static function show_empresas(){
     //    using ajax
         if($_POST){
             if($_POST['select_especialidad_emp'] && $_POST['select_module_emp']){

@@ -6,7 +6,7 @@ class Adminlogout_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         Auth::logout();
         Auth::logout();
         unset($_SESSION['USER-LOGIN']);

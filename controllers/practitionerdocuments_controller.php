@@ -6,7 +6,7 @@ class Practitionerdocuments_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -14,7 +14,7 @@ class Practitionerdocuments_controller extends Controller{
         View::render('index',['module' => 'Perfil']);
     }
 
-    function register_documentp(){
+    static function register_documentp(){
         if($_POST){
             $select_type_documents_prac = clean($_POST['select_type_documents_prac']);
             $upload_file_document_prac = $_FILES['upload_file_document_prac']['name'];

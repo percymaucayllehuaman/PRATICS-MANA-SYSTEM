@@ -5,7 +5,7 @@ class Login_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (Auth::validate()) {
             if(isset($_SESSION['USER-LOGIN'])){
                 Flasher::new('Ya hay una sesión abierta.');
@@ -23,13 +23,10 @@ class Login_controller extends Controller{
 
         View::render('index',['title' => 'Login']);
         
-        
-        
-        
-        
+      
     }
 
-    function post_login(){
+    static function post_login(){
         
         // Auth::login($user['id'], $user);
         // Redirect::to('home/flash');
@@ -41,7 +38,7 @@ class Login_controller extends Controller{
        
         $usuario  = clean($_POST['input-user-login']);
         $password = clean($_POST['input-password-login']);
-        $password = sha1($password);
+        $password = sha1((string) $password);   ///or use strval() method
         
         $login = new Login_model();
         $res = $login->log_in($usuario,$password);

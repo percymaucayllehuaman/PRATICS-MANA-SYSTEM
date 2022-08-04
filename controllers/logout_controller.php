@@ -7,7 +7,7 @@ class Logout_controller{
         
     }
 
-    function logout(){
+    static function logout(){
         Auth::logout();
         session_destroy();
         Redirect::to('login');

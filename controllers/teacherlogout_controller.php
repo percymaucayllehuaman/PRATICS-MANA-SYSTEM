@@ -8,7 +8,7 @@ class Teacherlogout_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         // View::render('index',['module' => 'teacherlogout']);
         Auth::logout();
         Auth::logout();

@@ -9,14 +9,14 @@ class Teacherdocuments_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
         }
         View::render('index',['module' => 'teacher documents']);
     }
-    function show_documents(){
+    static function show_documents(){
         if($_POST){
             $select_especialidad_documents = clean($_POST['select_especialidad_documents']);
             $select_module_documents = clean($_POST['select_module_documents']);

@@ -7,7 +7,7 @@ class Teacherppp_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -15,7 +15,7 @@ class Teacherppp_controller extends Controller{
         View::render('index',['module' => 'teacher ppp']);
     }
 
-    function show_ppp(){
+    static function show_ppp(){
         //using ajax
         if($_POST){
             if($_POST['select_especialidad_pp'] && $_POST['select_module_pp'] && $_POST['select_year_visi'] && $_POST['select_period_visi']){

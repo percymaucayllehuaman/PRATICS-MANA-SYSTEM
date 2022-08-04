@@ -5,7 +5,7 @@ class Error_controller extends Controller {
     
   }
   
-  function index() {
+  static function index() {
     $data =
     [
       'message' => 'Página no encontrada',

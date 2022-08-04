@@ -5,7 +5,7 @@ class DocumentsPDF_controller extends Controller {
     
   }
   
-  function index() {
+  static function index() {
     
     View::render('index');
   }  

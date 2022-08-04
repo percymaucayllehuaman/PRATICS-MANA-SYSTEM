@@ -6,11 +6,11 @@ class Registerpractitioner_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         View::render('index',['module' => 'Registerprctitioner']);
     }
     
-    function register(){
+    static function register(){
         $inp_dni_prac = scape_string(clean($_POST['inp_dni_prac']));
         $inp_lastnamefirst_prac = scape_string(clean($_POST['inp_lastnamefirst_prac']));
         $inp_lastnamesecond_prac = scape_string(clean($_POST['inp_lastnamesecond_prac']));

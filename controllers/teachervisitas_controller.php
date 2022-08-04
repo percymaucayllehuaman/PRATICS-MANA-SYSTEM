@@ -4,7 +4,7 @@ class Teachervisitas_controller extends Controller{
     function __construct (){
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -12,7 +12,7 @@ class Teachervisitas_controller extends Controller{
         View::render('index',['module' => 'teacher visitas']);
     }
 
-    function show_teacher_visitas(){
+    static function show_teacher_visitas(){
         if($_POST){
             $select_especialidad_visitas = scape_string(clean($_POST['select_especialidad_visitas']));
             $select_module_visitas = scape_string(clean($_POST['select_module_visitas']));

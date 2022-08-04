@@ -6,7 +6,7 @@ class Practitionersolicitud_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
@@ -14,7 +14,7 @@ class Practitionersolicitud_controller extends Controller{
         View::render('index',['module' => 'Perfil']);
     }
 
-    function register(){
+    static function register(){
         $select_especilidad_sol = scape_string(clean( $_POST['select_especilidad_sol']));
         $select_module_soli = scape_string(clean( $_POST['select_module_soli']));
         $select_section_soli = scape_string(clean( $_POST['select_section_soli']));

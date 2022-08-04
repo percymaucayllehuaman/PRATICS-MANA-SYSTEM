@@ -6,14 +6,14 @@ class Teacherasistencia_controller extends Controller{
         
     }
 
-    function index(){
+    static function index(){
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
         }
         View::render('index',['module' => 'asistencia practicante']);
     }
-    function show_asistencia(){
+    static function show_asistencia(){
         //    using ajax
         if($_POST){
             if($_POST['select_especialidad_asis'] && $_POST['select_module_asis'] && $_POST['select_date_asis']){
