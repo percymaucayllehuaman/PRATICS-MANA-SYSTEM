@@ -7,7 +7,7 @@ date_default_timezone_set('America/Lima');
 define('PREPROS'     , false); // Activar en caso de trabajar el desarrollo en prepros como servidor local
 
 // Lenguaje
-define('SITE_LANG'   , $this->lng);
+// define('SITE_LANG'   , $this->lng);
 
 // Versión de la aplicación
 define('SYSTEM_NAME'   , 'SISEPP');  //Sistema de seguimiento de praticas profesionales    
