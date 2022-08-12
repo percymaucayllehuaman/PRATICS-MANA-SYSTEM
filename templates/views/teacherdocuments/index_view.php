@@ -27,6 +27,7 @@
                                                 </div>
                                                 <select name="select_especialidad_documents" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                    require_once(MODELS.'especialidad_model.php');
                                                     $es = new Especialidad_model();
                                                     foreach($es->get_all('especialidad')->fetchAll() as $item){
                                                         echo '<option value='.$item['id_especialidad'].'>'.$item['nombre'].'</option>';
@@ -38,6 +39,7 @@
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
                                                 <select name="select_module_documents" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                    require_once(MODELS.'modulo_model.php');
                                                     $es = new Modulo_model();
                                                     foreach($es->get_all_order_by('modulo','especialidad_id_especialidad')->fetchAll() as $item){
                                                         echo '<option value='.$item['id_modulo'].'>'.$item['nombre'].'</option>';

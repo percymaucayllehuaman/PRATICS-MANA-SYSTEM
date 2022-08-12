@@ -4,9 +4,6 @@
 
     <?php require_once MODULES . "mod_header_main.php"; ?>
 
-
-
-
     <!-- <div class="panel-praticing bg-[#efefef] w-full flex"> -->
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_teacher.php"; ?>
@@ -24,7 +21,9 @@
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Seleccione Especialidad </label>
                                                 <select name="select_especialidad_emp" class="text-[.8rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                    require_once(MODELS.'especialidad_model.php');
                                                     $es = new Especialidad_model();
+                                                    
                                                     foreach ($es->get_all('especialidad') as $item) {
                                                         echo '<option value="' . $item['id_especialidad'] . '">' . $item['nombre'] . '</option>';
                                                     }
@@ -35,6 +34,7 @@
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
                                                 <select name="select_module_emp" class="text-[.8rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                    require_once(MODELS.'modulo_model.php');
                                                     $m = new Modulo_model();
                                                     foreach ($m->get_all_order_by('modulo', 'Especialidad_id_especialidad') as $item) {
                                                         echo "<option value='" . $item['id_modulo'] . "'>" . $item['nombre'] . "</option>";

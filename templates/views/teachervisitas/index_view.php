@@ -27,10 +27,12 @@
                                                 </div>
                                                 <select name="select_especialidad_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                    require_once(MODELS.'especialidad_model.php');
                                                     $es = new Especialidad_model();
                                                     foreach ($es->get_all('especialidad')->fetchAll() as $item) {
                                                         $checked = "";
                                                         if (isset($_SESSION['data_visitas'])) {
+                                                            require_once(MODELS.'practicas_model.php');
                                                             $prac = new Practicas_model();
                                                             $p = $prac->get_practica_by_id($_SESSION['data_visitas']->id_visitas_supervicion);
                                                             if ($d) {
@@ -48,10 +50,12 @@
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
                                                 <select name="select_module_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                    require_once(MODELS.'modulo_model.php');
                                                     $es = new Modulo_model();
                                                     foreach ($es->get_all_order_by('modulo', 'especialidad_id_especialidad')->fetchAll() as $item) {
                                                         $checked = "";
                                                         if (isset($_SESSION['data_visitas'])) {
+                                                            require_once(MODELS.'practicas_model.php');
                                                             $prac = new Practicas_model();
                                                             $p = $prac->get_practica_by_id($_SESSION['data_visitas']->id_visitas_supervicion);
                                                             if ($d) {
@@ -90,7 +94,7 @@
                         <div class="list_title_results w-12/12">
                             <h2 class="font-bold text-[1rem] py-2 px-1 w-full text-[#5b5b5b]">
                                 <?php
-
+                                require_once(MODELS.'estudiantes_model.php');
                                 if (isset($_SESSION['data_visitas'])) {
                                     $est = new Estudiantes_model();
                                     $e = $est->get_by_DNI($_SESSION['data_visitas']->Estudiantes_DNI);

@@ -25,6 +25,7 @@
                                                 <label for="" class="w-auto mr-2 px-1">Seleccione Especialidad </label>
                                                 <select name="select_especialidad_visi" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                        require_once(MODELS.'especialidad_model.php');
                                                         $es = new Especialidad_model();
                                                         $data = $es->get_all("especialidad")->fetchAll();
                                                         
@@ -38,6 +39,7 @@
                                                 <label for="" class="w-auto mr-2 px-1">Módulo </label>
                                                 <select name="select_module_visi" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
+                                                        require_once(MODELS.'empresa_model.php');
                                                         $m = new Empresa_model();
                                                         $data = $m->get_all_order_by("modulo","Especialidad_id_especialidad")->fetchAll();
                                                         foreach ($data as $item) {

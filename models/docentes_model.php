@@ -68,75 +68,7 @@ class Docentes_model extends Model{
         } catch (Exception $e) {
             throw $e;
         }
-    }
-
-    public function update_doc($data){
-        $sql = 'UPDATE docentes SET DNI = :DNI, apellido_paterno = :apellido_paterno, apellido_materno = :apellido_materno, nomnombresres = :nombres, fecha_nac = :fecha_nac, sexo = :sexo, especialidad = :especialidad, celular = :celular, correo = :correo, direccion = :direccion WHERE DNI=:DNI';
-        // $data = 
-        // [
-        //     'DNI' => $_POST['DNI'],
-        //     'apellido_paterno' => $_POST['apellido_paterno'],
-        //     'apellido_materno' => $_POST['apellido_materno'],
-        //     'nombres' => $_POST['nombres'],
-        //     'fecha_nac' => $_POST['fecha_nac'],
-        //     'sexo' => $_POST['sexo'],
-        //     'departamento' => $_POST['departamento'],
-        //     'provincia' => $_POST['provincia'],
-        //     'distrito' => $_POST['distrito'],
-        //     'correo' => $_POST['correo'],
-        //     'celular' => $_POST['celular'],
-        //     'direccion' => $_POST['direccion'],
-        //     'grado_instruccion' => $_POST['grado_instruccion'],
-        //     'estado_civil' => $_POST['estado_civil']
-        // ]
-
-        try {
-            return (parent::query($sql, $data)) ? true : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    
-    }
-
-    public function exist_doc_DNI($dni){
-        $sql = 'select * from docentes where DNI = :DNI';
-        $dni = ['DNI' =>$dni];
-        try {
-            return (parent::query($sql,$dni)) ? true : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function search_doc_nombres($nombres){
-        $sql = "SELECT * from docentes where nombres like '%:nombres%'";
-        $nombres = ['nombres' => $nombres];
-        try {
-            return ($rows = parent::query($sql,$nombres)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-    public function search_doc_DNI($dni){
-        $sql = "SELECT * from docentes where DNI like '%:DNI%'";
-        $dni = ['DNI' => $dni];
-        try {
-            return ($rows = parent::query($sql,$dni)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function get_doc_by_DNI($dni){
-        $sql = "SELECT * from docentes where DNI = :DNI";
-        $dni = ['DNI' => $dni];
-        try {
-            return ($rows = parent::query($sql,$dni)) ? $rows : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-    
+    }  
 }
 
 ?>

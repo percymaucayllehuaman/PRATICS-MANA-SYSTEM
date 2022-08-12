@@ -63,6 +63,7 @@
                                 <label class="w-4/12 text-center px-0.5 py-0.5">Obserbación</label>
                             </div>
                             <?php
+                            require_once(MODELS.'documents_model.php');
                             $docs = new Documentos_model();
                             foreach($docs->get_document_by_EstudianteDNI($_SESSION['USER-LOGIN']->usuario) as $item){
                                 if($item['validacion']=='0000-00-00 00:00:00'){$item['validacion']='Falta Validar';}

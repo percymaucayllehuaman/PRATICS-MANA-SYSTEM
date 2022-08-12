@@ -5,7 +5,7 @@
     <div class="header-login-main px-5 py-0 w-full background-color-primary h-[100px] min-h-fit">
         <div class="flex box-border py-0 items-center h-full flex-row overflow-hidden">
             <div class="w-full h-full w-2/12 flex items-center min-w-fit">
-                <img src="assets/images/logo_cetpro.png" alt="logo CETPRO" class="h-[90px] min-w-fit">
+                <img src="assets/images/logo_cetpro.png" alt="logo CETPRO" class="h-[90px] w-[80px]">
             </div>
             <div class="w-8/12">
                 <div class="w-full relative text-center text-lg min-h-fit pb-2">

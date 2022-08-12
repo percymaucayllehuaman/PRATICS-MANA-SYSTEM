@@ -161,12 +161,11 @@ class Sisepp {
    */
   private function filter_url() {
     // echo $_SERVER["REQUEST_URI"];
-    if(REQUEST_URI) {
-      $this->uri = REQUEST_URI;
+    if(isset($_GET['uri'])) {
+      $this->uri = $_GET['uri'];
       $this->uri = rtrim($this->uri, '/');
       $this->uri = filter_var($this->uri, FILTER_SANITIZE_URL);
       $this->uri = explode('/', strtolower($this->uri));
-      array_shift($this->uri);
       return $this->uri;
     }
   }
@@ -185,9 +184,9 @@ class Sisepp {
     /////////////////////////////////////////////////////////////////////////////////
     // Necesitamos saber si se está pasando el nombre de un controlador en nuestro URI
     // $this->uri[0] es el controlador en cuestión
-    if(isset($this->uri[1])) {
-      $current_controller = $this->uri[1]; // users Controller.php
-      unset($this->uri[1]);
+    if(isset($this->uri[0])) {
+      $current_controller = $this->uri[0]; // users Controller.php
+      unset($this->uri[0]);
     } else {
       $current_controller = DEFAULT_CONTROLLER; // home Controler.php
     }
@@ -200,8 +199,8 @@ class Sisepp {
     }
     /////////////////////////////////////////////////////////////////////////////////
     // Ejecución del método solicitado
-    if(isset($this->uri[2])) {
-      $method = str_replace('-', '_', $this->uri[2]);
+    if(isset($this->uri[1])) {
+      $method = str_replace('-', '_', $this->uri[1]);
       // Existe o no el método dentro de la clase a ejecutar (controllador)
       if(!method_exists($controller, $method)) {
         $controller         = DEFAULT_ERROR_CONTROLLER.'_controller'; // errorController
@@ -211,7 +210,7 @@ class Sisepp {
         $current_method = $method;
       }
 
-      unset($this->uri[2]);
+      unset($this->uri[1]);
     } else {
       $current_method = DEFAULT_METHOD; // index
     }

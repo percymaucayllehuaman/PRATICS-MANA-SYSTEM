@@ -20,7 +20,6 @@ class Practitionervisitas_controller extends Controller{
             $select_module_visi = scape_string(clean($_POST['select_module_visi']));
             $select_year_visi = scape_string(clean($_POST['select_year_visi']));
             $select_period_visi = scape_string(clean($_POST['select_period_visi']));
-
             if($select_especialidad_visi && $select_module_visi && $select_year_visi && $select_period_visi){
                 
                 $v = new Visitassupervision_model();

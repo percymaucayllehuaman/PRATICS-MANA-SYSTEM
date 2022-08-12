@@ -89,8 +89,9 @@ class Auth {
     public static function load_user_complement_data(){   ///designa datos complementarios del usuario estudiante o docente
             if($_SESSION['USER-LOGIN']){
                 if($_SESSION['USER-LOGIN']->user_type =="DOCENTE"){
-                    require_once(MODELS.'docentes_model.php');
+                    require_once(MODELS.'decentes_model.php');
                     if(Docentes_model::get_by_DNI(intval($_SESSION['USER-LOGIN']->usuario))){
+                        echo 'data';
                         $_SESSION['DATA-USER'] = Docentes_model::get_by_DNI(intval($_SESSION['USER-LOGIN']->usuario));
                     }else{
                         $_SESSION['DATA-USER'] = false;

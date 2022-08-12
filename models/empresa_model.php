@@ -63,24 +63,27 @@ class Empresa_model extends Model{
         $sql = 'UPDATE empresa SET Estudiantes_DNI = :Estudiantes_DNI, nombre = :nombre, rubro = :rubro, departamento = :departamento, provincia = :provincia, distrito = :distrito, direccion = :direccion, nom_ape_encargado = :nom_ape_encargado, sexo_encargado = :sexo_encargado, celular = :celular, correo = :correo, fecha_hora_registro = :fecha_hora_registro, fecha_hora_validacion = :fecha_hora_validacion, doc_convenio = :doc_convenio WHERE RUC_codigo_ident = :RUC_codigo_ident';
         // $data = 
         // [
-        //     'DNI' => $_POST['DNI'],
-        //     'apellido_paterno' => $_POST['apellido_paterno'],
-        //     'apellido_materno' => $_POST['apellido_materno'],
-        //     'nombres' => $_POST['nombres'],
-        //     'fecha_nac' => $_POST['fecha_nac'],
-        //     'sexo' => $_POST['sexo'],
-        //     'departamento' => $_POST['departamento'],
-        //     'provincia' => $_POST['provincia'],
-        //     'distrito' => $_POST['distrito'],
-        //     'correo' => $_POST['correo'],
-        //     'celular' => $_POST['celular'],
-        //     'direccion' => $_POST['direccion'],
-        //     'grado_instruccion' => $_POST['grado_instruccion'],
-        //     'estado_civil' => $_POST['estado_civil']
+        //     
         // ]
 
         try {
-            return (parent::query($sql, $data)) ? true : false;
+            $statement = parent::connect()->prepare($sql);
+            $statement->bindParam(':DNI',$data['DNI']);
+            $statement->bindParam(':apellido_paterno',$data['apellido_paterno']);
+            $statement->bindParam(':apellido_materno',$data['apellido_materno']);
+            $statement->bindParam(':nombres',$data['nombres']);
+            $statement->bindParam(':fecha_nac',$data['fecha_nac']);
+            $statement->bindParam(':sexo',$data['sexo']);
+            $statement->bindParam(':departamento',$data['departamento']);
+            $statement->bindParam(':provincia',$data['provincia']);
+            $statement->bindParam(':distrito',$data['distrito']);
+            $statement->bindParam(':correo',$data['correo']);
+            $statement->bindParam(':celular',$data['celular']);
+            $statement->bindParam(':direccion',$data['direccion']);
+            $statement->bindParam(':grado_instruccion',$data['grado_instruccion']);
+            $statement->bindParam(':estado_civil',$data['estado_civil']);
+            $statement->execute();
+            return $statement;
         } catch (Exception $e) {
             throw $e;
         }

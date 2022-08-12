@@ -82,6 +82,7 @@
                             <label class="w-[10%] text-center px-0.5 py-0.5">...</label>
                         </div>
                         <?php
+                        require_once(MODELS.'empresa_model.php');
                         $em = new Empresa_model();
                         $data_em = $em->get_empresas_by_estudent($_SESSION['USER-LOGIN']->usuario)->fetchAll();
                         if($data_em){

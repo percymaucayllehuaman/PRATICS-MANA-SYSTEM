@@ -69,6 +69,7 @@
                             <label class="w-[20%] text-center px-0.5 py-0.5">Obserbación</label>
                         </div>
                         <?php
+                            require_once(MODELS.'asistenciaactividad_model.php');
                             $asis = new Asistenciaactividad_model();
                             $data = $asis->get_all_by_dni($_SESSION['USER-LOGIN']->usuario);
                             $i = 0;

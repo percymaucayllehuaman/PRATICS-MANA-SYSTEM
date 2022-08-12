@@ -22,6 +22,7 @@
                                         <select name="select_especilidad_sol" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
                                                 echo "<option value=''>Seleccione Especialidad</option>";
+                                                require_once(MODELS.'especialidad_model.php');
                                                 $es = new Especialidad_model();
                                                 $data = $es->get_all("especialidad")->fetchAll();
 
@@ -38,6 +39,7 @@
                                         <select name="select_module_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
                                                 echo "<option value=''>Seleccione Módulo</option>";
+                                                require_once(MODELS.'modulo_model.php');
                                                 $m = new Modulo_model();
                                                 $data = $m->get_all_order_by("modulo","Especialidad_id_especialidad")->fetchAll();
                                                 foreach ($data as $item) {
@@ -87,6 +89,7 @@
                                         </div>
                                         <select name="select_empresa_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
+                                                require_once(MODELS.'empresa_model.php');
                                                 $m = new Empresa_model();
                                                 $data = $m->get_all('empresa')->fetchAll();
                                                 echo "<option value=''>Seleccione Empresa</option>";
@@ -110,6 +113,7 @@
                                         </div>
                                         <select name="select_teacher_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
+                                                require_once(MODELS.'docentes_model.php');
                                                 $m = new Docentes_model();
                                                 $data = $m->get_all('docentes')->fetchAll();
                                                 echo "<option value=''>Seleccione Docente</option>";
@@ -180,6 +184,7 @@
                         </div>
 
                         <?php
+                            require_once(MODELS.'practicas_model.php');
                             $p = new Practicas_model();
                             $data = $p->get_practicas_by_estudiante($_SESSION['USER-LOGIN']->usuario);
                             $data = $data->fetchAll();
