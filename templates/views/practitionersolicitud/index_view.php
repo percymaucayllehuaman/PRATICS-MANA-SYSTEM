@@ -11,7 +11,7 @@
                 <div class="py-1 w-full relative px-4" style="max-height: calc(100vh - 90px);">
                     <div class="overflow-x-auto container_register_teacher pb-2">
                         <h2 class="font-bold text-[1.2rem] py-2 px-1">Solicite PPP a realizar:</h2>
-                        <form action="practitionersolicitud/register" class="w-full h-auto flex flex-wrap min-w-[450px]" method="post">
+                        <form id="form_regis_practicas_prac" action="practitionersolicitud/register" class="w-full h-auto flex flex-wrap min-w-[450px]" method="post">
                             <div class="flex flex-wrap">
                                 <?php echo Flasher::flash(); ?>
                                 <div class="min-w-[200px] px-2 flex flex-wrap gap-0.5">
@@ -19,7 +19,7 @@
                                         <div class="w-auto mx-1 text-[.9rem]">
                                             ESPECIALIDAD
                                         </div>
-                                        <select name="select_especilidad_sol" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
+                                        <select id="select_especilidad_sol_p" name="select_especilidad_sol" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
                                                 echo "<option value=''>Seleccione Especialidad</option>";
                                                 require_once(MODELS.'especialidad_model.php');
@@ -36,15 +36,15 @@
                                         <div class="w-auto mx-1 text-[.9rem]">
                                             MÓDULO
                                         </div>
-                                        <select name="select_module_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
+                                        <select id="select_modulo_sol_p" name="select_module_soli" class="px-1 input-border-blue border-slate-500 h-7 text-[.8rem] w-full">
                                             <?php
                                                 echo "<option value=''>Seleccione Módulo</option>";
-                                                require_once(MODELS.'modulo_model.php');
-                                                $m = new Modulo_model();
-                                                $data = $m->get_all_order_by("modulo","Especialidad_id_especialidad")->fetchAll();
-                                                foreach ($data as $item) {
-                                                    echo "<option value='".$item['id_modulo']."'>".$item['nombre']."</option>";
-                                                }
+                                                // require_once(MODELS.'modulo_model.php');
+                                                // $m = new Modulo_model();
+                                                // $data = $m->get_all_order_by("modulo","Especialidad_id_especialidad")->fetchAll();
+                                                // foreach ($data as $item) {
+                                                //     echo "<option value='".$item['id_modulo']."'>".$item['nombre']."</option>";
+                                                // }
                                             ?>
                                         </select>
                                     </div>
@@ -229,3 +229,40 @@
 
 
 <?php require_once INCLUDES . "inc_footer_html.php"; ?>
+
+<script>
+    $(document).ready(function() {
+        // $("#form_filter_empresa_validation_teacher").on("submit", function(event) {
+        //     event.preventDefault();
+        // });
+        //form_filter_empresa_validation_teacher
+        $("#select_especilidad_sol_p").change(function() {
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/load_modules",
+                data: $("#form_regis_practicas_prac").serialize(), //send data of form id=form_send_ppp_teacher
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    // if (jsonData.success == "1")
+                    if (jsonData.success != null) {
+
+                        console.log(jsonData.success);
+                        let data = jsonData.success;
+                        let row = "<option value=''>--seleccionar--</option>";
+                        for (const item in data) {
+                            row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
+                        }
+                        $('#select_modulo_sol_p').html(row);
+                    } else if (jsonData.success == []) {
+                        alert('0 Resultados');
+                    } else {
+                        alert('0 Resultados');
+                    }
+                }
+            });
+
+        });
+    });
+</script>

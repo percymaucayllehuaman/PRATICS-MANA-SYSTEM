@@ -14,8 +14,9 @@
                     <div class="overflow-x-auto container_register_especialidad pb-2 px-5">
                         <!-- <style>::-webkit-scrollbar {width:5px;}::-webkit-scrollbar-track {background: #f1f1f1; }</style> -->
                         <h2 class="font-bold text-[1.2rem] py-2 w-full">Registro de Especialidad </h2>
+                        <?php echo Flasher::flash(); ?>
                         <form action="adminespecialidad/registerespecialidad" class="w-auto h-auto min-w-[250px] border input-border-blue pt-3 pb-3 overflow-x-auto" method="post">
-                            <?php echo Flasher::flash(); ?>
+                            
                             <div class="px-2 w-auto flex flex-wrap items-center gap-4">
                                 <div class="line my-2 mx-1">
                                     <!-- <label for="" class="w-full">DNI</label> -->
@@ -41,10 +42,14 @@
                                 <div class="line my-2 mx-1">
                                     <!-- <label for="" class="w-full">DNI</label> -->
                                     <select name="select_especialidad_regis" class="px-2 rounded input-border-blue border-slate-500 h-8 text-[.9rem] min-w-[15rem]">
-                                        <option value="">Especialidad</option>
-                                        <option value="">COMputación e informatica</option>
-                                        <option value="">Gastronomia</option>
-                                        <option value="">Cosmeetologia</option>
+                                        <option value="">Seleccione Especialidad</option>
+                                    <?php 
+                                        require_once(MODELS.'especialidad_model.php');
+                                        $e = new Especialidad_model();
+                                        foreach($e->get_all('especialidad')->fetchAll() as $item){
+                                            echo "<option value='".$item['id_especialidad']."'>".$item['nombre']."</option>";
+                                        }
+                                    ?>
                                     </select>
                                 </div>
                                 <div class="line my-2 mx-1">

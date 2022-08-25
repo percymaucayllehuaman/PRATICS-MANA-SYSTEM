@@ -21,6 +21,7 @@ class Practitionerdocuments_controller extends Controller{
             $button_save_document_prac = $_POST['button_save_document_prac'];
             
             if($select_type_documents_prac && !empty($upload_file_document_prac)){
+                require_once(MODELS.'practicas_model.php');
                 $prac = new Practicas_model();
                 $p = $prac->get_last_practica_by_estudentDNI($_SESSION['USER-LOGIN']->usuario);
                 if($p){    // verify if exist practica
@@ -38,6 +39,7 @@ class Practitionerdocuments_controller extends Controller{
                     $allowTypes = array('pdf'); ///files permitidos  array('jpg','png','jpeg','gif','pdf')
                     if(in_array($fileType, $allowTypes)){
                         if(move_uploaded_file($_FILES["upload_file_document_prac"]["tmp_name"], $targetFilePath)){  ///copiar file en el hosting
+                            require_once(MODELS.'documentos_model.php');
                             $doc = new Documentos_model();
                             $doc->add_document($data);
                             if($doc){

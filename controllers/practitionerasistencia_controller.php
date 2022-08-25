@@ -19,9 +19,11 @@ class Practitionerasistencia_controller extends Controller{
         if($_POST){
             $date = date('Y-m-d');
             $datetime = date('Y-m-d H:i:s');
+            require_once(MODELS.'practicas_model.php');
             $prac = new Practicas_model();
             if($prac->get_practicas_by_estudiante($_SESSION['USER-LOGIN']->usuario)->rowCount()==1){
                 $p = $prac->get_practicas_by_estudiante($_SESSION['USER-LOGIN']->usuario)->fetchObject();
+                require_once(MODELS.'asistenciaactividad_model.php');
                 $asis_ac = new Asistenciaactividad_model();
                 $a = $asis_ac->get_by_DNIandDate($_SESSION['USER-LOGIN']->usuario, $date);
                 if(!$a){///si no hay registro
@@ -64,6 +66,7 @@ class Practitionerasistencia_controller extends Controller{
     static function register_salida(){
         if($_POST){
             //verificar si registró la entrada , si no pedir que registre su entrada
+            require_once(MODELS.'asistenciaactividad_model.php');
             $asis = new Asistenciaactividad_model();
             $a = $asis->get_by_DNIandDate($_SESSION['USER-LOGIN']->usuario, date('Y-m-d'));   //entrada
             if($a){  ///si registró la entrada -> registrar salida 
@@ -96,6 +99,7 @@ class Practitionerasistencia_controller extends Controller{
         if($_POST){
             $textarea_actividad = scape_string(clean($_POST['textarea_actividad']));
             if($textarea_actividad){
+                require_once(MODELS.'asistenciaactividad_model.php');
                 $asis = new Asistenciaactividad_model();
                 $a = $asis->get_by_DNIandDate($_SESSION['USER-LOGIN']->usuario,date('Y-m-d'));
                 if($a){   //// si existe registro de entrada

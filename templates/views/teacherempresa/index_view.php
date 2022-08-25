@@ -19,11 +19,12 @@
                                         <div class="flex w-full gap-3 flex-wrap">
                                             <div class="w-auto flex items-center border flex-wrap ">
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Seleccione Especialidad </label>
-                                                <select name="select_especialidad_emp" class="text-[.8rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                <select id="select_especialidad_emp" name="select_especialidad_emp" class="text-[.8rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                    <option value="">--selecionar--</option>
                                                     <?php
-                                                    require_once(MODELS.'especialidad_model.php');
+                                                    require_once(MODELS . 'especialidad_model.php');
                                                     $es = new Especialidad_model();
-                                                    
+
                                                     foreach ($es->get_all('especialidad') as $item) {
                                                         echo '<option value="' . $item['id_especialidad'] . '">' . $item['nombre'] . '</option>';
                                                     }
@@ -32,13 +33,14 @@
                                             </div>
                                             <div class="w-auto flex items-center border">
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
-                                                <select name="select_module_emp" class="text-[.8rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                <select id="select_module_emp_teacher" name="select_module_emp" class="text-[.8rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                    <option value="">--selecionar--</option>
                                                     <?php
-                                                    require_once(MODELS.'modulo_model.php');
-                                                    $m = new Modulo_model();
-                                                    foreach ($m->get_all_order_by('modulo', 'Especialidad_id_especialidad') as $item) {
-                                                        echo "<option value='" . $item['id_modulo'] . "'>" . $item['nombre'] . "</option>";
-                                                    }
+                                                    // require_once(MODELS . 'modulo_model.php');
+                                                    // $m = new Modulo_model();
+                                                    // foreach ($m->get_all_order_by('modulo', 'Especialidad_id_especialidad') as $item) {
+                                                    //     echo "<option value='" . $item['id_modulo'] . "'>" . $item['nombre'] . "</option>";
+                                                    // }
                                                     ?>
                                                 </select>
                                             </div>
@@ -62,7 +64,7 @@
                                 <label class="w-2/12 text-center px-0.5 py-0.5">RUC</label>
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Empresa (Raz. Social)</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Rubro</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Dirección</label>
+                                <label class="w-3/12 text-center px-0.5 py-0.5">Dirección</label>
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Representante</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Telefono</label>
                                 <label class="w-1/12 text-center px-0.5 py-0.5">Validar</label>
@@ -142,11 +144,45 @@
             </div>
         </div>
     </div>
-
     <?php require_once INCLUDES . "inc_footer.php"; ?>
-
-
 </div>
 
-
 <?php require_once INCLUDES . "inc_footer_html.php"; ?>
+
+<script>
+    $(document).ready(function() {
+        // $("#form_filter_empresa_validation_teacher").on("submit", function(event) {
+        //     event.preventDefault();
+        // });
+        //form_filter_empresa_validation_teacher
+        $("#select_especialidad_emp").change(function() {
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/load_modules",
+                data: $("#form_filter_empresa_validation_teacher").serialize(), //send data of form id=form_send_ppp_teacher
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    // if (jsonData.success == "1")
+                    if (jsonData.success != null) {
+
+                        console.log(jsonData.success);
+                        let data = jsonData.success;
+                        let row = "<option value=''>--seleccionar--</option>";
+                        for (const item in data) {
+                            row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
+                        }
+                        $('#select_module_emp_teacher').html(row);
+                    } else if (jsonData.success == []) {
+                        alert('0 Resultados');
+                    } else {
+                        alert('0 Resultados');
+                    }
+                }
+            });
+
+        });
+    });
+</script>
+

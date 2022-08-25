@@ -27,9 +27,7 @@ class Login_controller extends Controller{
     }
 
     static function post_login(){
-        require_once(MODELS.'login_model.php');
-        // Auth::login($user['id'], $user);
-        // Redirect::to('home/flash');
+        
         if($_POST){
             if (!Csrf::validate($_POST['csrf']) || !check_posted_data(['input-user-login','csrf','input-password-login'], $_POST)) {
                 Flasher::new('Acceso no autorizado.', 'danger');
@@ -40,6 +38,7 @@ class Login_controller extends Controller{
             $password = clean($_POST['input-password-login']);
             $password = sha1((string) $password);   ///or use strval() method
             
+            require_once(MODELS.'login_model.php');
             $login = new Login_model();
             $res = $login->log_in($usuario,$password);
             

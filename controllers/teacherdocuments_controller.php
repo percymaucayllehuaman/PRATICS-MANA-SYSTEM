@@ -22,6 +22,7 @@ class Teacherdocuments_controller extends Controller{
             $select_module_documents = clean($_POST['select_module_documents']);
             $button_show_documents = clean($_POST['button_show_documents']);
             if($select_especialidad_documents && $select_module_documents){
+                require_once(MODELS.'documentos_model.php');
                 $documents = new Documentos_model;
                 $d = $documents->get_list_estudiantes_by_EspAndMod($select_especialidad_documents, $select_module_documents);
                 if(!empty($d)){

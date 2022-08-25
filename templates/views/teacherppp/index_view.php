@@ -25,7 +25,8 @@
                                                 <div class="flex border h-8 items-center">
                                                     <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Seleccione Especialidad </label>
                                                 </div>
-                                                <select name="select_especialidad_pp" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                <select id="select_especialidad_ppp_t" name="select_especialidad_pp" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                    <option value="">-- Seleccionar --</option>
                                                     <?php
                                                     require_once(MODELS.'especialidad_model.php');
                                                     $es = new Especialidad_model();
@@ -37,13 +38,14 @@
                                             </div>
                                             <div class="w-auto flex items-center border">
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
-                                                <select name="select_module_pp" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                <select id="select_modulo_pp_t" name="select_module_pp" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                    <option value="">-- Seleccionar --</option>
                                                     <?php
-                                                    require_once(MODELS.'modulo_model.php');
-                                                    $es = new Modulo_model();
-                                                    foreach ($es->get_all_order_by('modulo', 'Especialidad_id_especialidad') as $item) {
-                                                        echo "<option value='" . $item['id_modulo'] . "'>" . $item['nombre'] . "</option>";
-                                                    }
+                                                    // require_once(MODELS.'modulo_model.php');
+                                                    // $es = new Modulo_model();
+                                                    // foreach ($es->get_all_order_by('modulo', 'Especialidad_id_especialidad') as $item) {
+                                                    //     echo "<option value='" . $item['id_modulo'] . "'>" . $item['nombre'] . "</option>";
+                                                    // }
                                                     ?>
                                                 </select>
                                             </div>
@@ -172,8 +174,42 @@
 
     <?php require_once INCLUDES . "inc_footer.php"; ?>
 
-
 </div>
 
-
 <?php require_once INCLUDES . "inc_footer_html.php"; ?>
+<script>
+    $(document).ready(function() {
+        // $("#form_filter_empresa_validation_teacher").on("submit", function(event) {
+        //     event.preventDefault();
+        // });
+        //form_filter_empresa_validation_teacher
+        $("#select_especialidad_ppp_t").change(function() {
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/load_modules",
+                data: $("#form_send_ppp_teacher").serialize(), //send data of form id=form_send_ppp_teacher
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    // if (jsonData.success == "1")
+                    if (jsonData.success != null) {
+
+                        console.log(jsonData.success);
+                        let data = jsonData.success;
+                        let row = "<option value=''>--seleccionar--</option>";
+                        for (const item in data) {
+                            row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
+                        }
+                        $('#select_modulo_pp_t').html(row);
+                    } else if (jsonData.success == []) {
+                        alert('0 Resultados');
+                    } else {
+                        alert('0 Resultados');
+                    }
+                }
+            });
+
+        });
+    });
+</script>

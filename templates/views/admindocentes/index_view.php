@@ -13,9 +13,10 @@
                     <div class="overflow-x-auto container_register_teacher pb-2" >
                         <!-- <style>::-webkit-scrollbar {width:5px;}::-webkit-scrollbar-track {background: #f1f1f1; }</style> -->
                         <h2 class="text-center font-bold text-[1.2rem] py-2">Registro Docente</h2>
+                        <?php echo Flasher::flash(); ?> 
                         <form action="admindocentes/register" class="w-full h-auto flex flex-wrap min-w-[450px]" method="post">
                             <div class="w-6/12 flex flex-wrap justify-center">
-                                <?php echo Flasher::flash(); ?> 
+                                
                                 <div class="min-w-[200px] px-2 w-6/12 ">
                                     <div class="line my-2">
                                         <!-- <label for="" class="w-full">DNI</label> -->
@@ -50,12 +51,13 @@
                                     <div class="line my-2">
                                         <!-- <label for="" class="w-full">DNI</label> -->
                                         <select type="text" name="select_espe_tea" placeholder="ingrese DNI" class="px-2 rounded input-border-blue border-slate-500 h-8 text-[.9rem] w-full">
-                                            <option value="">Especialidad</option>
-                                            <option value="COMPUTACIÓN INFORMÁTICA">COMPUTACIÓN INFORMÁTICA</option>
-                                            <option value="MECÁNICA AUTOMOTRIZ">MECÁNICA AUTOMOTRIZ</option>
-                                            <option value="COSMETOLOGÍA">COSMETOLOGÍA</option>
-                                            <option value="CONFECCIÓN TEXTIL">CONFECCIÓN TEXTIL</option>
-                                            <option value="GASTRONOMÍA">GASTRONOMÍA</option>
+                                            <?php 
+                                            require_once(MODELS.'especialidad_model.php');
+                                            $e = new Especialidad_model();
+                                            foreach($e->get_all('especialidad')->fetchAll() as $item){
+                                                echo "<option value='".$item['id_especialidad']."'>".$item['nombre']."</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="line my-2">

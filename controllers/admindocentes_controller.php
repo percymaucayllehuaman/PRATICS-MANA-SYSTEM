@@ -11,7 +11,7 @@ class Admindocentes_controller extends Controller{
             Flasher::new('Debes iniciar sesión primero.', 'danger');
             Redirect::to('login');
         }
-        view::render('index',['module' => 'admindocentes']);
+        View::render('index',['module' => 'admindocentes']);
     }
 
     static function register(){
@@ -35,7 +35,9 @@ class Admindocentes_controller extends Controller{
             if($tea_dni_regis && $tea_appat_regis && $tea_apmat_regis && $tea_names_regis && $tea_birthdate_regis && 
             $select_gender_tea && $select_espe_tea && $tea_tele_regis && $tea_email_regis && $tea_addres_regis && 
             $tea_usernamedni && $tea_password_login && $tea_password_confirm)
-            {
+            {   
+                require_once(MODELS.'docentes_model.php');
+                require_once(MODELS.'login_model.php');
                 $teacher = new Docentes_model();
                 $login = new Login_model();
                 if(!$teacher->exists("Docentes",'DNI',$tea_dni_regis)){

@@ -37,6 +37,9 @@ class Registerpractitioner_controller extends Controller{
             $inp_phone_prac && $inp_address_prac && $select_grado_prac && $select_estadocivil_prac && $input_user_name && 
             $input_password_user && $input_repassword_user)
             {
+                require_once(MODELS.'estudiantes_model.php');
+                require_once(MODELS.'login_model.php');
+
                 $practitioner = new Estudiantes_model();
                 $login = new Login_model();
                 if(!$practitioner->exists("estudiantes",'DNI',$inp_dni_prac)){

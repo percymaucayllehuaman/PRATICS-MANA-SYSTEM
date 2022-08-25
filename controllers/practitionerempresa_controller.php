@@ -34,7 +34,7 @@ class Practitionerempresa_controller extends Controller{
             if($empresa_ruc_regis && $raz_empresa_regis && $rubro_empresa_regis && $departamento_em_regis 
             && $prov_emp_regis && $dist_empr_regis && $address_empr_regis && $repre_empr_regis && $select_gender_em 
             && $tele_empr_regis && $tea_email_regis){
-
+                require_once(MODELS.'empresa_model.php');
                 $empresa = new Empresa_model();
                 if(!$empresa->exists('empresa',"RUC_codigo_ident",$empresa_ruc_regis)){
                     

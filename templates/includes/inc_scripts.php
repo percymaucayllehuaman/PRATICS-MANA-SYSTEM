@@ -81,9 +81,9 @@ $(document).ready(function(){
                       "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['Empresa_RUC']+"</label>"+
                       "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nombre']+"</label>"+
                       "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
-                      "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['direccion']+"</label>"+
-                      "<label class='w-3/12 text-center px-0.5 py-0.5'>"+data[item]['nom_ape_encargado']+"</label>"+
-                      "<label class='w-1/12 text-center px-0.5 py-0.5'>"+data[item]['celular']+"</label>"+
+                      "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['direccion']+"</label>"+
+                      "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nom_ape_encargado']+"</label>"+
+                      "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['celular']+"</label>"+
                       "<label class='w-1/12 text-center px-0.5 py-0.5'>"+data[item]['validacion']+"</label>"+
                     "</div>";
                   }

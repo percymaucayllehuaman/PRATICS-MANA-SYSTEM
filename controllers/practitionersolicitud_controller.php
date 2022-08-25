@@ -53,6 +53,7 @@ class Practitionersolicitud_controller extends Controller{
                     'hora_fin' => $prac_timeend_regis,
                     'validacion' => ""
                 ];
+                require_once(MODELS.'practicas_model.php');
                 $p = new Practicas_model();
                 $res = $p->add_practica($data);
                 
@@ -71,6 +72,22 @@ class Practitionersolicitud_controller extends Controller{
         else{
             Flasher::new('Página no encontrada','warning');
             Redirect::to('practitionersolicitud');
+        }
+    }
+
+    static function load_modules(){
+        if($_POST){
+            $select_especilidad_sol = scape_string(clean($_POST['select_especilidad_sol']));
+            if($select_especilidad_sol){
+                require_once(MODELS.'modulo_model.php');
+                $m = new Modulo_model();
+                $mod = $m->get_modulos_by_Id_especialidad($select_especilidad_sol);
+                echo json_encode(array('success' => $mod->fetchAll()));
+            }else{
+                echo json_encode(array('success' => null));
+            }
+        }else{
+            echo json_encode(array('success' => null));
         }
     }
 }

@@ -4,9 +4,6 @@
 
     <?php require_once MODULES . "mod_header_main.php"; ?>
 
-
-
-
     <!-- <div class="panel-praticing bg-[#efefef] w-full flex"> -->
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_admin.php"; ?>

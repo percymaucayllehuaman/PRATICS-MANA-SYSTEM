@@ -10,9 +10,8 @@ class Admindata_controller extends Controller{
         if (!Auth::validate()) {
             Flasher::new('Debes iniciar sesión primero. ', 'danger');
             Redirect::to('login');
-        }
-        
-        View::render('index',['module' => 'admindata']);
+        } 
+        view::render('index',['module' => 'admindata']);
     }
 
    

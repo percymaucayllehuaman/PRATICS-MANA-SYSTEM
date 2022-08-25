@@ -20,6 +20,7 @@ class Teacherasistencia_controller extends Controller{
                 $select_especialidad_asis = scape_string(clean($_POST['select_especialidad_asis']));
                 $select_module_asis = scape_string(clean($_POST['select_module_asis']));
                 $select_date_asis = scape_string(clean($_POST['select_date_asis']));
+                require_once(MODELS.'asistenciaactividad_model.php');
                 $asis_act = new Asistenciaactividad_model();
                 $p = $asis_act->list_students_asistencia_Teacher($select_especialidad_asis, $select_module_asis, $select_date_asis);
                 echo json_encode(array('success' => $p->fetchAll()));  //$p->fetchObject()
