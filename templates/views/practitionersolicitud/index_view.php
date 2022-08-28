@@ -191,9 +191,11 @@
                             if($data){
                                 
                                foreach($data as $row){
+                                    require_once(MODELS.'modulo_model.php');
                                     $m = new Modulo_model();
                                     $m = $m->get_modulo_by_id($row['Modulo_id_modulo']);
 
+                                    require_once(MODELS.'empresa_model.php');
                                     $e = new Empresa_model();
                                     $e = $e->get_empresa_by_id($row['Empresa_RUC']);
                                     if($row['validacion']=="0000-00-00 00:00:00"){$row['validacion']='No';}
