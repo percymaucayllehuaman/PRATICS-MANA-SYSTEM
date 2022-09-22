@@ -85,15 +85,15 @@
                     <div class="container_results_list block w-full px-5 bottom max-h-screen overflow-auto min-w-[800px] ">
                         <div id="div_results_visitas_pract" class="list_title_results w-12/12">
                             <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center center text-sm py-0.5 rounded-sm">
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Fecha y Hora (ingreso)</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Validación Entrada</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Actividad</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Validación Actividad</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Fecha Hora (Salida)</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">FECHA FIN</label>
-                                <label class="w-1/12 text-center px-0.5 py-0.5">Validación Salida</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Obserbación</label>
+                                <label class="w-2/12 text-center px-0.5 py-0.5">Fecha</label>
+                                <label class="w-2/12 text-center px-0.5 py-0.5">Cumple con sus asistencias de entrada y salida</label>
+                                <label class="w-2/12 text-center px-0.5 py-0.5">Cumple con los trabajos o actividades</label>
+                                <label class="w-2/12 text-center px-0.5 py-0.5">No se encontró en su centro de prácticas</label>
+                                <label class="w-4/12 text-center px-0.5 py-0.5">Sugerencias</label>
                             </div>
+                        </div>
+                        <div id="div_visitas_p_content_lists" class="w-12/12">
+
                         </div>
                     </div>
                 </div>
@@ -107,9 +107,10 @@
 <?php require_once INCLUDES . "inc_footer_html.php"; ?>
 <script>
 
+    ///load data visitas
     $(document).ready(function (){
         $('#form_visitassupervi_pract').submit(function (e){
-            // e.preventDefault();   ///no send form
+            e.preventDefault();   ///no send form
         });
 
         $('#button_show_visitas_pract').click(function(){
@@ -124,18 +125,26 @@
                     // let's redirect
                     // if (jsonData.success == "1")
                     if (jsonData.success != null) {
-                        
-                        console.log(jsonData.success);
                         let data = jsonData.success;
                         let row = '';
+                        console.log(data);
                         for (const item in data) {
-                            let row = "<div class=''>";
-                            row +="";
-                        
-                           // row += "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
-                            row += "</div>";
+                            if(!data[item]['asistencia_ent_sal']){ data[item]['asistencia_ent_sal'] = "X"; }
+                                else{ data[item]['asistencia_ent_sal'] = "";}
+                            if(!data[item]['actividad_trabajo']){ data[item]['actividad_trabajo'] = "X"; }
+                                else{data[item]['actividad_trabajo'] = "";}
+                            if(!data[item]['no_se_encontro']){ data[item]['no_se_encontro'] = "X"; }
+                                //else{data[item]['no_se_encontro'] = "";}
+                            
+                            row += "<div class='w-full 12/12 flex'>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['fecha']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['asistencia_ent_sal']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['actividad_trabajo']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['no_se_encontro']+"</label>"+
+                            "<label class='w-4/12 '>"+data[item]['sugerencias']+"</label>"+
+                            "</div>";
                         }
-                        $('#div_results_visitas_pract').append(row);
+                        $('#div_visitas_p_content_lists').html(row);
                     } else if (jsonData.success == []) {
                         $('#div_results_visitas_pract').html('No hay Resultados');
                         alert('No hay Resultados');
@@ -160,12 +169,9 @@
                 data: $("#form_visitassupervi_pract").serialize(), //send data of form id=form_send_ppp_teacher
                 success: function(response) {
                     var jsonData = JSON.parse(response);
-                    // user is logged in successfully in the back-end
-                    // let's redirect
                     // if (jsonData.success == "1")
                     if (jsonData.success != null) {
-
-                        console.log(jsonData.success);
+                        // console.log(jsonData.success);
                         let data = jsonData.success;
                         let row = "<option value=''>--seleccionar--</option>";
                         for (const item in data) {

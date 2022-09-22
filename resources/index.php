@@ -1,5 +1,5 @@
 <?php
 
-header("Location:index.php?uri=error");
+header("Location:../index.php");
 
 ?>

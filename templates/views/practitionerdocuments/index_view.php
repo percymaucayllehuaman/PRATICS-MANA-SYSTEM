@@ -63,7 +63,7 @@
                                 <label class="w-4/12 text-center px-0.5 py-0.5">Obserbación</label>
                             </div>
                             <?php
-                            require_once(MODELS.'documents_model.php');
+                            require_once(MODELS.'documentos_model.php');
                             $docs = new Documentos_model();
                             foreach($docs->get_document_by_EstudianteDNI($_SESSION['USER-LOGIN']->usuario) as $item){
                                 if($item['validacion']=='0000-00-00 00:00:00'){$item['validacion']='Falta Validar';}
@@ -72,9 +72,9 @@
                                     $r = '<label class="w-2/12 text-left px-0.5 py-0.5">'.$item['tipo'].'</label>
                                     <label class="w-2/12 text-center px-0.5 py-0.5">'.$item['fecha'].'</label>
                                     <label class="w-2/12 text-center px-0.5 py-0.5">
-                                        <a href="documentsPDF/?file='.$item['ruta_archivo'].'" target="_blank" rel="noopener noreferrer">Ver</a>
+                                        <a class="underline decoration-1" href="//'.HOST.'/sisepp/resources/data/documents/'.$item['ruta_archivo'].'" target="_blank" rel="noopener noreferrer">Ver</a>
                                     </label>
-                                    <label class="w-2/12 text-center px-0.5 py-0.5">'.$item['validacion'].'</label>
+                                    <label class="w-3/12 text-center px-0.5 py-0.5">'.$item['validacion'].'</label>
                                     <label class="w-4/12 text-left px-0.5 py-0.5">'.$item['observacion'].'</label>';
                                     echo $r;
                                 echo '</div>';

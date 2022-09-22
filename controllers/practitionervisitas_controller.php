@@ -21,12 +21,15 @@ class Practitionervisitas_controller extends Controller{
             $select_year_visi = scape_string(clean($_POST['select_year_visi']));
             $select_period_visi = scape_string(clean($_POST['select_period_visi']));
             if($select_especialidad_visi && $select_module_visi && $select_year_visi && $select_period_visi){
+                
                 require_once(MODELS.'visitassupervision_model.php');
                 $v = new Visitassupervision_model();
                 $vis = $v->get_visitassu_estudiante($select_especialidad_visi, $select_module_visi, $select_year_visi, $select_period_visi,$_SESSION['USER-LOGIN']->usuario);  ///return a fetchAll
-                // print_r($vis);
                 echo json_encode(array('success' => $vis));
                 
+                // echo "<br><br>";
+                // echo json_encode("Subir el grado de comunicaci�n con el personal")."<br><br>";
+                // var_dump($v->get_visitassu_estudiante_ayax($select_especialidad_visi, $select_module_visi, $select_year_visi, $select_period_visi,$_SESSION['USER-LOGIN']->usuario)->fetchAll());
             }else{
                 echo json_encode(array('success' => null));
             }
