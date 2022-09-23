@@ -25,7 +25,9 @@
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Ficha PPP</label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">02/05/2022</label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">
-                                            <a href="resouces/formatos/ficha.pdf" class="decoration-1">Descargar</a>
+                                            <?php
+                                                echo "<a class='underline decoration-1' href='//".HOST."/sisepp/resources/data/documents/formato-informePPP.pdf' "." target='_blank' rel='noopener noreferrer'>Descargar</a>";
+                                            ?>
                                         </label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Descripción</label>
                                     </div>
@@ -33,7 +35,11 @@
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Informe PP</label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">02/05/2022</label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">
-                                            <a href="resouces/formatos/informe.pdf" class="decoration-1">Descargar</a>
+                                            <?php 
+                                                echo "<a class='underline decoration-1' href='//".HOST."/sisepp/resources/data/documents/formato-fichaPPP.pdf' "." target='_blank' rel='noopener noreferrer'>Descargar</a>";
+                                            ?>
+                                            
+                                            <!-- <a href="resouces/formatos/informe.pdf" class="decoration-1">Descargar</a> -->
                                         </label>
                                         <label class="w-3/12 text-center px-0.5 py-0.5">Descripción</label>
                                     </div>
