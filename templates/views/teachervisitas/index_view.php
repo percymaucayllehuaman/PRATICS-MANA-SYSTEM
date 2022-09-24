@@ -18,17 +18,18 @@
                         <div class="overflow-x-auto container_register_teacher pb-2px-1">
                             <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full text-[#4b4b4b]">Visitas y Supervisión</h2> <!-- title -->
                             <div class="w-full flex">
-                                <form action="teachervisitas/show_teacher_visitas" method="post" class="w-autp items-center py-2">
+                                <form id="form_visitas_teacher" action="teachervisitas/show_teacher_visitas" method="post" class="w-autp items-center py-2">
                                     <div class="flex gap-3 flex-wrap">
                                         <div class="flex w-full gap-3 flex-wrap">
                                             <div class="w-auto flex items-center flex-wrap ">
                                                 <div class="flex border h-8 items-center">
                                                     <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Seleccione Especialidad</label>
                                                 </div>
-                                                <select name="select_especialidad_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                <select id="select_especialidad_teacher" name="select_especialidad_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <?php
                                                     require_once(MODELS.'especialidad_model.php');
                                                     $es = new Especialidad_model();
+                                                    echo "<option value=''>-- Seleccionar --</option>";
                                                     foreach ($es->get_all('especialidad')->fetchAll() as $item) {
                                                         $checked = "";
                                                         if (isset($_SESSION['data_visitas'])) {
@@ -48,24 +49,25 @@
                                             </div>
                                             <div class="w-auto flex items-center border">
                                                 <label for="" class="w-auto mr-2 px-1 text-[.9rem]">Módulo </label>
-                                                <select name="select_module_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                <select id="select_modules_teacher" name="select_module_visitas" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
+                                                    <option value="">-- Seleccionar --</option>
                                                     <?php
-                                                    require_once(MODELS.'modulo_model.php');
-                                                    $es = new Modulo_model();
-                                                    foreach ($es->get_all_order_by('modulo', 'especialidad_id_especialidad')->fetchAll() as $item) {
-                                                        $checked = "";
-                                                        if (isset($_SESSION['data_visitas'])) {
-                                                            require_once(MODELS.'practicas_model.php');
-                                                            $prac = new Practicas_model();
-                                                            $p = $prac->get_practica_by_id($_SESSION['data_visitas']->id_visitas_supervicion);
-                                                            if ($d) {
-                                                                if ($item['id_modulo'] == $p->Modulo_id_modulo) {
-                                                                    $checked = 'checked';
-                                                                }
-                                                            }
-                                                        }
-                                                        echo '<option value=' . $item['id_modulo'] . ' ' . $checked . ' >' . $item['nombre'] . '</option>';
-                                                    }
+                                                    // require_once(MODELS.'modulo_model.php');
+                                                    // $es = new Modulo_model();
+                                                    // foreach ($es->get_all_order_by('modulo', 'especialidad_id_especialidad')->fetchAll() as $item) {
+                                                    //     $checked = "";
+                                                    //     if (isset($_SESSION['data_visitas'])) {
+                                                    //         require_once(MODELS.'practicas_model.php');
+                                                    //         $prac = new Practicas_model();
+                                                    //         $p = $prac->get_practica_by_id($_SESSION['data_visitas']->id_visitas_supervicion);
+                                                    //         if ($d) {
+                                                    //             if ($item['id_modulo'] == $p->Modulo_id_modulo) {
+                                                    //                 $checked = 'checked';
+                                                    //             }
+                                                    //         }
+                                                    //     }
+                                                    //     echo '<option value=' . $item['id_modulo'] . ' ' . $checked . ' >' . $item['nombre'] . '</option>';
+                                                    // }
                                                     ?>
                                                 </select>
                                             </div>
@@ -262,3 +264,88 @@
 
 
 <?php require_once INCLUDES . "inc_footer_html.php"; ?>
+
+<script>
+
+    ///load data visitas
+    $(document).ready(function (){
+        $('#form_visitas_teacher').submit(function (e){
+            e.preventDefault();   ///no send form
+        });
+
+        $('#button_show_visitas_pract').click(function(){
+            ///cargando el combobox de modulos con ayax
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/show_visitas",
+                data: $("#form_visitassupervi_pract").serialize(), //send data of form id=form_send_ppp_teacher
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    // if (jsonData.success == "1")
+                    if (jsonData.success != null) {
+                        let data = jsonData.success;
+                        let row = '';
+                        console.log(data);
+                        for (const item in data) {
+                            if(!data[item]['asistencia_ent_sal']){ data[item]['asistencia_ent_sal'] = "X"; }
+                                else{ data[item]['asistencia_ent_sal'] = "";}
+                            if(!data[item]['actividad_trabajo']){ data[item]['actividad_trabajo'] = "X"; }
+                                else{data[item]['actividad_trabajo'] = "";}
+                            if(!data[item]['no_se_encontro']){ data[item]['no_se_encontro'] = "X"; }
+                                //else{data[item]['no_se_encontro'] = "";}
+                            
+                            row += "<div class='w-full 12/12 flex'>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['fecha']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['asistencia_ent_sal']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['actividad_trabajo']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item]['no_se_encontro']+"</label>"+
+                            "<label class='w-4/12 '>"+data[item]['sugerencias']+"</label>"+
+                            "</div>";
+                        }
+                        $('#div_visitas_p_content_lists').html(row);
+                    } else if (jsonData.success == []) {
+                        $('#div_results_visitas_pract').html('No hay Resultados');
+                        alert('No hay Resultados');
+                    } else {
+                        alert('No hay Resultados');
+                    }
+                }
+            });
+        });
+    });                                                            
+
+
+
+//     select_especialidad_teacher
+// select_modules_teacher
+    ///load modules with ayax                                                            
+    $(document).ready(function() {
+        ///cargando el combobox de modulos con ayax
+        $("#select_especialidad_teacher").change(function() {
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/load_modules",
+                data: $("#form_visitas_teacher").serialize(), //send data of form id=form_send_ppp_teacher
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+                    if (jsonData.success != null) {
+                        console.log(jsonData.success);
+                        let data = jsonData.success;
+                        let row = "<option value=''>-- seleccionar --</option>";
+                        for (const item in data) {
+                           row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
+                        }
+                        $('#select_modules_teacher').html(row);
+                    } else if (jsonData.success == []) {
+                        alert('0 Resultados');
+                    } else {
+                        alert('0 Resultados');
+                    }
+                }
+            });
+
+        });
+    });
+</script>

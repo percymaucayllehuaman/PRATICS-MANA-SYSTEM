@@ -34,6 +34,22 @@ class Teachervisitas_controller extends Controller{
             Redirect::to('teachervisitas');
         }
     }
+    public static function load_modules(){
+        if($_POST){
+            if($_POST['select_especialidad_visitas']){
+                $select_especialidad_visitas = scape_string(clean($_POST['select_especialidad_visitas']));
+                
+                require_once(MODELS.'modulo_model.php');
+                $asis_act = new Modulo_model();
+                $p = $asis_act->get_modulos_by_Id_especialidad($select_especialidad_visitas);
+                echo json_encode(array('success' => $p->fetchAll(PDO::FETCH_ASSOC)));  //$p->fetchObject()
+            }else{
+                echo json_encode(array('success' => 1));
+            }
+        }else{
+            echo json_encode(array('success' => null));
+        }
+    }
 }
 
 
