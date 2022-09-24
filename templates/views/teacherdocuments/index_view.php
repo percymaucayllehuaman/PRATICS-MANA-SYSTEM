@@ -205,7 +205,7 @@
 
     ///load data visitas
     $(document).ready(function (){
-        $('#form_visitas_teacher').submit(function (e){
+        $('#form_teacher_documents').submit(function (e){
             e.preventDefault();   ///no send form
         });
 
