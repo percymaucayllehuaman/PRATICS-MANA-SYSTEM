@@ -58,7 +58,7 @@
                 </div>
                 <div class="overflow-x-auto w-12/12">
                     <div class="container_results_list block w-full px-5 bottom max-h-screen overflow-auto min-w-[800px] ">
-                        <h2 class="font-bold text-[1rem] py-2 px-1 w-full text-slate-500">Lista de PPP solicitados</h2>
+                        <h2 class="font-bold text-[1rem] py-2 px-1 w-full text-slate-500">Lista de Empresas</h2>
                         <div class="list_title_results w-12/12">
                             <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center center text-sm py-0.5 rounded-sm">
                                 <label class="w-2/12 text-center px-0.5 py-0.5">RUC</label>
@@ -166,11 +166,9 @@
                     // let's redirect
                     // if (jsonData.success == "1")
                     if (jsonData.success != null) {
-
-                        console.log(jsonData.success);
                         let data = jsonData.success;
                         let row = "<option value=''>--seleccionar--</option>";
-                        for (const item in data) {
+                        for (let item in data) {
                             row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
                         }
                         $('#select_module_emp_teacher').html(row);
@@ -183,6 +181,81 @@
             });
 
         });
+    
+    
+        /* SHOW EMPRESAS */
+
+        $("#form_filter_empresa_validation_teacher").on( "submit", function(event) {
+            event.preventDefault();
+        });
+        //form_filter_empresa_validation_teacher
+        $("#button_send_show_empresas_teacher").click(function(){    
+            $.ajax({
+                type: "POST",
+                url: window.location.href+"/show_empresas",
+                data: $("#form_filter_empresa_validation_teacher").serialize(),    //send data of form id=form_send_ppp_teacher
+                success: function(response)
+                {
+                    var jsonData = JSON.parse(response);
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    // if (jsonData.success == "1")
+                    if(jsonData.success != null){
+                        // console.log(jsonData.success);
+                        let data = jsonData.success;
+                        let row = '';
+                        for(const item in data){
+                            if(data[item]['validacion']!='0000-00-00 00:00:00'){data[item]['validacion']="<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";}
+                            else{data[item]['validacion'] = "<label class='w-auto switch label_switch_validate'><input type='checkbox'><span class='slider round'></span></label>";}
+                            
+                            row = row+"<form method='post' class='form_validation_empresa flex w-12/12 text-slate-800 center text-sm py-0.5 rounded-sm px-1' style='border-bottom: 1px solid rgba(2,77,131,.8)'>"+
+                            "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['Empresa_RUC']+" </label>"+
+                            "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nombre']+"</label>"+
+                            "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
+                            "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['direccion']+"</label>"+
+                            "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nom_ape_encargado']+"</label>"+
+                            "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['celular']+"</label>"+
+                            "<label class='w-1/12 text-center px-0.5 py-0.5'>"+data[item]['validacion']+"<input type='hidden'  value='"+data[item]['RUC_codigo_ident']+"'></label>"+
+                            "</form>";
+                        }
+                        $('#results_list__empresa_teacher_filter').html(row);
+
+
+                        ///event to switch label validate
+                        $('.label_switch_validate').click(function(e){
+                            e.preventDefault();
+                            // e.stopImmediatePropagation();
+                            console.log($('.label_switch_validate').eq(1));
+                        });
+                        // console.log(label_switch.parent().children().eq(1).val());
+                        // for(let i in $('.label_switch_validate')){
+                        //     $('.label_switch_validate').eq(i).children().eq(1).click(function(){  ///eq().val()
+                        //         // console.log('hola como estas');
+                        //     });
+                        // }
+
+                    }
+                    else if(jsonData.success == []){
+                    $('#results_list__empresa_teacher_filter').html("<div class='text-[.9rem]'>0 Resultados</div>");
+                    }else{
+                    $('#results_list__empresa_teacher_filter').html("<div class='text-[.9rem]'>0 Resultados</div>");
+                    }
+                }
+            });
+
+        });
+
+    
+        /*EVENTLISTENER LABEL */
+        
+        // $('.form_validation_empresa .check').on('click',function (){
+        //     console.log($(this).text() );
+        // });
+    
+    
     });
+
+
+    
 </script>
 

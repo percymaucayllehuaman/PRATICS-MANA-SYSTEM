@@ -165,7 +165,8 @@
                                                 }
                                                 // echo $_SESSION['data_visitas']->no_se_encontro;
                                                 
-                                            } ?>
+                                            } 
+                                            ?>
 
                                         </div>
                                     </div>
@@ -267,10 +268,14 @@
 
 <script>
 
+    // select_especialidad_visitas
+    // select_module_visitas
+    // select_dni_visitas
+
     ///load data visitas
     $(document).ready(function (){
         $('#form_visitas_teacher').submit(function (e){
-            e.preventDefault();   ///no send form
+            // e.preventDefault();   ///no send form
         });
 
         $('#button_show_visitas_pract').click(function(){

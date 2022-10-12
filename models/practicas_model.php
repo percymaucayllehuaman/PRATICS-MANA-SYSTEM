@@ -62,8 +62,10 @@
             }  
         }
         public function get_practicas_by_Esp_Mod_Empresa($esp, $modulo){
+            // $query = "SELECT * FROM practicas p inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC 
+            // where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo order by id_practicas desc";            
             $query = "SELECT * FROM practicas p inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC 
-            where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo order by id_practicas desc";            
+            where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo order by id_practicas desc";    //group by em.RUC_codigo 
             try{
                 $statement = $this->connect()->prepare($query);
                 $statement->bindParam(':especialidad',$esp);

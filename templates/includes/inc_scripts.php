@@ -51,54 +51,7 @@ $(document).ready(function(){
 
 
 
-  /* FOR MODULE EMPRESA*/
-
-  $("#form_filter_empresa_validation_teacher").on( "submit", function(event) {
-    event.preventDefault();
-  });
-  //form_filter_empresa_validation_teacher
-  $("#button_send_show_empresas_teacher").click(function(){    
-    $.ajax({
-            type: "POST",
-            url: window.location.href+"/show_empresas",
-            data: $("#form_filter_empresa_validation_teacher").serialize(),    //send data of form id=form_send_ppp_teacher
-            success: function(response)
-            {
-                var jsonData = JSON.parse(response);
-                // user is logged in successfully in the back-end
-                // let's redirect
-                // if (jsonData.success == "1")
-                if(jsonData.success != null){
-                  
-                  console.log(jsonData.success);
-                  let data = jsonData.success;
-                  let row = '';
-                  for(const item in data){
-                    if(data[item]['validacion']!='0000-00-00 00:00:00'){data[item]['validacion']="<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";}
-                    else{data[item]['validacion'] = "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";}
-                    
-                    row = row+"<div class='flex w-12/12 text-slate-800 center text-sm py-0.5 rounded-sm px-1' style='border-bottom: 1px solid rgba(2,77,131,.8)'>"+
-                      "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['Empresa_RUC']+"</label>"+
-                      "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nombre']+"</label>"+
-                      "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
-                      "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['direccion']+"</label>"+
-                      "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nom_ape_encargado']+"</label>"+
-                      "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['celular']+"</label>"+
-                      "<label class='w-1/12 text-center px-0.5 py-0.5'>"+data[item]['validacion']+"</label>"+
-                    "</div>";
-                  }
-                  $('#results_list__empresa_teacher_filter').html(row);
-                }
-                else if(jsonData.success == []){
-                  $('#results_list__empresa_teacher_filter').html("<div class='text-[.9rem]'>0 Resultados</div>");
-                }else{
-                  $('#results_list__empresa_teacher_filter').html("<div class='text-[.9rem]'>0 Resultados</div>");
-                }
-           }
-       });
-
-  });
-
+  
 
 
   /* FOR MODULE asistencia docente*/

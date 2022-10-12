@@ -34,6 +34,29 @@ class Teachervisitas_controller extends Controller{
             Redirect::to('teachervisitas');
         }
     }
+
+    public function show_visitas(){
+        if($_POST){
+            $select_especialidad_visitas = scape_string(clean($_POST['select_especialidad_visitas']));
+            $select_module_visitas = scape_string(clean($_POST['select_module_visitas']));
+            $select_dni_visitas = scape_string(clean($_POST['select_dni_visitas']));
+            if($select_especialidad_visitas &&  $select_module_visitas &&  $select_dni_visitas){
+                require_once(MODELS.'visitassupervision_model.php');
+                $v = new Visitassupervision_model();
+                $res = $v->get_visitassu_by_EspModDNIPract($select_especialidad_visitas, $select_module_visitas,$select_dni_visitas);
+                if($res){
+                    echo json_encode(array('success' => $p->fetchAll(PDO::FETCH_ASSOC)));
+                }else{
+                    echo json_encode(array('success' => 0));
+                }
+            }else{
+                echo json_encode(array('success' => null));
+            }
+        }
+        //get_visitassu_by_EspModDNIPract
+    }
+
+
     public static function load_modules(){
         if($_POST){
             if($_POST['select_especialidad_visitas']){

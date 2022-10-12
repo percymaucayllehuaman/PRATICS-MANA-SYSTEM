@@ -159,7 +159,7 @@
             </div>
         </div>
     </div>
-
+    
     <?php require_once INCLUDES . "inc_footer.php"; ?>
 
 
@@ -204,12 +204,12 @@
                             "<label class='w-2/12 text-center'>"+data[item]['asistencia_ent_sal']+"</label>"+
                             "<label class='w-2/12 text-center'>"+data[item]['actividad_trabajo']+"</label>"+
                             "<label class='w-2/12 text-center'>"+data[item]['no_se_encontro']+"</label>"+
-                            "<label class='w-4/12 '>"+data[item]['sugerencias']+"</label>"+
+                            "<label class='w-4/12 '>"+data[item]['sugerencias']+" <input type='text'></label>"+
                             "</div>";
                         }
                         $('#div_visitas_p_content_lists').html(row);
                     } else if (jsonData.success == []) {
-                        $('#div_results_visitas_pract').html('No hay Resultados');
+                        $('#div_visitas_p_content_lists').html('No hay Resultados');
                         alert('No hay Resultados');
                     } else {
                         alert('No hay Resultados');
