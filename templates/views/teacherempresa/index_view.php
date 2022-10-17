@@ -101,7 +101,7 @@
                                 transition: .4s;
                             }
 
-                            .slider:before {
+                            .slider:before {    /*el punto*/
                                 position: absolute;
                                 content: "";
                                 height: 10px;
@@ -113,7 +113,7 @@
                                 transition: .4s;
                             }
 
-                            input:checked+.slider {
+                            input:checked+.slider {     /** al hacer check cambia de fondo al slidar(span con class slider) */
                                 background-color: #2196F3;
                             }
 
@@ -205,34 +205,43 @@
                         let data = jsonData.success;
                         let row = '';
                         for(const item in data){
-                            if(data[item]['validacion']!='0000-00-00 00:00:00'){data[item]['validacion']="<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";}
-                            else{data[item]['validacion'] = "<label class='w-auto switch label_switch_validate'><input type='checkbox'><span class='slider round'></span></label>";}
+                            // console.log(data[item]['fecha_hora_validacion']);
+                            if(data[item]['fecha_hora_validacion']!='0000-00-00 00:00:00'){data[item]['validacion']="<label class='switch'><input type='checkbox' checked class='input_checkbox'><span class='slider round'></span></label>";}
+                            else{data[item]['validacion'] = "<label class='w-auto switch label_switch_validate'><input type='checkbox' class='input_checkbox'><span class='slider round'></span></label>";}
                             
                             row = row+"<form method='post' class='form_validation_empresa flex w-12/12 text-slate-800 center text-sm py-0.5 rounded-sm px-1' style='border-bottom: 1px solid rgba(2,77,131,.8)'>"+
-                            "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['Empresa_RUC']+" </label>"+
+                            "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['RUC_codigo_ident']+" </label>"+
                             "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nombre']+"</label>"+
-                            "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
+                            "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
                             "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['direccion']+"</label>"+
                             "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nom_ape_encargado']+"</label>"+
                             "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['celular']+"</label>"+
-                            "<label class='w-1/12 text-center px-0.5 py-0.5'>"+data[item]['validacion']+"<input type='hidden'  value='"+data[item]['RUC_codigo_ident']+"'></label>"+
+                            "<label class='w-1/12 text-center px-0.5 py-0.5'>"+data[item]['validacion']+"<input id='"+data[item]['RUC_codigo_ident']+"' type='hidden' name='RUC_ident_empresa_teacher' value='"+data[item]['RUC_codigo_ident']+"'>"+"<input type='hidden' name='date_validation_empresa_teacher' value='"+data[item]['fecha_hora_validacion']+"'>"+"</label>"+
                             "</form>";
                         }
                         $('#results_list__empresa_teacher_filter').html(row);
 
-
-                        ///event to switch label validate
-                        $('.label_switch_validate').click(function(e){
-                            e.preventDefault();
-                            // e.stopImmediatePropagation();
-                            console.log($('.label_switch_validate').eq(1));
+                        /** ayax for validate empresa */
+                        $('.input_checkbox').on("click", function(e){
+                            console.log($(this).parent().parent().children().eq(1).val())+"----";
+                            console.log($(this).parent().parent().children().eq(2).val());
+                            $.ajax({
+                                type :'POST',
+                                url : window.location.href+"/validate_empresa",
+                                data : {ruc_cod_empresa: $(this).parent().parent().children().eq(1).val(), fecha_validate_empresa: $(this).parent().parent().children().eq(2).val()},
+                                success : function(response){
+                                    var jsonDataValidate = JSON.parse(response);
+                                    console.log(jsonDataValidate);
+                                    if(jsonDataValidate.success == 1 || jsonDataValidate.success == 2 ){
+                                        ////falta actualizar al valor del input fecha_validacion al actualizar en el front
+                                        $("#"+jsonDataValidate.id_cod_ruc).parent().children().eq(2).val(jsonDataValidate.fecha_validacion);
+                                        // console.log($(this).parent().parent().children().eq(2));
+                                        
+                                    }
+                                }
+                            }
+                            );
                         });
-                        // console.log(label_switch.parent().children().eq(1).val());
-                        // for(let i in $('.label_switch_validate')){
-                        //     $('.label_switch_validate').eq(i).children().eq(1).click(function(){  ///eq().val()
-                        //         // console.log('hola como estas');
-                        //     });
-                        // }
 
                     }
                     else if(jsonData.success == []){

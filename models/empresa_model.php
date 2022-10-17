@@ -89,6 +89,18 @@ class Empresa_model extends Model{
         }
     
     }
+    function udpate_validation_empresa($date_validate, $id){ 
+        $sql = 'update empresa set fecha_hora_validacion = :date_validate where RUC_codigo_ident = :id';
+        try {
+            $statement = parent::connect()->prepare($sql);
+            $statement->bindParam(':date_validate',$date_validate);
+            $statement->bindParam(':id',$id);
+            $statement->execute();
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 
     function get_empresa_by_id($id){
         try {
