@@ -221,10 +221,8 @@
                         }
                         $('#results_list__empresa_teacher_filter').html(row);
 
-                        /** ayax for validate empresa */
+                        /** ajax for validate empresa */
                         $('.input_checkbox').on("click", function(e){
-                            console.log($(this).parent().parent().children().eq(1).val())+"----";
-                            console.log($(this).parent().parent().children().eq(2).val());
                             $.ajax({
                                 type :'POST',
                                 url : window.location.href+"/validate_empresa",
@@ -254,14 +252,7 @@
 
         });
 
-    
-        /*EVENTLISTENER LABEL */
-        
-        // $('.form_validation_empresa .check').on('click',function (){
-        //     console.log($(this).text() );
-        // });
-    
-    
+
     });
 
 

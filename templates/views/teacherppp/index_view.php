@@ -28,7 +28,7 @@
                                                 <select id="select_especialidad_ppp_t" name="select_especialidad_pp" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1">
                                                     <option value="">-- Seleccionar --</option>
                                                     <?php
-                                                    require_once(MODELS.'especialidad_model.php');
+                                                    require_once(MODELS . 'especialidad_model.php');
                                                     $es = new Especialidad_model();
                                                     foreach ($es->get_all('especialidad') as $item) {
                                                         echo "<option value='" . $item['id_especialidad'] . "'>" . $item['nombre'] . "</option>";
@@ -100,69 +100,71 @@
                             </div>
                         </div>
                         <style>
-                                    /* The switch - the box around the slider */
-                                    .switch {
-                                        position: relative;
-                                        display: inline-block;
-                                        width: 2.7rem;    /* width: 60px; */
-                                        height: 1.2rem;   /* height: 34px; */
-                                    }
+                            /* The switch - the box around the slider */
+                            .switch {
+                                position: relative;
+                                display: inline-block;
+                                width: 2.7rem;
+                                /* width: 60px; */
+                                height: 1.2rem;
+                                /* height: 34px; */
+                            }
 
-                                    /* Hide default HTML checkbox */
-                                    .switch input {
-                                        opacity: 0;
-                                        width: 0;
-                                        height: 0;
-                                    }
+                            /* Hide default HTML checkbox */
+                            .switch input {
+                                opacity: 0;
+                                width: 0;
+                                height: 0;
+                            }
 
-                                    /* The slider */
-                                    .slider {
-                                        position: absolute;
-                                        cursor: pointer;
-                                        top: 0;
-                                        left: 0;
-                                        right: 0;
-                                        bottom: 0;
-                                        background-color: #ccc;
-                                        -webkit-transition: .4s;
-                                        transition: .4s;
-                                    }
+                            /* The slider */
+                            .slider {
+                                position: absolute;
+                                cursor: pointer;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: #ccc;
+                                -webkit-transition: .4s;
+                                transition: .4s;
+                            }
 
-                                    .slider:before {
-                                        position: absolute;
-                                        content: "";
-                                        height: 10px;
-                                        width: 10px;
-                                        left: 4px;
-                                        bottom: 4.5px;
-                                        background-color: white;
-                                        -webkit-transition: .4s;
-                                        transition: .4s;
-                                    }
+                            .slider:before {
+                                position: absolute;
+                                content: "";
+                                height: 10px;
+                                width: 10px;
+                                left: 4px;
+                                bottom: 4.5px;
+                                background-color: white;
+                                -webkit-transition: .4s;
+                                transition: .4s;
+                            }
 
-                                    input:checked+.slider {
-                                        background-color: #2196F3;
-                                    }
+                            input:checked+.slider {
+                                background-color: #2196F3;
+                            }
 
-                                    input:focus+.slider {
-                                        box-shadow: 0 0 1px #2196F3;
-                                    }
+                            input:focus+.slider {
+                                box-shadow: 0 0 1px #2196F3;
+                            }
 
-                                    input:checked+.slider:before {
-                                        -webkit-transform: translateX(26px);
-                                        -ms-transform: translateX(26px);
-                                        transform: translateX(26px);
-                                    }
+                            input:checked+.slider:before {
+                                -webkit-transform: translateX(26px);
+                                -ms-transform: translateX(26px);
+                                transform: translateX(26px);
+                            }
 
-                                    /* Rounded sliders */
-                                    .slider.round {
-                                        border-radius: 34px;
-                                    }
+                            /* Rounded sliders */
+                            .slider.round {
+                                border-radius: 34px;
+                            }
 
-                                    .slider.round:before {
-                                        border-radius: 50%;
-                                    }
-                                </style>
+                            .slider.round:before {
+                                border-radius: 50%;
+                            }
+                        </style>
                         <div id="results_list_ppp_teacher_filter" class="bg-[rgba(2,77,131,.1)] w-12/12 text-slate-800 justify-center center text-sm py-0.5 rounded-sm">
 
                         </div>
@@ -195,13 +197,15 @@
                     // if (jsonData.success == "1")
                     if (jsonData.success != null) {
 
-                        console.log(jsonData.success);
+                        // console.log(jsonData.success);
                         let data = jsonData.success;
                         let row = "<option value=''>--seleccionar--</option>";
                         for (const item in data) {
-                            row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
+                            row = row + "<option value='" + data[item]['id_modulo'] + "'>" + data[item]['nombre'] + "</option>";
                         }
                         $('#select_modulo_pp_t').html(row);
+
+
                     } else if (jsonData.success == []) {
                         alert('0 Resultados');
                     } else {
@@ -211,5 +215,83 @@
             });
 
         });
+
+
+
+        /* show PPP */
+        $("#form_send_ppp_teacher").on("submit", function(event) {
+            event.preventDefault();
+            // console.log($(this).serialize());
+        });
+        //form_send_ppp_teacher
+        $("#button_send_show_ppp").click(function() {
+            $.ajax({
+                type: "POST",
+                url: window.location.href + "/show_ppp",
+                data: $("#form_send_ppp_teacher").serialize(), //send data of form id=form_send_ppp_teacher
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    // if (jsonData.success == "1")
+                    if (jsonData.success != null) {
+
+                        // console.log(jsonData.success);
+                        let data = jsonData.success;
+                        let row = '';
+                        for (const item in data) {
+                            // console.log(data[item]['validacion']);
+                            if (data[item]['validacion'] != '0000-00-00 00:00:00') {
+                                data[item]['validacion_view'] = "<label class='switch'><input type='checkbox' checked class='switch input_checkbox'><span class='slider round'></span></label>";
+                            } else {
+                                data[item]['validacion_view'] = "<label class='switch'><input type='checkbox' class='input_checkbox'><span class='slider round'></span></label>";
+                            }
+                            row = row + "<form class='flex w-12/12 text-slate-800 center text-sm py-0.5 rounded-sm px-1' style='border-bottom: 1px solid rgba(2,77,131,.8)'>" +
+                                "<label class='w-3/12 text-left px-0.5 py-0.5'>" + data[item]['apellido_paterno'] + " " + data[item]['apellido_materno'] + " " + data[item]['nombres'] + "</label>" +
+                                "<label class='w-3/12 text-left px-0.5 py-0.5'>" + data[item][32] + "</label>" +
+                                "<label class='w-2/12 text-center px-0.5 py-0.5'>" + data[item]['fecha_inicio'] + "</label>" +
+                                "<label class='w-2/12 text-center px-0.5 py-0.5'>" + data[item]['fecha_fin'] + "</label>" +
+                                "<label class='w-1/12 text-center px-0.5 py-0.5'>" + data[item]['turno'] + "</label>" +
+                                "<label class='w-1/12 text-center px-0.5 py-0.5'><input type='hidden' value='"+data[item]['id_practicas']+"'><input id='"+data[item]['id_practicas']+"' type='hidden' value='"+data[item]['validacion']+"'>  " + data[item]['validacion_view'] + "</label>" +
+                                "</form>";
+                        }
+                        $('#results_list_ppp_teacher_filter').html(row);
+
+                        /** ajax for validate PPP */
+                        $('.input_checkbox').on("click", function(e) {
+                            console.log($(this).parent().parent().children().eq(0).val());   ///value of input id_practicas
+                            console.log($(this).parent().parent().children().eq(1).val());   // value date_validacion
+                            $.ajax({
+                                type: 'POST',
+                                url: window.location.href + "/validate_practica",
+                                data: {
+                                    id_practicas: $(this).parent().parent().children().eq(0).val(),
+                                    fecha_validate_practica: $(this).parent().parent().children().eq(1).val()
+                                },
+                                success: function(response) {
+                                    var jsonDataValidate = JSON.parse(response);
+                                    console.log(jsonDataValidate);
+                                    if (jsonDataValidate.success == 1 || jsonDataValidate.success == 2) {
+                                        ////falta actualizar al valor del input fecha_validacion al actualizar en el front
+                                        $("#" + jsonDataValidate.id_practicas_json).parent().children().eq(1).val(jsonDataValidate.date_validation);
+                                        console.log(jsonDataValidate.date_validation);
+                                        // console.log($(this).parent().parent().children().eq(2));
+                                    }
+                                }
+                            });
+                        });
+
+
+                    } else if (jsonData.success == []) {
+                        $('#results_list_ppp_teacher_filter').html("<div class='text-[.9rem]'>0 Resultados</div>");
+                    } else {
+                        $('#results_list_ppp_teacher_filter').html("<div class='text-[.9rem]'>0 Resultados</div>");
+                    }
+                }
+            });
+        });
+
+
+
     });
 </script>

@@ -53,4 +53,37 @@ class Teacherppp_controller extends Controller{
             echo json_encode(array('success' => null));
         }
     }
+
+    static function validate_practica(){
+        if($_POST){
+            $id_practicas = scape_string(clean($_POST['id_practicas']));
+            $date_validate = scape_string(clean($_POST['fecha_validate_practica']));
+            
+            if($id_practicas && $date_validate ){
+                
+                require_once(MODELS.'practicas_model.php');
+                $practicas = new Practicas_model();
+                $date_v = '0000-00-00 00:00:00';
+                $r = 0;
+               
+                if($date_validate =='0000-00-00 00:00:00'){
+                    $date_v = date('Y-m-d H:i:s');
+                    $res = $practicas->update_validacion_practica($id_practicas,$date_v);
+                    if($res){
+                        $r = 1;
+                    }
+                }else{
+                    $res = $practicas->update_validacion_practica($id_practicas,$date_v);
+                    if($res){
+                        $r = 2;
+                    }
+                }
+                echo json_encode(array('success' => 2, 'date_validation' => $date_v, 'id_practicas_json' => $id_practicas ));
+            }else{
+                echo json_encode(array('success' => null));
+            }
+        }else{
+            echo json_encode(array('success' => null));
+        }
+    }
 }

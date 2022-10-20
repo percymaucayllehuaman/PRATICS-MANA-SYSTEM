@@ -46,7 +46,7 @@
             }  
         }
         public function get_practicas_by_Es_Mod_Anio_Periodo($es, $modulo, $anio, $periodo, $dni_docente){
-            $query = "SELECT * FROM practicas p inner join estudiantes e on p.Estudiantes_DNI = e.DNI inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo and anio = :anio and periodo = :periodo and Docentes_DNI = :dnidoc order by Especialidad_id_especialidad desc";            
+            $query = "SELECT * FROM practicas p inner join estudiantes e on p.Estudiantes_DNI = e.DNI inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo and anio = :anio and periodo = :periodo and Docentes_DNI = :dnidoc order by id_practicas desc";            // by Especialidad_id_especialidad
             try{
                 $statement = $this->connect()->prepare($query);
                 $statement->bindParam(':especialidad',$es);
@@ -99,6 +99,21 @@
             }catch(Exception $e){
                 throw $e;
             }  
+        }
+
+        public function update_validacion_practica($id_practica, $date_validacion){
+            $query = "update practicas set validacion = :date_validation where id_practicas = :id_practica";            
+            try{
+                $statement = $this::connect()->prepare($query);
+                $statement->bindParam(':date_validation',$date_validacion);
+                $statement->bindParam(':id_practica',$id_practica);
+                $statement->execute();
+                return $statement;
+            }catch(Exception $e){
+                throw $e;
+            } 
+            
+            
         }
 
 

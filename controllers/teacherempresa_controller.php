@@ -55,7 +55,6 @@ class Teacherempresa_controller extends Controller{
             $code_ident_empresa = scape_string((clean($_POST['ruc_cod_empresa'])));
             $fecha_hora_validacion = scape_string(clean($_POST['fecha_validate_empresa']));
             $r = 0;
-            
             if($code_ident_empresa && $fecha_hora_validacion){
                 
                 require_once(MODELS.'empresa_model.php');
