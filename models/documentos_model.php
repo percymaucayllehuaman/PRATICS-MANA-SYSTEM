@@ -42,10 +42,25 @@ class Documentos_model extends Model{
             $statement->bindParam(':especialidad',$especialidad);
             $statement->bindParam(':modulo',$modulo);
             $statement->execute();
-            return ($statement->rowCount()>0)? $statement->fetchAll():false;
+            return $statement->fetchAll();
+            // return ($statement->rowCount()>0) ? $statement->fetchAll():false;
+            // return $statement;
         }catch(Exception $e){
             throw $e;
         }
+    }
+
+    public function update_validate_document($id, $date){
+        $query = 'update documentos set validacion = :validacion  where id_documentos = :id';
+       try{
+           $statement = parent::connect()->prepare($query);
+           $statement->bindParam(':validacion',$date);
+           $statement->bindParam(':id',$id);
+           $statement->execute();
+           return $statement;
+       }catch(Exception $e){
+           throw $e;
+       } 
     }
     
 
