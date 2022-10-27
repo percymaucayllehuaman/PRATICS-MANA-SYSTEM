@@ -116,41 +116,54 @@
                                 <form action="teachervisitas/">
                                     <div class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 center text-sm py-0.5 rounded-sm">
                                         <div class="w-1/12 text-center px-0.5 py-0.5">
-                                            1
+                                            <span>1</span> 
+                                            <?php
+                                                echo '<input id="asistencia_ent_sal" type="hidden" type="text" value="'.$_SESSION['data_visitas']->asistencia_ent_sal.'">';
+                                            ?>
                                         </div>
                                         <div class="w-5/12 px-0.5 py-0.5">
                                             Cumple con sus Asistencias Entradas y Salidas
                                         </div>
                                         <div class="w-3/12 text-center px-0.5 py-0.5">
                                             <?php if (isset($_SESSION['data_visitas'])) {
-                                                if($_SESSION['data_visitas']->asistencia_ent_sal ==''){
-                                                    echo "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";
-                                                }else{
-                                                    echo "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";
+                                                if($_SESSION['data_visitas']->asistencia_ent_sal =='No'){
+                                                    echo "<label class='switch'><input id='input_check_asistencia' type='checkbox'><span class='slider round'></span></label>";
+                                                }else if($_SESSION['data_visitas']->asistencia_ent_sal =='Si'){
+                                                    echo "<label class='switch'><input id='input_check_asistencia' type='checkbox' checked><span class='slider round'></span></label>";
+                                                } else{
+                                                    echo "<label class='switch'><input id='input_check_asistencia' type='checkbox'><span class='slider round'></span></label>";
                                                 }
                                             } ?>
                                         </div>
                                     </div>
                                     <div class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 center text-sm py-0.5 rounded-sm">
                                         <div class="w-1/12 text-center px-0.5 py-0.5">
-                                            2
+                                            <span>2</span> 
+                                            <?php
+                                                echo '<input id="actividad_trabajo" type="hidden" type="text" value="'.$_SESSION['data_visitas']->actividad_trabajo.'">';
+                                            ?>
                                         </div>
                                         <div class="w-5/12 px-0.5 py-0.5">
                                             Cumple con sus Trabajos o Actividades
                                         </div>
                                         <div class="w-3/12 text-center px-0.5 py-0.5">
                                             <?php if (isset($_SESSION['data_visitas'])) {
-                                                if($_SESSION['data_visitas']->actividad_trabajo ==''){
-                                                    echo "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";
+                                                if($_SESSION['data_visitas']->actividad_trabajo =='No'){
+                                                    echo "<label class='switch'><input id='input_check_actividad' type='checkbox'><span class='slider round'></span></label>";
+                                                }else if($_SESSION['data_visitas']->actividad_trabajo =='Si'){
+                                                    echo "<label class='switch'><input id='input_check_actividad' type='checkbox' checked><span class='slider round'></span></label>";
                                                 }else{
-                                                    echo "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";
+                                                    echo "<label class='switch'><input id='input_check_actividad' type='checkbox'><span class='slider round'></span></label>";
                                                 }
                                             } ?>
                                         </div>
                                     </div>
                                     <div class="flex bg-[rgba(2,77,131,.1)] w-10/12 text-slate-800 text-sm py-0.5 rounded-sm">
                                         <div class="w-1/12 text-center px-0.5 py-0.5">
-                                            3
+                                            <span>3</span>
+                                            <?php
+                                                echo '<input id="nose_encontro" type="hidden" type="text" value="'.$_SESSION['data_visitas']->no_se_encontro.'">';
+                                            ?>
                                         </div>
                                         <div class="w-5/12 px-0.5 py-0.5">
                                             No se encontro en su Centro de Prácticas
@@ -159,24 +172,31 @@
                                             <?php 
                                             if (isset($_SESSION['data_visitas'])) {
                                                 if($_SESSION['data_visitas']->no_se_encontro =='No'){
-                                                    echo "<label class='switch'><input type='checkbox'><span class='slider round'></span></label>";
+                                                    echo "<label class='switch'><input id='input_check_ausencia' type='checkbox'><span class='slider round'></span></label>";
+                                                }else if($_SESSION['data_visitas']->no_se_encontro =='Si'){
+                                                    echo "<label class='switch'><input id='input_check_ausencia' type='checkbox' checked><span class='slider round'></span></label>";
                                                 }else{
-                                                    echo "<label class='switch'><input type='checkbox' checked><span class='slider round'></span></label>";
+                                                    echo "<label class='switch'><input id='input_check_ausencia' type='checkbox'><span class='slider round'></span></label>";
                                                 }
                                                 // echo $_SESSION['data_visitas']->no_se_encontro;
-                                                
                                             } 
                                             ?>
 
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap py-2 my-2 w-full">
+                                    <div class="flex flex-wrap py-2 my-2 w-10/12">
                                         <div class="flex border h-8 items-center">
                                             <label for="" class="w-auto mr-2 px-1 px-1 text-[.9rem]">Sugerencias </label>
                                         </div>
-                                        <div class="w-1/2">
-                                            <input type="text" placeholder="Mejorar la comunicación con el Personal" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1 w-full" value="<?php echo $_SESSION['data_visitas']->sugerencias; ?>">
+                                        <div class="" style="width: calc(100% - 100px);">
+                                            <input id='id_input_sugerencias' type="text" placeholder="Mejorar la comunicación con el Personal" class="text-[.9rem] h-8 rounded input-border-blue border-slate-500 px-1 w-full" value="<?php echo $_SESSION['data_visitas']->sugerencias; ?>">
                                         </div>
+                                    </div>
+                                    <div class="w-10/12 justify-center flex">
+                                        <?php
+                                            echo '<input id="id_visitassupervision" type="hidden" type="text" value="'.$_SESSION['data_visitas']->id_visitas_supervicion.'">';
+                                        ?>
+                                        <button type='button' id='button_save_visita' class="text-[.9rem] text-[#000] h-8 rounded input-border-blue border-slate-500 px-8 bg-green-400 hover:bg-green-700 hover:text-[#efefef]">Guardar</button>
                                     </div>
                                             <?php 
                                             unset($_SESSION['data_visitas']);
@@ -268,66 +288,11 @@
 
 <script>
 
-    // select_especialidad_visitas
-    // select_module_visitas
-    // select_dni_visitas
 
-    ///load data visitas
-    $(document).ready(function (){
-        $('#form_visitas_teacher').submit(function (e){
-            // e.preventDefault();   ///no send form
-        });
-
-        $('#button_show_visitas_pract').click(function(){
-            ///cargando el combobox de modulos con ayax
-            $.ajax({
-                type: "POST",
-                url: window.location.href + "/show_visitas",
-                data: $("#form_visitassupervi_pract").serialize(), //send data of form id=form_send_ppp_teacher
-                success: function(response) {
-                    var jsonData = JSON.parse(response);
-                    // user is logged in successfully in the back-end
-                    // let's redirect
-                    // if (jsonData.success == "1")
-                    if (jsonData.success != null) {
-                        let data = jsonData.success;
-                        let row = '';
-                        console.log(data);
-                        for (const item in data) {
-                            if(!data[item]['asistencia_ent_sal']){ data[item]['asistencia_ent_sal'] = "X"; }
-                                else{ data[item]['asistencia_ent_sal'] = "";}
-                            if(!data[item]['actividad_trabajo']){ data[item]['actividad_trabajo'] = "X"; }
-                                else{data[item]['actividad_trabajo'] = "";}
-                            if(!data[item]['no_se_encontro']){ data[item]['no_se_encontro'] = "X"; }
-                                //else{data[item]['no_se_encontro'] = "";}
-                            
-                            row += "<div class='w-full 12/12 flex'>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['fecha']+"</label>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['asistencia_ent_sal']+"</label>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['actividad_trabajo']+"</label>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['no_se_encontro']+"</label>"+
-                            "<label class='w-4/12 '>"+data[item]['sugerencias']+"</label>"+
-                            "</div>";
-                        }
-                        $('#div_visitas_p_content_lists').html(row);
-                    } else if (jsonData.success == []) {
-                        $('#div_results_visitas_pract').html('No hay Resultados');
-                        alert('No hay Resultados');
-                    } else {
-                        alert('No hay Resultados');
-                    }
-                }
-            });
-        });
-    });                                                            
-
-
-
-//     select_especialidad_teacher
-// select_modules_teacher
-    ///load modules with ayax                                                            
+    //select_especialidad for load modulos
+    ///load modules with ajax                                                            
     $(document).ready(function() {
-        ///cargando el combobox de modulos con ayax
+        ///cargando el combobox de modulos con ajax
         $("#select_especialidad_teacher").change(function() {
             $.ajax({
                 type: "POST",
@@ -351,6 +316,89 @@
                 }
             });
 
+        });
+        
+
+        /** add event for update asistencia */
+        $('#input_check_asistencia').on('click', function(e){
+            console.log($('#id_visitassupervision').val());
+            console.log($('#asistencia_ent_sal').val()) ;
+            // console.log($(this).parent().parent().parent().children().eq(0).children().eq(1).val());
+            $.ajax({
+                type: 'POST',
+                url: window.location.href+'/visita_asistencia_update',
+                data: {
+                    id_visitas_supervision: $('#id_visitassupervision').val(),
+                    asistencia :$('#asistencia_ent_sal').val()  //$(this).parent().parent().parent().children().eq(0).children().eq(1).val()
+                },
+                success: function(response){
+                    var json_data = JSON.parse(response);
+                    if(json_data.success == 1){
+                        console.log($('#asistencia_ent_sal').val(json_data.asistencia));
+                        console.log(json_data);
+                    }
+                }
+            });
+        });
+
+        /** add event for update actividad_trabajo */
+        $('#input_check_actividad').on('click', function(e){
+            console.log($('#id_visitassupervision').val());
+            console.log($(this).parent().parent().parent().children().eq(0).children().eq(1).val());
+            $.ajax({
+                type: 'POST',
+                url: window.location.href+'/visita_actividad_update',
+                data: {
+                    id_visitas_supervision: $('#id_visitassupervision').val(),
+                    actividad :$(this).parent().parent().parent().children().eq(0).children().eq(1).val()
+                },
+                success: function(response){
+                    var json_data = JSON.parse(response);
+                    if(json_data.success == 1){
+                        $('#actividad_trabajo').val(json_data.actividad);
+                        console.log(json_data);
+                    }
+                }
+            });
+        });
+
+        /** add event for update no_se_encontro */
+        $('#input_check_ausencia').on('click', function(e){
+            console.log($('#id_visitassupervision').val());
+            console.log($(this).parent().parent().parent().children().eq(0).children().eq(1).val());
+            $.ajax({
+                type: 'POST',
+                url: window.location.href+'/visita_ausencia_update',
+                data: {
+                    id_visitas_supervision: $('#id_visitassupervision').val(),
+                    ausencia :$(this).parent().parent().parent().children().eq(0).children().eq(1).val()
+                },
+                success: function(response){
+                    var json_data = JSON.parse(response);
+                    if(json_data.success == 1){
+                        $('#nose_encontro').val(json_data.no_se_encontro);
+                        console.log(json_data);
+                    }
+                }
+            });
+        });
+
+
+        $('#button_save_visita').on('click',function(e){
+            console.log($('#id_visitassupervision').val());
+            console.log($('#id_input_sugerencias').val());
+            $.ajax({
+                type: 'POST',
+                url: window.location.href+'/visita_sugerencia_update',
+                data: {
+                    id_visitas_supervision: $('#id_visitassupervision').val(),
+                    sugerencias: $('#id_input_sugerencias').val()
+                },
+                success: function(response){
+                    var jsonData = JSON.parse(response);
+                    console.log(jsonData);
+                }
+            });
         });
     });
 </script>

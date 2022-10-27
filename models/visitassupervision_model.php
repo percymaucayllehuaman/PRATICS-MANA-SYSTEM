@@ -71,6 +71,61 @@ class Visitassupervision_model extends Model{
             throw $e;
         }
     }
+    public function update_sugerencias($id,$sugerencias){
+        $query = "update visitas_supervicion set sugerencias = :sugerencias where id_visitas_supervicion = :id_visitas";
+        try {
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':sugerencias',$sugerencias) ;
+            $statement->bindParam(':id_visitas',$id) ;
+            $statement->execute();
+            // return ($statement->rowCount() > 0) ? $statement->fetchObject():false;
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function update_actividad($id,$actividad){
+        $query = "update visitas_supervicion set actividad_trabajo = :actividad where id_visitas_supervicion = :id_visitas";
+        try {
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':actividad',$actividad) ;
+            $statement->bindParam(':id_visitas',$id) ;
+            $statement->execute();
+            // return ($statement->rowCount() > 0) ? $statement->fetchObject():false;
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function update_asistencia($id,$asistencia){
+        $query = "update visitas_supervicion set asistencia_ent_sal = :asistencia where id_visitas_supervicion = :id_visitas";
+        try {
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':asistencia',$asistencia) ;
+            $statement->bindParam(':id_visitas',$id) ;
+            $statement->execute();
+            // return ($statement->rowCount() > 0) ? $statement->fetchObject():false;
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function update_ausencia($id,$ausencia){
+        $query = "update visitas_supervicion set no_se_encontro = :ausencia where id_visitas_supervicion = :id_visitas";
+        try {
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':ausencia',$ausencia) ;
+            $statement->bindParam(':id_visitas',$id) ;
+            $statement->execute();
+            // return ($statement->rowCount() > 0) ? $statement->fetchObject():false;
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 
 }
 
