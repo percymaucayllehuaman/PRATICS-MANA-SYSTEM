@@ -100,7 +100,7 @@
                                 if (isset($_SESSION['data_visitas'])) {
                                     $est = new Estudiantes_model();
                                     $e = $est->get_by_DNI($_SESSION['data_visitas']->Estudiantes_DNI);
-                                    echo "Estudiante: " . ucfirst($e->nombres) . " " . ucfirst($e->apellido_paterno) . " " . ucfirst($e->apellido_materno);
+                                    echo "Estudiante: " . ucfirst($e->nombres) . " " . ucfirst($e->apellido_paterno) . " " . ucfirst($e->apellido_materno)."    DNI N°:".$e->DNI;
                                 }
 
                                 ?>

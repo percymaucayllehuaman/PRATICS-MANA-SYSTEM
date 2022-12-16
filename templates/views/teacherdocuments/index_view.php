@@ -16,7 +16,7 @@
                 <div class="main_panel_registervisitas_teacher w-full overflow-y-auto">
                     <div class="py-1 w-full relative px-4" style="max-height: calc(100vh - 90px);">
                         <div class="overflow-x-auto container_register_teacher pb-2px-1">
-                            <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full text-[#4b4b4b]">Visitas y Supervisión</h2> <!-- title -->
+                            <h2 class="font-bold text-[1.2rem] py-2 px-1 w-full text-[#4b4b4b]">Validar Documentos</h2> <!-- title -->
                             <div class="w-full flex">
                                 <form id="form_teacher_documents" action="teacherdocuments/show_documents" method="post" class="w-autp items-center py-2">
                                     <div class="flex gap-3 flex-wrap">

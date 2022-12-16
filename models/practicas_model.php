@@ -34,7 +34,7 @@
             
         }
         public function get_practicas_by_estudiante($dni){
-            $query = "SELECT * FROM practicas where Estudiantes_DNI = :dni  order by id_practicas desc limit 1";
+            $query = "SELECT * FROM practicas where Estudiantes_DNI = :dni  order by id_practicas desc";    //limit 1
             try{
                 $statement = $this->connect()->prepare($query);
                 $statement->bindParam(":dni",$dni);
@@ -45,6 +45,7 @@
                 throw $e;
             }  
         }
+        
         public function get_practicas_by_Es_Mod_Anio_Periodo($es, $modulo, $anio, $periodo, $dni_docente){
             $query = "SELECT * FROM practicas p inner join estudiantes e on p.Estudiantes_DNI = e.DNI inner join empresa em on em.RUC_codigo_ident = p.Empresa_RUC where Especialidad_id_especialidad = :especialidad and Modulo_id_modulo = :modulo and anio = :anio and periodo = :periodo and Docentes_DNI = :dnidoc order by id_practicas desc";            // by Especialidad_id_especialidad
             try{
@@ -113,9 +114,35 @@
                 throw $e;
             } 
             
-            
         }
 
+        public function get_practicas_by_estudiante_esp_mod_anio_period($dni,$especialidad,$modulo,$anio,$periodo){
+            $query = "SELECT * FROM practicas where Estudiantes_DNI = :dni and Especialidad_id_especialidad =:especialidad and Modulo_id_modulo =:modulo and anio =:anio and periodo =:periodo order by id_practicas desc";
+            try{
+                $statement = $this->connect()->prepare($query);
+                $statement->bindParam(":dni",$dni);
+                $statement->bindParam(':especialidad',$especialidad);
+                $statement->bindParam(':modulo',$modulo);
+                $statement->bindParam(':anio',$anio);
+                $statement->bindParam(':periodo',$periodo);
+                $statement->execute();
+                return $statement;
+                // return ($statement->rowCount()>0) ? true : false 
+            }catch(Exception $e){
+                throw $e;
+            }  
+        }
+
+        public function lastId(){
+            try {
+                $query = "select * from practicas order by id_practicas desc limit 1";
+                $statement = parent::connect()->prepare($query);
+                $statement->execute();
+                return $statement;
+            } catch (Exception $e) {
+                throw $e;
+            }
+        }
 
     }
 

@@ -2,12 +2,10 @@
 
 class Visitassupervision_model extends Model{
 
-
-
     public function get_visitassu_estudiante($esp, $modulo, $anio, $periodo, $estudianteDNI){
         try {
             $query = "select id_visitas_supervicion, Practicas_id_practicas,  Practicas_Estudiantes_DNI, fecha,
-            asistencia_ent_sal, actividad_trabajo, no_se_encontro, hora_fin, hora_fin, validacion          
+            asistencia_ent_sal, actividad_trabajo, no_se_encontro, hora_inicio, hora_fin, sugerencias, validacion          
             from practicas p inner join visitas_supervicion v on p.id_practicas = v.Practicas_id_practicas  
             where p.Especialidad_id_especialidad = :espcialidad and p.Modulo_id_modulo = :modulo and p.anio = :anio and p.periodo = :periodo and p.Estudiantes_DNI = :dni";
             $statement = parent::connect()->prepare($query);
@@ -17,7 +15,7 @@ class Visitassupervision_model extends Model{
             $statement->bindParam(':periodo',$periodo) ;
             $statement->bindParam(':dni',$estudianteDNI) ;
             $statement->execute();
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $statement->fetchAll();  //PDO::FETCH_ASSOC
             //code...
         } catch (Exception $e) {
             throw $e;
@@ -119,6 +117,37 @@ class Visitassupervision_model extends Model{
             $statement = parent::connect()->prepare($query);
             $statement->bindParam(':ausencia',$ausencia) ;
             $statement->bindParam(':id_visitas',$id) ;
+            $statement->execute();
+            // return ($statement->rowCount() > 0) ? $statement->fetchObject():false;
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+    public function get_visitassupervicion_by_estudiante($estudianteDNI){
+        try {
+            $query = "select * from visitas_supervicion where Practicas_Estudiantes_DNI = :dni";
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':dni',$estudianteDNI) ;
+            $statement->execute();
+            return $statement;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function init_add_visitas($data){
+        try {
+            $query = "insert into visitas_supervicion(Practicas_id_practicas, Practicas_Estudiantes_DNI, fecha, asistencia_ent_sal, actividad_trabajo, no_se_encontro, sugerencias) ";  /// id => auto_increment
+            $query = $query."values(:id_practicas, :dni, :fecha, :asistencia, :actividad, :noseencontro, :sugerencias)";
+            $statement = parent::connect()->prepare($query);
+            $statement->bindParam(':id_practicas',$data['id_practicas']);
+            $statement->bindParam(':dni',$data['dni']);
+            $statement->bindParam(':fecha',$data['fecha']);
+            $statement->bindParam(':asistencia',$data['asistencia']);
+            $statement->bindParam(':actividad',$data['actividad']);
+            $statement->bindParam(':noseencontro',$data['noseencontro']);
+            $statement->bindParam(':sugerencias',$data['sugerencias']);
             $statement->execute();
             // return ($statement->rowCount() > 0) ? $statement->fetchObject():false;
             return $statement;

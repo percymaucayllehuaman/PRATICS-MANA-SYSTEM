@@ -63,7 +63,7 @@
                             <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center center text-sm py-0.5 rounded-sm">
                                 <label class="w-2/12 text-center px-0.5 py-0.5">RUC</label>
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Empresa (Raz. Social)</label>
-                                <label class="w-2/12 text-center px-0.5 py-0.5">Rubro</label>
+                                <!-- <label class="w-2/12 text-center px-0.5 py-0.5">Rubro</label> -->
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Dirección</label>
                                 <label class="w-3/12 text-center px-0.5 py-0.5">Representante</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Telefono</label>
@@ -212,7 +212,7 @@
                             row = row+"<form method='post' class='form_validation_empresa flex w-12/12 text-slate-800 center text-sm py-0.5 rounded-sm px-1' style='border-bottom: 1px solid rgba(2,77,131,.8)'>"+
                             "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['RUC_codigo_ident']+" </label>"+
                             "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nombre']+"</label>"+
-                            "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
+                            // "<label class='w-2/12 text-left px-0.5 py-0.5'>"+data[item]['rubro']+"</label>"+
                             "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['direccion']+"</label>"+
                             "<label class='w-3/12 text-left px-0.5 py-0.5'>"+data[item]['nom_ape_encargado']+"</label>"+
                             "<label class='w-2/12 text-center px-0.5 py-0.5'>"+data[item]['celular']+"</label>"+

@@ -55,15 +55,38 @@ class Practitionersolicitud_controller extends Controller{
                 ];
                 require_once(MODELS.'practicas_model.php');
                 $p = new Practicas_model();
-                $res = $p->add_practica($data);
-                
-                if($res){
-                    Flasher::new('Registro Satisfactorio ','primary');
-                    Redirect::to('practitionersolicitud');
+                $existe_practicas = $p->get_practicas_by_estudiante_esp_mod_anio_period($data['Estudiantes_DNI'],$select_especilidad_sol,$select_module_soli,$select_year_soli,$select_period_soli);
+                if($existe_practicas->rowCount()==0){
+                    $res = $p->add_practica($data);
+                    if($res){
+                        Flasher::new('Realizó solicitud Satisfactoriamente!','primary');
+                        // aqui inicializa el registro de visitas ya que el rol docente no tiene opcion de registro de visitas
+                        require_once(MODELS.'visitassupervision_model.php');
+                        $visitas = new Visitassupervision_model();
+                            
+                        // registra una visita una vez solicita la PP
+                        $data_ini = [
+                            'id_practicas' => intval($p->lastId()->fetchObject()->id_practicas),
+                            'dni' => $data['Estudiantes_DNI'],
+                            'fecha' => date('Y-m-d'),
+                            'asistencia' => "No",
+                            'actividad' => "No",
+                            'noseencontro' => "No",
+                            'sugerencias' => ""
+                        ];
+                        $visitas->init_add_visitas($data_ini);
+                        // HASTA AQUI EL INIT ADD
+                        
+                        Redirect::to('practitionersolicitud');
+                    }else{
+                        Flasher::new('Error al Registrar','warning');
+                        echo "<script>window.history.go(-1)</script>";
+                    }
                 }else{
-                    Flasher::new('Error al Registrar','warning');
+                    Flasher::new('Ya solicitó PPP en el periodo!','warning');
                     echo "<script>window.history.go(-1)</script>";
                 }
+                
             }else{
                 Flasher::new('Completa todos los campos! ','warning');
                 echo "<script>window.history.go(-1)</script>";

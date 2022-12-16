@@ -84,7 +84,7 @@
                 <div class="overflow-x-auto w-12/12">
                     <div class="container_results_list block w-full px-5 bottom max-h-screen overflow-auto min-w-[800px] ">
                         <div id="div_results_visitas_pract" class="list_title_results w-12/12">
-                            <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center center text-sm py-0.5 rounded-sm">
+                            <div class="flex bg-[rgba(2,77,131,.95)] w-12/12 text-slate-100 justify-center items-center center text-sm py-0.5 rounded-sm">
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Fecha</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Cumple con sus asistencias de entrada y salida</label>
                                 <label class="w-2/12 text-center px-0.5 py-0.5">Cumple con los trabajos o actividades</label>
@@ -129,34 +129,31 @@
                         let row = '';
                         console.log(data);
                         for (const item in data) {
-                            if(!data[item]['asistencia_ent_sal']){ data[item]['asistencia_ent_sal'] = "X"; }
-                                else{ data[item]['asistencia_ent_sal'] = "";}
-                            if(!data[item]['actividad_trabajo']){ data[item]['actividad_trabajo'] = "X"; }
-                                else{data[item]['actividad_trabajo'] = "";}
-                            if(!data[item]['no_se_encontro']){ data[item]['no_se_encontro'] = "X"; }
+                            if(!data[item]['asistencia_ent_sal'] || data[item]['asistencia_ent_sal']=='Si'){ data[item]['asistencia_ent_sal'] = "Si"; }
+                                else{ data[item]['asistencia_ent_sal'] = "No";}
+                            if(!data[item]['actividad_trabajo'] || data[item]['actividad_trabajo']=='Si'){ data[item]['actividad_trabajo'] = "Si"; }
+                                else{data[item]['actividad_trabajo'] = "No";}
+                            if(!data[item]['no_se_encontro']){ data[item]['no_se_encontro'] = "Si"; }
                                 //else{data[item]['no_se_encontro'] = "";}
                             
                             row += "<div class='w-full 12/12 flex'>"+
                             "<label class='w-2/12 text-center'>"+data[item]['fecha']+"</label>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['asistencia_ent_sal']+"</label>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['actividad_trabajo']+"</label>"+
-                            "<label class='w-2/12 text-center'>"+data[item]['no_se_encontro']+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item][4]+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item][5]+"</label>"+
+                            "<label class='w-2/12 text-center'>"+data[item][6]+"</label>"+
                             "<label class='w-4/12 '>"+data[item]['sugerencias']+"</label>"+
                             "</div>";
                         }
                         $('#div_visitas_p_content_lists').html(row);
-                    } else if (jsonData.success == []) {
-                        $('#div_results_visitas_pract').html('No hay Resultados');
-                        alert('No hay Resultados');
-                    } else {
-                        alert('No hay Resultados');
+                    } else if (jsonData.success == [] || jsonData.success == null) {
+                        $('#div_visitas_p_content_lists').html('No hay Resultados');
+                        // $('#div_results_visitas_pract').html('No hay Resultados');
+                        // alert('No hay Resultados');
                     }
                 }
             });
         });
     });                                                            
-
-
 
 
     ///load modules with ayax                                                            
@@ -170,7 +167,7 @@
                 success: function(response) {
                     var jsonData = JSON.parse(response);
                     // if (jsonData.success == "1")
-                    if (jsonData.success != null) {
+                    if (jsonData.success != null && jsonData.success != []) {
                         // console.log(jsonData.success);
                         let data = jsonData.success;
                         let row = "<option value=''>--seleccionar--</option>";
@@ -178,10 +175,8 @@
                            row = row + "<option value='"+data[item]['id_modulo']+"'>"+data[item]['nombre']+"</option>";
                         }
                         $('#select_module_visi_pract').html(row);
-                    } else if (jsonData.success == []) {
-                        alert('0 Resultados');
                     } else {
-                        alert('0 Resultados');
+                        alert('No Hay Módulos');
                     }
                 }
             });

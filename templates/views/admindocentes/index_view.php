@@ -50,7 +50,8 @@
                                     </div>
                                     <div class="line my-2">
                                         <!-- <label for="" class="w-full">DNI</label> -->
-                                        <select type="text" name="select_espe_tea" placeholder="ingrese DNI" class="px-2 rounded input-border-blue border-slate-500 h-8 text-[.9rem] w-full">
+                                        <select type="text" name="select_espe_tea" placeholder="ingrese DNI" class="px-2 rounded input-border-blue border-slate-500 h-8 text-[.9rem] w-full" required>
+                                            <option value="">--Seleccione Especialidad--</option>
                                             <?php 
                                             require_once(MODELS.'especialidad_model.php');
                                             $e = new Especialidad_model();
