@@ -8,12 +8,12 @@
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_admin.php"; ?>
 
-        <div class="block bg-[#f3f3f3] overflow-auto" style="width: calc(100% - 200px); border-left:8px solid #ffffff; max-height:calc(100vh - 90px)">
+        <div class="block bg-[#f3f3f3] overflow-auto" style="width: calc(100% - 250px); border-left:8px solid #ffffff; max-height:calc(100vh - 90px)">
             <div class="main_panel_registerconvenio w-full">
-                <div class=" px-2 py-1 w-full relative">
+                <div class=" px-4 py-1 w-full relative">
                     <div class="overflow-x-auto container_register_teacher pb-2">
                         <!-- <style>::-webkit-scrollbar {width:5px;}::-webkit-scrollbar-track {background: #f1f1f1; }</style> -->
-                        <h2 class="text-center font-bold text-[1.2rem] py-2">Registro de Convenio de Practicas </h2>
+                        <h2 class="text-left font-bold text-[1.2rem] py-2 px-2">Registro de Convenio de Practicas </h2>
                         <?php echo Flasher::flash(); ?>
                         <form action="adminconvenios/register" class="w-full h-auto flex flex-wrap min-w-[450px]" method="post">
                             <div class="px-2 w-12/12 flex flex-wrap items-center">

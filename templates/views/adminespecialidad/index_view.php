@@ -8,7 +8,7 @@
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_admin.php"; ?>
 
-        <div class="block bg-[#f3f3f3] overflow-y-auto" style="width: calc(100% - 200px); border-left:8px solid #ffffff;">
+        <div class="block bg-[#f3f3f3] overflow-y-auto" style="width: calc(100% - 250px); border-left:8px solid #ffffff;">
             <div class="main_panel_registerespecialiad_module w-full">
                 <div class=" px-2 py-1 w-full relative">
                     <div class="overflow-x-auto container_register_especialidad pb-2 px-5">

@@ -21,7 +21,19 @@
         <div class="w-2/12 min-w-fit h-full">
             <div class="w-fit l-0 flex min-h-fit items-center h-full right-0 float-right">
                 <!-- <img src="assets/images/logo_cetpro.png" alt="" class="w-[40px] h-[45px]"> -->
-                <a href="#" class="w-fit rounded-md border-inherit border flex px-2 py-1 items-center pd-3 boder-1 border-[#f2f2f2] hover:bg-[rgba(0,0,0,.1)] ">
+                <?php 
+                    $go = '#';
+                    if($_SESSION['USER-LOGIN']){
+                        if($_SESSION['USER-LOGIN']->user_type =='ADMIN'){
+                            $go = BASEPATH.'admindata';
+                        }else if($_SESSION['USER-LOGIN']->user_type =='DOCENTE'){
+                            $go = BASEPATH.'teacherdata';
+                        }else if($_SESSION['USER-LOGIN']->user_type =='ESTUDIANTE'){
+                            $go = BASEPATH.'practitionerdata';
+                        }
+                    }
+                ?>
+                <a href="<?php echo $go; ?>" class="w-fit rounded-md border-inherit border flex px-2 py-1 items-center pd-3 boder-1 border-[#f2f2f2] hover:bg-[rgba(0,0,0,.1)] ">
                     <label for="" class="pr-2 text-white text-[.9rem]" style="font-weight: 500;">
                         <?php   
                             if(isset($_SESSION['USER-LOGIN'])){

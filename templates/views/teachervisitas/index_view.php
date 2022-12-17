@@ -11,7 +11,7 @@
     <div class="w-full min-h-fit bg-transparent pt-2 flex " style="height: calc(100vh - 110px);">
         <?php require_once MODULES . "mod_sidebar_teacher.php"; ?>
 
-        <div class="block bg-[#f3f3f3] overflow-auto" style="width: calc(100% - 200px); border-left:8px solid #ffffff">
+        <div class="block bg-[#f3f3f3] overflow-auto" style="width: calc(100% - 250px); border-left:8px solid #ffffff">
             <div class="main_panel">
                 <div class="main_panel_registervisitas_teacher w-full overflow-y-auto">
                     <div class="py-1 w-full relative px-4" style="max-height: calc(100vh - 90px);">
