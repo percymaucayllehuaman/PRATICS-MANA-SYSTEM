@@ -63,7 +63,10 @@
     <?php echo '<link rel="stylesheet" href="'.CSS.'normalize.css">'; ?>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <?php echo '<link rel="stylesheet" href="'.CSS.'style_completemt.css">'; ?>
+    <?php echo '<link rel="stylesheet" href="'.CSS.'sisepp_output.css">'; ?>
+
+
     <!-- <?php echo '<link rel="stylesheet" href="'.CSS.'login.css">'; ?> -->
     <!-- <?php echo '<link rel="stylesheet" href="'.CSS.'header_main_style.css">'; ?> -->
     <!-- <?php echo '<link rel="stylesheet" href="'.CSS.'side_menu_nav_main_style.css">'; ?> -->

@@ -7,7 +7,7 @@
             ?>
         </div>
         <div class="w-8/12">
-            <div class="w-full relative text-center text-lg min-h-fit pb-2">
+            <div class="w-full relative text-center text-lg min-h-fit">
                 <strong class="text-[#ededed] text-xl">
                     CETPRO SAN JERÓNIMO
                 </strong>

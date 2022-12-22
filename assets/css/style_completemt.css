@@ -1,0 +1,48 @@
+
+@media (max-width:600px) {
+    /*for header */
+    body > div > div.header-main{
+        padding: 0 2px 0 2px !important;
+    }
+    body > div > div.header-main > div > div:nth-child(2) > div:nth-child(1){
+        text-align: left !important;
+    }
+    body > div > div.header-main > div > div:nth-child(2) > div:nth-child(1) strong{
+        font-size: .8rem !important;
+    }
+    body > div > div.header-main > div > div:nth-child(2) > div:nth-child(2){
+        text-align: left !important;
+    }
+    body > div > div.header-main > div > div:nth-child(2) > div:nth-child(2) strong{
+        font-size: .8rem !important;
+    }
+
+
+    /*for login header */
+    body > div > div.header-login-main{
+        padding: 0 4px 0 4px !important;
+    }
+    body > div > div.header-login-main > div > div:nth-child(2) > div:nth-child(1) strong{
+        font-size: .8rem !important;
+    }
+    body > div > div.header-login-main > div > div:nth-child(2) > div:nth-child(2) span{
+        font-size: .8rem !important;
+        display: none;
+    }
+    body > div > div.header-login-main > div > div:nth-child(2) > div:nth-child(2) strong{
+        font-size: .8rem;
+        line-height: 0px;
+        display: none;
+    }
+
+    /*for body*/
+    nav{
+        width: 60px !important;
+    }
+    nav ul li a > span:nth-child(2){
+        display: none;
+    }
+    body div div.block{
+        width: calc(100% - 60px) !important;
+    }
+}   
